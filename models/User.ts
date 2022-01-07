@@ -2,22 +2,35 @@ import { Schema, model, Model } from 'mongoose';
 
 const userSchema: Schema<any, Model<any, any, any, any>, any, any> = new Schema(
   {
-    title: {
+    userName: {
       type: String,
       required: true,
     },
-    description: {
+    email: {
       type: String,
       required: true,
     },
-    price: {
-      type: Number,
+    password: {
+      type: String,
       required: true,
     },
-    imageUrl: {
-      type: Number,
+    phoneNumber: {
+      type: String,
       required: true,
     },
+    address: [
+      {
+        houseNumber: {
+          type: String,
+        },
+        city: {
+          type: String,
+        },
+        street: {
+          type: String,
+        },
+      },
+    ],
   },
   { timestamps: true },
 );
