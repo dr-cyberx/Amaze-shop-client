@@ -1,5 +1,12 @@
-const signUp: String = `
-signUp(userName: String, email: String, phoneNumber: String, password: String) : signupResponse!
+export const signupResponse: String = `
+type signupResponse{
+   data: newUser
+   error: Boolean
+   status: Int
+   message: String
+ }
 `;
 
-export default signUp;
+export const signUp: String = `
+signUp(userName: String, email: String, phoneNumber: String, password: String!) : signupResponse!
+`;

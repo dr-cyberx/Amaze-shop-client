@@ -17,15 +17,15 @@ export const signUp = (
   if (newUser) {
     return {
       data: newUser,
+      error: false,
       status: 200,
       message: 'signUp successfully',
-      error: false,
     };
   }
   return {
     data: null,
+    error: false,
     status: 400,
     message: 'signUp failed',
-    error: false,
   };
 };
