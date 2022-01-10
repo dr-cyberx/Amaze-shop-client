@@ -20,7 +20,10 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "no-console": "off",
+    "no-underscore-dangle": "off",
+    "new-cap": "off"
   },
   "settings": {
     "import/resolver": {
