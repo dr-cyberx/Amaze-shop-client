@@ -15,3 +15,19 @@ export const delFromDB = (
   const res: any = modelName.findByIdAndRemove(Id);
   return res?._doc;
 };
+
+export const UpdateToDB = (
+  modelName: typeof User,
+  Id: mongoose.Types.ObjectId,
+) => {
+  const res: any = modelName.findByIdAndUpdate(Id);
+  return res?._doc;
+};
+
+export const findFromDB = (
+  modelName: typeof User,
+  Id: mongoose.Types.ObjectId,
+) => {
+  const res: any = modelName.findById(Id);
+  return res;
+};
