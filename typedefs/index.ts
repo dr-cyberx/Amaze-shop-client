@@ -14,6 +14,12 @@ const TypeDefs: DocumentNode = gql`
       password: String
       phoneNumber: String
     }
+   type signupResponse{
+     data: newUser
+     error: Boolean
+     status: Int
+     message: String
+   }
   type Mutation{
     ${Login}
     ${signUp}
