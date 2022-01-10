@@ -31,3 +31,8 @@ export const findFromDB = (
   const res: any = modelName.findById(Id);
   return res;
 };
+
+export const findAllFromDB = (modelName: typeof User) => {
+  const res: any = modelName.find();
+  return res._doc;
+};
