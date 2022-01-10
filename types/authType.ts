@@ -6,10 +6,3 @@ export interface signUpUserInterface {
   message: string;
   error: boolean;
 }
-
-export interface signUpUserNullInterface {
-  data: null;
-  status: number;
-  message: string;
-  error: boolean;
-}
