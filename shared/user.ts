@@ -31,3 +31,8 @@ export const findFromDB = (
   const res: any = modelName.findById(Id);
   return res;
 };
+
+export const findAllFromDB = async (modelName: typeof User) => {
+  const res: any = await modelName.find({});
+  return res;
+};

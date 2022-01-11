@@ -4,7 +4,8 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon server/server.ts"
+    "dev": "nodemon server/server.ts",
+    "start":"node dist/server/server.js"
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.16.7",
