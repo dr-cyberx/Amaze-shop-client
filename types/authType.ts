@@ -10,3 +10,7 @@ export interface signUpUserInterface {
 export interface ISignup extends SingleuserType {
   token: String;
 }
+
+export interface ISignUpResolver extends signUpUserInterface {
+  token: string | undefined;
+}

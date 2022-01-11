@@ -1,15 +1,11 @@
 import SignUp from '../../controllers/auth';
-import { signUpUserInterface } from '../../types/authType';
+import { ISignUpResolver } from '../../types/authType';
 import { SingleuserType } from '../../types/userType';
 // import isAuth from '../../utils/Auth';
 
 export const hello = () => 'hello';
 
-interface SignUpdata extends signUpUserInterface {
-  token: string | undefined;
-}
-
-export const signUp = (_parents: any, args: SingleuserType): SignUpdata => {
+export const signUp = (_parents: any, args: SingleuserType): ISignUpResolver => {
   const newUser = SignUp(args);
 
   return {
