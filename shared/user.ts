@@ -32,7 +32,7 @@ export const findFromDB = (
   return res;
 };
 
-export const findAllFromDB = (modelName: typeof User) => {
-  const res: any = modelName.find();
-  return res._doc;
+export const findAllFromDB = async (modelName: typeof User) => {
+  const res: any = await modelName.find({});
+  return res;
 };
