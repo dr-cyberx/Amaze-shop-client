@@ -16,14 +16,16 @@ const SignUp = (
 
   if (email) {
     const token: string = sign({ userId: id }, 'MY_SECRET');
-    const newObj = {
-      email,
-      userName,
-      id,
-      phoneNumber,
-      address,
+    return {
+      data: {
+        email,
+        userName,
+        id,
+        phoneNumber,
+        address,
+      },
+      token,
     };
-    return { data: newObj, token };
   }
   return null;
 };
