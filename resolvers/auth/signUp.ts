@@ -9,7 +9,7 @@ export const signUp = (
   _parents: any,
   args: SingleuserType,
 ): signUpUserInterface => {
-  const newUser = SignUp(args);
+  const newUser: Promise<SingleuserType | null> = SignUp(args);
 
   return {
     data: newUser || null,

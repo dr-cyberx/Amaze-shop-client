@@ -8,31 +8,31 @@ export const addToDB = (
   args: SingleuserType,
 ): SingleuserType => new modelName(args).save();
 
-export const delFromDB = (
+export const delFromDB = async (
   modelName: typeof User,
   Id: mongoose.Types.ObjectId,
 ) => {
-  const res: any = modelName.findByIdAndRemove(Id);
+  const res: any = await modelName.findByIdAndRemove(Id);
   return res?._doc;
 };
 
-export const UpdateToDB = (
+export const UpdateToDB = async (
   modelName: typeof User,
   Id: mongoose.Types.ObjectId,
 ) => {
-  const res: any = modelName.findByIdAndUpdate(Id);
+  const res: any = await modelName.findByIdAndUpdate(Id);
   return res?._doc;
 };
 
-export const findFromDB = (
+export const findFromDB = async (
   modelName: typeof User,
-  Id: mongoose.Types.ObjectId,
+  filter: 'All' | 'One',
+  Id?: mongoose.Types.ObjectId,
 ) => {
-  const res: any = modelName.findById(Id);
-  return res;
-};
-
-export const findAllFromDB = async (modelName: typeof User) => {
-  const res: any = await modelName.find({});
+  if (filter === 'All') {
+    const res: Promise<SingleuserType[]> | any[] | null = await modelName.find({});
+    return res;
+  }
+  const res: Promise<SingleuserType> = await modelName.findById(Id);
   return res;
 };

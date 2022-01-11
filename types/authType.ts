@@ -6,3 +6,7 @@ export interface signUpUserInterface {
   message: string;
   error: boolean;
 }
+
+export interface ISignup extends SingleuserType {
+  token: String;
+}
