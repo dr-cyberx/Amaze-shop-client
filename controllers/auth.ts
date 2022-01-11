@@ -1,18 +1,30 @@
 import { sign } from 'jsonwebtoken';
 import { SingleuserType } from '../types/userType';
-import { ISignup } from '../types/authType';
 import User from '../models/User';
 import { addToDB } from '../shared/user';
 // import isAuth from '../utils/Auth';
 
-const SignUp = async (args: SingleuserType): Promise<ISignup | null> => {
+const SignUp = (
+  args: SingleuserType,
+): { data: SingleuserType; token: string } | null => {
   const {
     email, userName, id, phoneNumber, address,
-  }: SingleuserType = await addToDB(User, args);
+  }: SingleuserType = addToDB(
+    User,
+    args,
+  );
+
   if (email) {
     const token: string = sign({ userId: id }, 'MY_SECRET');
     return {
-      email, userName, id, phoneNumber, address, token,
+      data: {
+        email,
+        userName,
+        id,
+        phoneNumber,
+        address,
+      },
+      token,
     };
   }
   return null;
