@@ -30,9 +30,9 @@ export const findFromDB = async (
   Id?: mongoose.Types.ObjectId,
 ) => {
   if (filter === 'All') {
-    const res: any = await modelName.find({});
+    const res: Promise<SingleuserType[]> | any[] | null = await modelName.find({});
     return res;
   }
-  const res: any = await modelName.findById(Id);
+  const res: Promise<SingleuserType> = await modelName.findById(Id);
   return res;
 };

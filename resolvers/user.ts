@@ -3,9 +3,9 @@ import { findFromDB } from '../shared/user';
 import { SingleuserType } from '../types/userType';
 
 const UserQuery = {
-  getAllUser: async (): Promise<SingleuserType[] | null> => {
+  getAllUser: async (): Promise<any[] | SingleuserType | null> => {
     try {
-      const res: Promise<SingleuserType[]> = findFromDB(User, 'All');
+      const res: Promise<any[] | SingleuserType> = findFromDB(User, 'All');
       return res;
     } catch (err) {
       return null;
