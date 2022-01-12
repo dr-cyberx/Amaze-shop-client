@@ -7,6 +7,15 @@ export const newUser: string = `  type newUser{
    role:String
  }`;
 
+export const getAllUserResponse: string = `
+ type getAllUserResponse{
+   data: [newUser]!
+   error: Boolean
+   status: Int!
+   message: String!
+ }
+`;
+
 export const userRole: string = `
  enum userRole{
    BUYER,

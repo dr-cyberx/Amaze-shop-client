@@ -6,5 +6,5 @@ export const hello = () => 'hello';
 export const getAllUser = async (_parent: any, args: any, context: any) => {
   const res = await isValidUser(GetAllUser, context.token);
   console.log(res);
-  return res?.data;
+  return res.data;
 };
