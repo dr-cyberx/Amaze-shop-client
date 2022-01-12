@@ -3,8 +3,8 @@ import isValidUser from '../../utils/isValid';
 
 export const hello = () => 'hello';
 
-export const getAllUser = (_parent: any, args: any, context: any) => {
-  console.log('context --> ', context.token);
-  const res = isValidUser(GetAllUser, context.token);
-  return res;
+export const getAllUser = async (_parent: any, args: any, context: any) => {
+  const res = await isValidUser(GetAllUser, context.token);
+  console.log(res);
+  return res?.data;
 };

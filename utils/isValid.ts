@@ -7,8 +7,10 @@ import { findFromDB } from '../shared';
 const isValidUser = async (
   cb: any,
   token: any,
+  ...rest: any
 ): Promise<{
   isValid: boolean;
+  data: any;
   userId: any;
 }> => {
   try {
@@ -19,13 +21,14 @@ const isValidUser = async (
       'One',
       userDetail?.userEmail,
     );
+    console.log(isUserExist);
     if (isUserExist?.email) {
-      cb();
-      return { isValid: true, userId: isUserExist.id };
+      const res = cb(rest);
+      return { isValid: true, data: res, userId: isUserExist.id };
     }
-    return { isValid: false, userId: null };
+    return { isValid: false, data: null, userId: null };
   } catch (error) {
-    return { isValid: false, userId: null };
+    return { isValid: false, data: null, userId: null };
   }
 };
 
