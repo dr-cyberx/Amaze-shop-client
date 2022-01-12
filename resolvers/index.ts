@@ -1,5 +1,5 @@
-import { signUp } from './auth/signUp';
-import UserQuery from './user';
+import { signUp } from './mutation/auth';
+import UserQuery from './query/user';
 
 const resolvers = {
   Query: {

@@ -23,7 +23,9 @@
     ],
     "no-console": "off",
     "no-underscore-dangle": "off",
-    "new-cap": "off"
+    "new-cap": "off",
+    "func-names":"off",
+    "prefer-arrow-callback":"off"
   },
   "settings": {
     "import/resolver": {

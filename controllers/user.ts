@@ -1,5 +1,5 @@
 import User from '../models/User';
-import { findFromDB } from '../shared/user';
+import { findFromDB } from '../shared';
 import { SingleuserType } from '../types/userType';
 
 export const getAllUser = async (): Promise<any[] | SingleuserType | null> => {

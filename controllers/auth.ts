@@ -1,35 +1,32 @@
 import { sign } from 'jsonwebtoken';
+import { hash } from 'bcrypt';
 import { SingleuserType } from '../types/userType';
 import User from '../models/User';
-import { addToDB } from '../shared/user';
+import { addToDB, findFromDB } from '../shared';
+import { signUpResponse } from '../shared/auth';
 // import isAuth from '../utils/Auth';
 
-const SignUp = async (
-  args: SingleuserType,
-): Promise<{ data: SingleuserType; token: string } | null> => {
-  const {
-    email,
-    userName,
-    id,
-    phoneNumber,
-    address,
-  }: Promise<SingleuserType> | any = await addToDB(User, args);
+const SignUp = async (args: SingleuserType) => {
+  try {
+    const isUserExist: any = await findFromDB(User, 'One', args?.email);
+    if (!isUserExist?.email) {
+      const password: string = await hash(args?.password, 12);
+      const user: Promise<SingleuserType> | any = await addToDB(User, {
+        ...args,
+        password,
+      });
 
-  if (email) {
-    const token: string = sign({ userId: id }, 'MY_SECRET');
-
-    return {
-      data: {
-        email,
-        userName,
-        id,
-        phoneNumber,
-        address,
-      },
-      token,
-    };
+      if (user.email) {
+        const token: string = sign({ userId: user.id }, 'MY_SECRET');
+        return signUpResponse('Sign Up successfully', user, token, false, 200);
+      }
+      return signUpResponse('Sign Up failed');
+    }
+    return signUpResponse('User already exist');
+  } catch (error) {
+    console.log(error);
+    return signUpResponse('Something went wrong');
   }
-  return null;
 };
 
 export default SignUp;
