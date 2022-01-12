@@ -1,6 +1,6 @@
-import { Schema, model, Model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-const userSchema: Schema<any, Model<any, any, any, any>, any, any> = new Schema(
+const userSchema = new Schema(
   {
     userName: {
       type: String,
@@ -8,6 +8,12 @@ const userSchema: Schema<any, Model<any, any, any, any>, any, any> = new Schema(
     },
     email: {
       type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ['BUYER', 'SELLER'],
+      default: 'BUYER',
       required: true,
     },
     password: {

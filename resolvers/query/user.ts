@@ -1,4 +1,4 @@
-import { getAllUser } from '../controllers/user';
+import { getAllUser } from '../../controllers/user';
 
 const UserQuery = {
   getAllUser,
