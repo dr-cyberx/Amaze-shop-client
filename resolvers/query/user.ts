@@ -1,7 +1,10 @@
-import { getAllUser } from '../../controllers/user';
+import { GetAllUser } from '../../controllers/user';
+import isValidUser from '../../utils/isValid';
 
-const UserQuery = {
-  getAllUser,
+export const hello = () => 'hello';
+
+export const getAllUser = (_parent: any, args: any, context: any) => {
+  console.log('context --> ', context.token);
+  const res = isValidUser(GetAllUser, context.token);
+  return res;
 };
-
-export default UserQuery;

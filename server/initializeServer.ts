@@ -21,6 +21,7 @@ async function startApolloServer(
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: ({ req }) => ({ token: req.headers.authorization || null }),
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 

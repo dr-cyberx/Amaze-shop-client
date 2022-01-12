@@ -1,10 +1,10 @@
 import { signUp } from './mutation/auth';
-import UserQuery from './query/user';
+import { getAllUser } from './query/user';
 
 const resolvers = {
   Query: {
     hello: () => 'hello world ',
-    ...UserQuery,
+    getAllUser,
   },
   Mutation: {
     signUp,
