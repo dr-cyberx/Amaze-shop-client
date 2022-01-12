@@ -1,3 +1,3 @@
-const getAllUser = 'getAllUser(query: String): [newUser]!';
+const getAllUser = 'getAllUser(query: String): getAllUserResponse!';
 
 export default getAllUser;

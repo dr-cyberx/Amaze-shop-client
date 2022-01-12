@@ -42,7 +42,7 @@ export const findFromDB = async (
     });
     return res;
   }
-  const res: Promise<SingleuserType> | any[] = await modelName.find({
+  const res: Promise<SingleuserType> | any[] = await modelName.findOne({
     email,
   });
   return res;
