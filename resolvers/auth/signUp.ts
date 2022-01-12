@@ -5,14 +5,28 @@ import { SingleuserType } from '../../types/userType';
 
 export const hello = () => 'hello';
 
-export const signUp = (_parents: any, args: SingleuserType): ISignUpResolver => {
-  const newUser = SignUp(args);
+export const signUp = async (
+  _parents: any,
+  args: SingleuserType,
+): Promise<ISignUpResolver> => {
+  try {
+    const newUser = await SignUp(args);
 
-  return {
-    data: newUser?.data || null,
-    token: newUser?.token,
-    error: false,
-    status: 200,
-    message: 'signUp successfully',
-  };
+    return {
+      data: newUser?.data || null,
+      token: newUser?.token,
+      error: false,
+      status: 200,
+      message: 'signUp successfully',
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      data: null,
+      token: '',
+      error: true,
+      status: 400,
+      message: 'signUp failed',
+    };
+  }
 };

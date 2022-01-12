@@ -4,18 +4,20 @@ import User from '../models/User';
 import { addToDB } from '../shared/user';
 // import isAuth from '../utils/Auth';
 
-const SignUp = (
+const SignUp = async (
   args: SingleuserType,
-): { data: SingleuserType; token: string } | null => {
+): Promise<{ data: SingleuserType; token: string } | null> => {
   const {
-    email, userName, id, phoneNumber, address,
-  }: SingleuserType = addToDB(
-    User,
-    args,
-  );
+    email,
+    userName,
+    id,
+    phoneNumber,
+    address,
+  }: Promise<SingleuserType> | any = await addToDB(User, args);
 
   if (email) {
     const token: string = sign({ userId: id }, 'MY_SECRET');
+
     return {
       data: {
         email,

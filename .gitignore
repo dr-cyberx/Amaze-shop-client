@@ -127,6 +127,6 @@ dist
 .pnp.*
 
 /client/node_modules
-/dist/
-dist/
-dist
+/.build/
+.build/
+.build
