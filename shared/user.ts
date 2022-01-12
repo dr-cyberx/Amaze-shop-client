@@ -3,10 +3,13 @@ import mongoose from 'mongoose';
 import User from '../models/User';
 import { SingleuserType } from '../types/userType';
 
-export const addToDB = (
+export const addToDB = async (
   modelName: typeof User,
   args: SingleuserType,
-): SingleuserType => new modelName(args).save();
+) => {
+  const res: any = await new modelName(args).save();
+  return res;
+};
 
 export const delFromDB = async (
   modelName: typeof User,
@@ -30,7 +33,9 @@ export const findFromDB = async (
   Id?: mongoose.Types.ObjectId,
 ) => {
   if (filter === 'All') {
-    const res: Promise<SingleuserType[]> | any[] | null = await modelName.find({});
+    const res: Promise<SingleuserType[]> | any[] | null = await modelName.find(
+      {},
+    );
     return res;
   }
   const res: Promise<SingleuserType> = await modelName.findById(Id);
