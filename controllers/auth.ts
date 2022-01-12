@@ -17,7 +17,10 @@ const SignUp = async (args: SingleuserType) => {
       });
 
       if (user.email) {
-        const token: string = sign({ userId: user.id }, 'MY_SECRET');
+        const token: string = sign(
+          JSON.stringify({ userId: user.id, userEmail: user.email }),
+          `${process.env.JWT_SECRET}`,
+        );
         return signUpResponse('Sign Up successfully', user, token, false, 200);
       }
       return signUpResponse('Sign Up failed');
