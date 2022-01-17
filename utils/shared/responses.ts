@@ -1,16 +1,16 @@
 import {
   IGetAllUsers,
-  ISignUpResolver,
+  IauthResolver,
 } from '../../types/authType';
 import { SingleuserType } from '../../types/userType';
 
-export const signUpResponse = (
+export const authResponse = (
   message: string = 'Something Went wrong',
   data: SingleuserType | null = null,
   token: string = '',
   error: boolean = true,
   status: number = 400,
-): ISignUpResolver => ({
+): IauthResolver => ({
   data,
   token,
   error,

@@ -27,7 +27,7 @@ export const UpdateToDB = async (
 export const findFromDB = async (
   modelName: typeof User,
   filter: 'All' | 'One',
-  email?: string,
+  email?: String,
   Id?: mongoose.Types.ObjectId,
 ): Promise<any[] | SingleuserType> => {
   if (filter === 'All') {
