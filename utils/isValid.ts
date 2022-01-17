@@ -23,7 +23,7 @@ const isValidUser = async (
     );
     console.log(isUserExist);
     if (isUserExist?.email) {
-      const res = cb(rest);
+      const res = await cb(rest);
       return { isValid: true, data: res, userId: isUserExist.id };
     }
     return { isValid: false, data: null, userId: null };
