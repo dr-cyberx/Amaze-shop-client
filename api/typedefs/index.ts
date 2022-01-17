@@ -1,7 +1,6 @@
 import { gql } from 'apollo-server-express';
 import { DocumentNode } from 'graphql';
-import Login from './auth/login';
-import { signUp, signupResponse } from './auth/signUp';
+import { Login, signUp, authResponse } from './auth/index';
 import getAllUser from './user/query';
 import { getAllUserResponse, newUser, userRole } from './user/types';
 
@@ -14,7 +13,7 @@ const TypeDefs: DocumentNode = gql`
   ${newUser}
   ${getAllUserResponse}
   ${userRole}
-  ${signupResponse}
+  ${authResponse}
 
   type Mutation{
     ${Login}

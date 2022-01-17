@@ -18,6 +18,6 @@ export interface ISignup extends SingleuserType {
   token: String;
 }
 
-export interface ISignUpResolver extends signUpUserInterface {
+export interface IauthResolver extends signUpUserInterface {
   token: string | undefined;
 }
