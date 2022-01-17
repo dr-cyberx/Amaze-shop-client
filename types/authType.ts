@@ -1,10 +1,17 @@
 import { SingleuserType } from './userType';
 
-export interface signUpUserInterface {
-  data: SingleuserType | null;
+export interface commonResponse {
   status: number;
   message: string;
   error: boolean;
+}
+
+export interface signUpUserInterface extends commonResponse {
+  data: SingleuserType | null;
+}
+
+export interface GetAllUsers extends commonResponse {
+  data: [SingleuserType] | null;
 }
 
 export interface ISignup extends SingleuserType {

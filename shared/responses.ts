@@ -1,4 +1,7 @@
-import { ISignUpResolver } from '../types/authType';
+import {
+  GetAllUsers,
+  ISignUpResolver,
+} from '../types/authType';
 import { SingleuserType } from '../types/userType';
 
 export const signUpResponse = (
@@ -10,6 +13,18 @@ export const signUpResponse = (
 ): ISignUpResolver => ({
   data,
   token,
+  error,
+  status,
+  message,
+});
+
+export const amazeResponse = (
+  message: string = 'Something Went wrong',
+  data: [SingleuserType] | null = null,
+  error: boolean = true,
+  status: number = 400,
+): GetAllUsers => ({
+  data,
   error,
   status,
   message,

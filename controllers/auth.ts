@@ -3,7 +3,7 @@ import { hash } from 'bcrypt';
 import { SingleuserType } from '../types/userType';
 import User from '../models/User';
 import { addToDB, findFromDB } from '../shared';
-import { signUpResponse } from '../shared/auth';
+import { signUpResponse } from '../shared/responses';
 // import isAuth from '../utils/Auth';
 
 const SignUp = async (args: SingleuserType) => {
