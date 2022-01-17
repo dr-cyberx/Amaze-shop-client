@@ -11,14 +11,9 @@ export const GetAllUser = async (token: String): Promise<IGetAllUsers> => {
     if ((await res).isValid) {
       return amazeResponse('fetched Successfully', res.data, false, 200);
     }
-    return amazeResponse('InValid User', null, true, 400);
+    return amazeResponse('InValid User');
   } catch (err: any) {
-    return amazeResponse(
-      `failed to fetch ${new ApolloError(err)}`,
-      null,
-      true,
-      400,
-    );
+    return amazeResponse(`failed to fetch ${new ApolloError(err)}`);
   }
 };
 

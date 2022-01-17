@@ -1,5 +1,5 @@
 export const Login: String = `
-Login(userName: String, email: String, phoneNumber: String, password: String) : authResponse!
+login(userName: String, email: String, phoneNumber: String, password: String) : authResponse!
 `;
 
 export const signUp: String = `

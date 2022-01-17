@@ -1,5 +1,5 @@
 import { sign } from 'jsonwebtoken';
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import { SingleuserType } from '../types/userType';
 import User from '../db/models/User';
 import { addToDB, findFromDB } from '../utils/shared';
@@ -35,25 +35,30 @@ export const Login = async (args: SingleuserType) => {
   try {
     const userCreds: String = args?.email || args?.phoneNumber || args?.userName;
     const isUserExist: any = await findFromDB(User, 'One', userCreds);
-    if (!isUserExist?.email) {
-      const password: string = await hash(args?.password, 12);
-      const user: Promise<SingleuserType> | any = await addToDB(User, {
-        ...args,
-        password,
-      });
-
-      if (user.email) {
+    if (isUserExist?.email) {
+      const comparePassword: boolean = await compare(
+        args?.password,
+        isUserExist?.password,
+      );
+      if (comparePassword) {
         const token: string = sign(
-          JSON.stringify({ userId: user.id, userEmail: user.email }),
+          JSON.stringify({
+            userId: isUserExist.id,
+            userEmail: isUserExist.email,
+          }),
           `${process.env.JWT_SECRET}`,
         );
-        return authResponse('Sign Up successfully', user, token, false, 200);
+        return authResponse(
+          'Logged In successfully',
+          isUserExist,
+          token,
+          false,
+          200,
+        );
       }
-      return authResponse('Sign Up failed');
     }
-    return authResponse('User already exist');
+    return authResponse('User not Found');
   } catch (error) {
-    console.log(error);
-    return authResponse('Something went wrong');
+    return authResponse(`failed to Logged in ${error}`);
   }
 };
