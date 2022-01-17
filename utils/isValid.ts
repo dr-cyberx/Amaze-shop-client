@@ -14,16 +14,14 @@ const isValidUser = async (
   userId: any;
 }> => {
   try {
-    console.log('data from token --->>>> ', token);
     const userDetail: any = await verify(token, `${process.env.JWT_SECRET}`);
     const isUserExist: any = await findFromDB(
       User,
       'One',
       userDetail?.userEmail,
     );
-    console.log(isUserExist);
-    if (isUserExist?.email) {
-      const res = cb(rest);
+    if (isUserExist?.email || isUserExist?.phoneNumber) {
+      const res = await cb(...rest);
       return { isValid: true, data: res, userId: isUserExist.id };
     }
     return { isValid: false, data: null, userId: null };

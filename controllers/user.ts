@@ -1,13 +1,17 @@
 import User from '../models/User';
 import { findFromDB } from '../shared';
-import { SingleuserType } from '../types/userType';
+import { amazeResponse } from '../shared/responses';
+import isValidUser from '../utils/isValid';
 
-export const GetAllUser = async (): Promise<any[] | SingleuserType | null> => {
+export const GetAllUser = async (token: String) => {
   try {
-    const res: Promise<any[] | SingleuserType> = findFromDB(User, 'All');
-    return res;
+    const res = await isValidUser(findFromDB, token, User, 'All');
+    if ((await res).isValid) {
+      return amazeResponse('fetched Successfully', res.data, false, 200);
+    }
+    return amazeResponse('InValid User', null, true, 400);
   } catch (err) {
-    return null;
+    return amazeResponse('failed to fetch', null, true, 400);
   }
 };
 
