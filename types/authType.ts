@@ -10,7 +10,7 @@ export interface signUpUserInterface extends commonResponse {
   data: SingleuserType | null;
 }
 
-export interface GetAllUsers extends commonResponse {
+export interface IGetAllUsers extends commonResponse {
   data: [SingleuserType] | null;
 }
 

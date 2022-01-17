@@ -1,5 +1,5 @@
 import {
-  GetAllUsers,
+  IGetAllUsers,
   ISignUpResolver,
 } from '../types/authType';
 import { SingleuserType } from '../types/userType';
@@ -23,7 +23,7 @@ export const amazeResponse = (
   data: [SingleuserType] | null = null,
   error: boolean = true,
   status: number = 400,
-): GetAllUsers => ({
+): IGetAllUsers => ({
   data,
   error,
   status,

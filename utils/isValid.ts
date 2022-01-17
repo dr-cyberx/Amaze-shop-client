@@ -11,7 +11,7 @@ const isValidUser = async (
 ): Promise<{
   isValid: boolean;
   data: any;
-  userId: any;
+  userId: string | null;
 }> => {
   try {
     const userDetail: any = await verify(token, `${process.env.JWT_SECRET}`);

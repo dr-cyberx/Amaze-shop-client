@@ -1,7 +1,7 @@
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
-import Resolvers from '../resolvers/index';
-import TypeDefs from '../typedefs';
+import Resolvers from '../api/resolvers/index';
+import TypeDefs from '../api/typedefs';
 import startApolloServer from './initializeServer';
 import connectDB from '../db/connectDb';
 
