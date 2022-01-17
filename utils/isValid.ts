@@ -1,8 +1,6 @@
-// import User from '../models/User';
-
 import { verify } from 'jsonwebtoken';
-import User from '../models/User';
-import { findFromDB } from '../shared';
+import User from '../db/models/User';
+import { findFromDB } from './shared';
 
 const isValidUser = async (
   cb: any,
@@ -11,7 +9,7 @@ const isValidUser = async (
 ): Promise<{
   isValid: boolean;
   data: any;
-  userId: any;
+  userId: string | null;
 }> => {
   try {
     const userDetail: any = await verify(token, `${process.env.JWT_SECRET}`);
