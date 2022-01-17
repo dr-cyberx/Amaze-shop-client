@@ -1,8 +1,8 @@
 import {
   IGetAllUsers,
   ISignUpResolver,
-} from '../types/authType';
-import { SingleuserType } from '../types/userType';
+} from '../../types/authType';
+import { SingleuserType } from '../../types/userType';
 
 export const signUpResponse = (
   message: string = 'Something Went wrong',

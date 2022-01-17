@@ -1,7 +1,7 @@
 /* eslint-disable new-cap */
 import mongoose from 'mongoose';
-import User from '../models/User';
-import { SingleuserType } from '../types/userType';
+import User from '../../db/models/User';
+import { SingleuserType } from '../../types/userType';
 
 export const addToDB = async (modelName: typeof User, args: SingleuserType) => {
   const res: any = await new modelName(args).save();

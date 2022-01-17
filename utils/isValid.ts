@@ -1,8 +1,6 @@
-// import User from '../models/User';
-
 import { verify } from 'jsonwebtoken';
-import User from '../models/User';
-import { findFromDB } from '../shared';
+import User from '../db/models/User';
+import { findFromDB } from './shared';
 
 const isValidUser = async (
   cb: any,

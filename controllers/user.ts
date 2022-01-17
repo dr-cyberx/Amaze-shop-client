@@ -1,7 +1,7 @@
 import { ApolloError } from 'apollo-server-errors';
-import User from '../models/User';
-import { findFromDB } from '../shared';
-import { amazeResponse } from '../shared/responses';
+import User from '../db/models/User';
+import { findFromDB } from '../utils/shared';
+import { amazeResponse } from '../utils/shared/responses';
 import { IGetAllUsers } from '../types/authType';
 import isValidUser from '../utils/isValid';
 

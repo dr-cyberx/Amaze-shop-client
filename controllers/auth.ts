@@ -1,9 +1,9 @@
 import { sign } from 'jsonwebtoken';
 import { hash } from 'bcrypt';
 import { SingleuserType } from '../types/userType';
-import User from '../models/User';
-import { addToDB, findFromDB } from '../shared';
-import { signUpResponse } from '../shared/responses';
+import User from '../db/models/User';
+import { addToDB, findFromDB } from '../utils/shared';
+import { signUpResponse } from '../utils/shared/responses';
 // import isAuth from '../utils/Auth';
 
 const SignUp = async (args: SingleuserType) => {
