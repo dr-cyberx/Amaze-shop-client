@@ -4,8 +4,9 @@ import { SingleuserType } from '../types/userType';
 import User from '../db/models/User';
 import { addToDB, findFromDB } from '../utils/shared';
 import { authResponse } from '../utils/shared/responses';
+import { IauthResolver } from '../types/authType';
 
-export const SignUp = async (args: SingleuserType) => {
+export const SignUp = async (args: SingleuserType): Promise<IauthResolver> => {
   try {
     const isUserExist: any = await findFromDB(User, 'One', args?.email);
     if (!isUserExist?.email) {
@@ -31,7 +32,7 @@ export const SignUp = async (args: SingleuserType) => {
   }
 };
 
-export const Login = async (args: SingleuserType) => {
+export const Login = async (args: SingleuserType): Promise<IauthResolver> => {
   try {
     const userCreds: String = args?.email || args?.phoneNumber || args?.userName;
     const isUserExist: any = await findFromDB(User, 'One', userCreds);
