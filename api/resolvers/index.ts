@@ -1,4 +1,4 @@
-import { signUp, login } from './mutation/auth';
+import authMutations from './mutation/auth';
 import { getAllUser } from './query/user';
 
 const resolvers = {
@@ -7,8 +7,7 @@ const resolvers = {
     getAllUser,
   },
   Mutation: {
-    signUp,
-    login,
+    ...authMutations,
   },
 };
 
