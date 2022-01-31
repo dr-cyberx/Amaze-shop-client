@@ -34,10 +34,7 @@ export const SignUp = async (args: SingleuserType): Promise<IauthResolver> => {
 
 export const Login = async (args: SingleuserType): Promise<IauthResolver> => {
   try {
-    console.log('--->> ', args);
-    const userCreds: String = args?.email || args?.phoneNumber || args?.userName;
-    console.log('user creds ---> ', userCreds);
-    const isUserExist: any = await findFromDB(User, 'One', userCreds);
+    const isUserExist: any = await findFromDB(User, 'One', { ...args });
     if (isUserExist?.email) {
       const comparePassword: boolean = await compare(
         args?.password,

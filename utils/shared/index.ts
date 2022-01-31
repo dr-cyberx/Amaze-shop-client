@@ -36,19 +36,19 @@ export const findFromDB = async (
     return res;
   }
   if (otherCreds.email) {
-    const res: Promise<SingleuserType> | any[] = await modelName.findById({
+    const res: Promise<SingleuserType> | any[] = await modelName.findOne({
       email: otherCreds.email,
     });
     return res;
   }
   if (otherCreds.id) {
     const res: Promise<SingleuserType> | any[] = await modelName.findById({
-      id: otherCreds.id,
+      _id: otherCreds.id,
     });
     return res;
   }
   if (otherCreds.userName) {
-    const res: Promise<SingleuserType> | any[] = await modelName.findById({
+    const res: Promise<SingleuserType> | any[] = await modelName.findOne({
       userName: otherCreds.userName,
     });
     return res;
