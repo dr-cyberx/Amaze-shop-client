@@ -27,8 +27,7 @@ export const UpdateToDB = async (
 export const findFromDB = async (
   modelName: typeof User,
   filter: 'All' | 'One',
-  email?: String,
-  Id?: mongoose.Types.ObjectId,
+  otherCreds: any,
 ): Promise<any[] | SingleuserType> => {
   if (filter === 'All') {
     const res: Promise<SingleuserType[]> | any[] | null = await modelName.find(
@@ -36,14 +35,23 @@ export const findFromDB = async (
     );
     return res;
   }
-  if (!email) {
+  if (otherCreds.email) {
     const res: Promise<SingleuserType> | any[] = await modelName.findById({
-      Id,
+      email: otherCreds.email,
     });
     return res;
   }
-  const res: Promise<SingleuserType> | any[] = await modelName.findOne({
-    email,
-  });
-  return res;
+  if (otherCreds.id) {
+    const res: Promise<SingleuserType> | any[] = await modelName.findById({
+      id: otherCreds.id,
+    });
+    return res;
+  }
+  if (otherCreds.userName) {
+    const res: Promise<SingleuserType> | any[] = await modelName.findById({
+      userName: otherCreds.userName,
+    });
+    return res;
+  }
+  return [];
 };
