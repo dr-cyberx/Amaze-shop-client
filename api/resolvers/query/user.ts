@@ -5,6 +5,7 @@ export const hello = () => 'hello';
 
 export const getAllUser = async (
   _parent: any,
+  args: any,
   { token }: any,
 ): Promise<IGetAllUsers> => {
   const res: IGetAllUsers = await GetAllUser(token);
