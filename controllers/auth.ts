@@ -27,7 +27,6 @@ export const SignUp = async (args: SingleuserType): Promise<IauthResolver> => {
     }
     return authResponse('User already exist');
   } catch (error) {
-    console.log(error);
     return authResponse('Something went wrong');
   }
 };
