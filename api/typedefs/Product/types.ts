@@ -15,6 +15,14 @@ export const createProductResponse = `type createProductResponse{
    productPrice: String!
    productSeller: String!
    productRating: Int!
-}`;
+}
+
+type createProductMutationResponse{
+   data: createProductResponse
+   error: Boolean!
+   message: String!
+   status: Int!
+}
+`;
 
 export const hello = 'hello';
