@@ -16,15 +16,12 @@ const isValidUser = async (
     const isUserExist: any = await findFromDB(User, 'One', {
       email: userDetail?.userEmail,
     });
-    console.log('user -> ', isUserExist);
     if (isUserExist?.email || isUserExist?.phoneNumber) {
       const res = await cb(...rest);
       return { isValid: true, data: res, userId: isUserExist.id };
     }
     return { isValid: false, data: null, userId: null };
   } catch (error) {
-    console.log('catch chla', error);
-
     return { isValid: false, data: null, userId: null };
   }
 };

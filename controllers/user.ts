@@ -7,7 +7,6 @@ import isValidUser from '../utils/isValid';
 
 export const GetAllUser = async (token: String): Promise<IGetAllData> => {
   try {
-    console.log('res --> ', token);
     const res = await isValidUser(findFromDB, token, User, 'All');
     if ((await res).isValid) {
       return amazeResponse('fetched Successfully', res.data, false, 200);
