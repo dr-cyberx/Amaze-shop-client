@@ -1,9 +1,13 @@
 import Product from '../db/models/Product';
+import { IGetAllData } from '../types/authType';
 import isValidUser from '../utils/isValid';
 import { addToDB } from '../utils/shared';
 import { amazeResponse } from '../utils/shared/responses';
 
-export const CreateProduct = async (args: any, token: any) => {
+export const CreateProduct = async (
+  args: any,
+  token: any,
+): Promise<IGetAllData> => {
   try {
     const { isValid, data } = await isValidUser(
       addToDB,
@@ -21,4 +25,3 @@ export const CreateProduct = async (args: any, token: any) => {
 };
 
 export const hi = 'hllo';
-// await addToDB(Product, args)
