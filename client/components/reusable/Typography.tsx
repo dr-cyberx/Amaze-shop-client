@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import styles from '@styles/Typography.module.scss';
 
 export const variantsMapping = {
   h1: 'h1',
@@ -43,13 +44,20 @@ const Text: React.FunctionComponent<ITypography> = ({
   // @ts-ignore
   const Component = variant ? variantsMapping[variant] : 'p';
 
+  console.log(
+    classnames({
+      [styles[`typography__variant__${variant}`]]: variant,
+      [styles[`typography__color__${color}`]]: color,
+    }),
+  );
+
   return (
     <Component
       className={classnames({
-        [`typography--variant--${variant}`]: variant,
-        [`typography--color--${color}`]: color,
+        [styles[`typography__variant__${variant}`]]: variant,
+        [styles[`typography__color__${color}`]]: color,
       })}
-      style
+      style={style}
     >
       {children}
     </Component>

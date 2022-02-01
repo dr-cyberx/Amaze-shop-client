@@ -1,7 +1,7 @@
 import React from 'react';
 import { NextPage } from 'next';
 import Login from '@components/Login';
-import MetaData from '@components/MetaData';
+import MetaData from '@resusable/MetaData';
 
 const LoginPage: NextPage = () => {
   return (
