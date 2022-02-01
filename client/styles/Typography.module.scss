@@ -1,0 +1,53 @@
+@import 'variable.scss';
+
+.typography {
+  &.--variant {
+    &.--h1 {
+      font-size: 6rem;
+      font-weight: 500;
+    }
+    &.--h2 {
+      font-size: 3.75rem;
+      font-weight: 500;
+    }
+    &.--h3 {
+      font-size: 3rem;
+      font-weight: 500;
+    }
+    &.--h4 {
+      font-size: 2.125rem;
+      font-weight: 500;
+    }
+    &.--h5 {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+    &.--h6 {
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+    &.--subheading1 {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    &.--subheading2 {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    &.--body1 {
+      font-size: 1rem;
+    }
+    &.--body2 {
+      font-size: 0.875rem;
+    }
+  }
+  &.--color {
+    &.--primary {
+      color: #f2994a;
+    }
+
+    &.--error {
+      color: #eb5757;
+    }
+  }
+}

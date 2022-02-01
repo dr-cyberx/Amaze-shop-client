@@ -25,6 +25,8 @@ const Typography: React.FunctionComponent<ITypography> = ({
   children,
   ...props
 }): JSX.Element => {
+    
+  // @ts-ignore
   const Component = variant ? variantsMapping[variant] : 'p';
 
   return (
