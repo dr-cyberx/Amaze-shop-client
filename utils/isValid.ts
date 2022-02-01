@@ -13,11 +13,9 @@ const isValidUser = async (
 }> => {
   try {
     const userDetail: any = await verify(token, `${process.env.JWT_SECRET}`);
-    const isUserExist: any = await findFromDB(
-      User,
-      'One',
-      userDetail?.userEmail,
-    );
+    const isUserExist: any = await findFromDB(User, 'One', {
+      email: userDetail?.userEmail,
+    });
     if (isUserExist?.email || isUserExist?.phoneNumber) {
       const res = await cb(...rest);
       return { isValid: true, data: res, userId: isUserExist.id };

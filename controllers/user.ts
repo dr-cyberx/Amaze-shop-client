@@ -2,10 +2,10 @@ import { ApolloError } from 'apollo-server-errors';
 import User from '../db/models/User';
 import { findFromDB } from '../utils/shared';
 import { amazeResponse } from '../utils/shared/responses';
-import { IGetAllUsers } from '../types/authType';
+import { IGetAllData } from '../types/authType';
 import isValidUser from '../utils/isValid';
 
-export const GetAllUser = async (token: String): Promise<IGetAllUsers> => {
+export const GetAllUser = async (token: String): Promise<IGetAllData> => {
   try {
     const res = await isValidUser(findFromDB, token, User, 'All');
     if ((await res).isValid) {
