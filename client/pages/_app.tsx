@@ -1,23 +1,17 @@
 import React from 'react';
-import type { AppProps } from 'next/app'
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql
-} from "@apollo/client";
-import '../styles/globals.css'
-
-const client = new ApolloClient({
-  uri: 'https://48p1r2roz4.sse.codesandbox.io',
-  cache: new InMemoryCache()
-});
+import type { AppProps } from 'next/app';
+import { ApolloProvider } from '@apollo/client';
+import { client } from '@graphql-doc/client';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <>
-  <Component {...pageProps} />
-  </> 
+  return (
+    <>
+      <ApolloProvider client={client}>
+        <Component {...pageProps} />
+      </ApolloProvider>
+    </>
+  );
 }
 
-export default MyApp
+export default MyApp;

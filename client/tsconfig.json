@@ -2,10 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["components/*"],
-      "@styles/*": ["styles/*"],
-      "@pages/*": ["pages/*"],
-      "@utils/*": ["utils/*"],
+      "@components/*":["./components/*"],
+      "@styles/*": ["./styles/*"],
+      "@pages/*": ["./pages/*"],
+      "@graphql-doc/*": ["./graphql-docs/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
