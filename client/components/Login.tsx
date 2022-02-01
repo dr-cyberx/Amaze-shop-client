@@ -1,10 +1,10 @@
 import React from 'react';
-import Text from './reusable/Typography';
+import Text, { TextVariant } from './reusable/Typography';
 
 const Login: React.FunctionComponent = (): JSX.Element => {
   return (
     <>
-      <Text variant="h1">Login Page</Text>
+      <Text variant={TextVariant.h1}>Login Page</Text>
     </>
   );
 };

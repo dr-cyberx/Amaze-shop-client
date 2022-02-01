@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const variantsMapping = {
+export const variantsMapping = {
   h1: 'h1',
   h2: 'h2',
   h3: 'h3',
@@ -14,8 +14,21 @@ const variantsMapping = {
   body2: 'p',
 };
 
+export enum TextVariant {
+  h1 = 'h1',
+  h2 = 'h2',
+  h3 = 'h3',
+  h4 = 'h4',
+  h5 = 'h5',
+  h6 = 'h6',
+  subheading1 = 'h6',
+  subheading2 = 'h6',
+  body1 = 'p',
+  body2 = 'p',
+}
+
 interface ITypography {
-  variant?: string;
+  variant?: TextVariant;
   color?: 'Primary' | 'Error';
   children: React.ReactNode;
   style?: StyleSheet;
@@ -44,7 +57,7 @@ const Text: React.FunctionComponent<ITypography> = ({
 };
 
 Text.defaultProps = {
-  variant: 'h1',
+  variant: TextVariant.h1,
   color: 'Primary',
 };
 
