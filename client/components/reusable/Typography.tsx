@@ -15,17 +15,18 @@ const variantsMapping = {
 };
 
 interface ITypography {
-  variant: string;
-  color: 'Primary' | 'Error';
+  variant?: string;
+  color?: 'Primary' | 'Error';
+  children: React.ReactNode;
+  style?: StyleSheet;
 }
 
-const Typography: React.FunctionComponent<ITypography> = ({
+const Text: React.FunctionComponent<ITypography> = ({
   variant,
   color,
   children,
-  ...props
+  style,
 }): JSX.Element => {
-    
   // @ts-ignore
   const Component = variant ? variantsMapping[variant] : 'p';
 
@@ -35,16 +36,16 @@ const Typography: React.FunctionComponent<ITypography> = ({
         [`typography--variant--${variant}`]: variant,
         [`typography--color--${color}`]: color,
       })}
-      {...props}
+      style
     >
       {children}
     </Component>
   );
 };
 
-Typography.defaultProps = {
+Text.defaultProps = {
   variant: 'h1',
   color: 'Primary',
 };
 
-export default Typography;
+export default Text;

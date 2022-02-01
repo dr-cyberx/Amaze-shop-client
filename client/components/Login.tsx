@@ -1,9 +1,10 @@
 import React from 'react';
+import Text from './reusable/Typography';
 
 const Login: React.FunctionComponent = (): JSX.Element => {
   return (
     <>
-      <h1>Login Page</h1>
+      <Text variant="h1">Login Page</Text>
     </>
   );
 };
