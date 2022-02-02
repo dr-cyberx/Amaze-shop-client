@@ -1,9 +1,10 @@
 import React from 'react';
+import Text, { TextVariant } from '@resusable/Typography';
 
 const Login: React.FunctionComponent = (): JSX.Element => {
   return (
     <>
-      <h1>Login Page</h1>
+      <Text variant={TextVariant.heading1} color='primary'>Login Page</Text>
     </>
   );
 };

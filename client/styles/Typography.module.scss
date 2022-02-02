@@ -1,53 +1,46 @@
 @import 'variable.scss';
 
 .typography {
-  &.--variant {
-    &.--h1 {
+  &__variant {
+    &__h1 {
       font-size: 6rem;
       font-weight: 500;
+      margin: 0px;
     }
-    &.--h2 {
+    &__h2 {
       font-size: 3.75rem;
       font-weight: 500;
+      margin: 0px;
     }
-    &.--h3 {
+    &__h3 {
       font-size: 3rem;
       font-weight: 500;
+      margin: 0px;
     }
-    &.--h4 {
+    &__h4 {
       font-size: 2.125rem;
       font-weight: 500;
+      margin: 0px;
     }
-    &.--h5 {
+    &__h5 {
       font-size: 1.5rem;
       font-weight: 500;
+      margin: 0px;
     }
-    &.--h6 {
+    &__h6 {
       font-size: 1.25rem;
       font-weight: 500;
-    }
-    &.--subheading1 {
-      font-size: 1rem;
-      font-weight: 500;
-    }
-    &.--subheading2 {
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-    &.--body1 {
-      font-size: 1rem;
-    }
-    &.--body2 {
-      font-size: 0.875rem;
-    }
-  }
-  &.--color {
-    &.--primary {
-      color: #f2994a;
+      margin: 0px;
     }
 
-    &.--error {
-      color: #eb5757;
+  }
+  &__color {
+    &__primary {
+      color: $text-primary;
+    }
+
+    &__error {
+      color: $color-danger;
     }
   }
 }
