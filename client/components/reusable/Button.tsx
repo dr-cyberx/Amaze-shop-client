@@ -18,11 +18,11 @@ export enum TypeButtonSize {
 
 interface iButton {
   btnType: TypeButton;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   label: string;
   disable: boolean;
-  loading: boolean;
+  loading?: boolean;
   size: TypeButtonSize;
 }
 
@@ -35,24 +35,24 @@ const Button: FunctionComponent<iButton> = ({
   loading,
   size,
 }): JSX.Element => {
-  const [variant, setVariant] = useState<TextVariant>(TextVariant.subheading1);
+  const [variant, setVariant] = useState<TextVariant>(TextVariant.heading1);
 
   useEffect(() => {
     setVariant(handleTextVariant(size));
   }, []);
 
-  const handleTextVariant = useMemo(
+  const handleTextVariant: (btnSize: TypeButtonSize) => TextVariant = useMemo(
     () =>
       (btnSize: TypeButtonSize): TextVariant => {
         switch (btnSize) {
           case TypeButtonSize.LARGE:
-            return TextVariant.h4;
+            return TextVariant.heading1;
           case TypeButtonSize.MEDIUM:
-            return TextVariant.h5;
-          case TypeButtonSize.LARGE:
-            return TextVariant.h6;
+            return TextVariant.heading2;
+          case TypeButtonSize.SMALL:
+            return TextVariant.heading3;
           default:
-            return TextVariant.h5;
+            return TextVariant.heading1;
         }
       },
     [size],
