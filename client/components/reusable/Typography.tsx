@@ -30,7 +30,7 @@ export enum TextVariant {
 
 interface ITypography {
   variant?: TextVariant;
-  color?: 'Primary' | 'Error';
+  color?: 'primary' | 'error';
   children: React.ReactNode;
   style?: StyleSheet;
 }
@@ -46,8 +46,8 @@ const Text: React.FunctionComponent<ITypography> = ({
 
   console.log(
     classnames({
-      [styles[`typography__variant__${variant}`]]: variant,
-      [styles[`typography__color__${color}`]]: color,
+      // [styles[`typography__variant__${variant}`]]: variant,
+      [styles[`typography__color__${color}`]]: true,
     }),
   );
 
@@ -66,7 +66,7 @@ const Text: React.FunctionComponent<ITypography> = ({
 
 Text.defaultProps = {
   variant: TextVariant.h1,
-  color: 'Primary',
+  color: 'primary',
 };
 
 export default Text;

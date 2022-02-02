@@ -41,13 +41,13 @@
       font-size: 0.875rem;
     }
   }
-  &.__color {
-    &.__primary {
-      color: var($text-primary);
+  &__color {
+    &__primary {
+      color: $text-primary;
     }
 
-    &.__error {
-      color: #eb5757;
+    &__error {
+      color: $color-danger;
     }
   }
 }
