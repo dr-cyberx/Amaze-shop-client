@@ -1,4 +1,32 @@
 @import 'variable.scss';
 
-.btn{
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-primary {
+    background: $color-primary;
+  }
+  &-secondary {
+    background: $color-white;
+  }
+
+  &-small {
+    width: 200px;
+    height: 50px;
+    font-size: 1rem;
+  }
+
+  &-medium {
+    width: 200px;
+    height: 50px;
+    font-size: 2rem;
+  }
+
+  &-large {
+    width: 200px;
+    height: 50px;
+    font-size: 3rem;
+  }
 }
