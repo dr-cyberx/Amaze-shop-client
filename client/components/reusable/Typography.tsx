@@ -44,13 +44,6 @@ const Text: React.FunctionComponent<ITypography> = ({
   // @ts-ignore
   const Component = variant ? variantsMapping[variant] : 'p';
 
-  console.log(
-    classnames({
-      // [styles[`typography__variant__${variant}`]]: variant,
-      [styles[`typography__color__${color}`]]: true,
-    }),
-  );
-
   return (
     <Component
       className={classnames({
