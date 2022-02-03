@@ -130,3 +130,6 @@ dist
 /.build/
 .build/
 .build
+
+server/node_modules/
+client/node_modules/

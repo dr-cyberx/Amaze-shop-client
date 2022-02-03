@@ -1,9 +1,12 @@
-import React, { FunctionComponent, ChangeEventHandler } from 'react';
+import React, { FunctionComponent, ChangeEventHandler, memo } from 'react';
+import classnames from 'classnames';
+import Text, { TextVariant } from '@resusable/Typography';
+import styles from '@styles/Input.module.scss';
 
 interface iInput {
   placeholder?: string;
   inputType?: 'text' | 'number' | 'password' | 'email' | 'tel';
-  size?: 'small' | 'medium' | 'large';
+  type?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   name: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -16,7 +19,7 @@ interface iInput {
 const Input: FunctionComponent<iInput> = ({
   placeholder,
   inputType,
-  size,
+  type,
   disabled,
   name,
   onChange,
@@ -27,13 +30,28 @@ const Input: FunctionComponent<iInput> = ({
 }): JSX.Element => {
   return (
     <>
-      <input
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={onChange}
-        type={inputType}
-      />
+      <div
+        className={classnames({
+          [styles[`input_wrapper`]]: true,
+          [styles[`input_wrapper_disable`]]: disabled,
+        })}
+      >
+        {label && <Text variant={TextVariant.heading4}>{label}</Text>}
+        <input
+          placeholder={placeholder}
+          name={name}
+          value={value}
+          onChange={onChange}
+          type={inputType}
+          className={classnames({
+            [styles[`input_wrapper__input`]]: true,
+            [styles[`input_wrapper__input__${type}`]]: true,
+            [styles[`input_wrapper__input__icon__${positionIcon}`]]:
+              positionIcon,
+            [styles[`input_wrapper__input__error__${error}`]]: error,
+          })}
+        />
+      </div>
     </>
   );
 };
@@ -41,7 +59,7 @@ const Input: FunctionComponent<iInput> = ({
 Input.defaultProps = {
   placeholder: 'Enter the value',
   inputType: 'text',
-  size: 'medium',
+  type: 'medium',
   disabled: false,
   name: 'email',
   onChange: (e) => console.log(e.target.value),
@@ -51,4 +69,4 @@ Input.defaultProps = {
   label: 'Email',
 };
 
-export default Input;
+export default memo(Input);
