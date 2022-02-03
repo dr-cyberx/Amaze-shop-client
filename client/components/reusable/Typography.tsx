@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties, memo } from 'react';
 import classnames from 'classnames';
 import styles from '@styles/Typography.module.scss';
 
@@ -22,9 +22,9 @@ export enum TextVariant {
 
 interface ITypography {
   variant?: TextVariant;
-  color?: 'primary' | 'error';
+  color?: 'primary' | 'secondary' | 'error';
   children: React.ReactNode;
-  style?: StyleSheet;
+  style?: CSSProperties;
 }
 
 const Text: React.FunctionComponent<ITypography> = ({
@@ -41,7 +41,6 @@ const Text: React.FunctionComponent<ITypography> = ({
     <Component
       className={classnames({
         [styles[`typography__variant__${variant}`]]: variant,
-        [styles[`typography__color__${color}`]]: color,
       })}
       style={style}
     >
@@ -55,4 +54,4 @@ Text.defaultProps = {
   color: 'primary',
 };
 
-export default Text;
+export default memo(Text);

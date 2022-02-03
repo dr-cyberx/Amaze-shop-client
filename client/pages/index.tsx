@@ -5,6 +5,7 @@ import Text, { TextVariant } from '@components/reusable/Typography';
 import Button, {
   TypeButton,
   TypeButtonSize,
+  TypeTextColor,
 } from '@components/reusable/Button';
 import styles from '@styles/Home.module.css';
 
@@ -15,11 +16,67 @@ const Home: NextPage = () => {
         Home Page
       </Text>
       <Button
-        btnType={TypeButton.Primary}
+        btnType={TypeButton.PRIMARY}
         onClick={() => console.log('clicked')}
         label="Click Me"
         disable={false}
-        size={TypeButtonSize.SMALL}
+        size={TypeButtonSize.MEDIUM}
+      />
+      <br/>
+      <Button
+        btnType={TypeButton.PRIMARY_DANGER}
+        onClick={() => console.log('clicked')}
+        label="Click Me"
+        disable={false}
+        size={TypeButtonSize.MEDIUM}
+      />
+      <br/>
+      <Button
+        btnType={TypeButton.PRIMARY_INACTIVE}
+        onClick={() => console.log('clicked')}
+        label="Click Me"
+        disable={false}
+        size={TypeButtonSize.MEDIUM}
+      />
+      <br/>
+      <Button
+        btnType={TypeButton.PRIMARY_SUCCESS}
+        onClick={() => console.log('clicked')}
+        label="Click Me"
+        disable={false}
+        size={TypeButtonSize.MEDIUM}
+      />
+      <br/>
+      <Button
+        btnType={TypeButton.SECONDARY}
+        onClick={() => console.log('clicked')}
+        label="Click Me"
+        disable={false}
+        size={TypeButtonSize.MEDIUM}
+      />
+      <br/>
+      <Button
+        btnType={TypeButton.SECONDARY_DANGER}
+        onClick={() => console.log('clicked')}
+        label="Click Me"
+        disable={false}
+        size={TypeButtonSize.MEDIUM}
+      />
+      <br/>
+      <Button
+        btnType={TypeButton.SECONDARY_INACTIVE}
+        onClick={() => console.log('clicked')}
+        label="Click Me"
+        disable={false}
+        size={TypeButtonSize.MEDIUM}
+      />
+      <br/>
+      <Button
+        btnType={TypeButton.SECONDARY_SUCCESS}
+        onClick={() => console.log('clicked')}
+        label="Click Me"
+        disable={false}
+        size={TypeButtonSize.MEDIUM}
       />
     </div>
   );

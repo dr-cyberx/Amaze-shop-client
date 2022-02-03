@@ -1,32 +1,104 @@
 @import 'variable.scss';
 
+@mixin primary($color) {
+  background: $color;
+  color: $text-secondary;
+  border: 1px solid $color;
+  border-radius: 3px;
+  &:active{
+    opacity: 0.8;
+  }
+}
+
+@mixin secondary($color) {
+  background: $color-white;
+  color: $color;
+  border: 1px solid $color;
+  border-radius: 3px;
+  transition: background 0.1s ease-in-out;
+    &:hover{
+      background-color: $color;
+      color: $color-white;
+    }
+      &:active{
+          opacity: 0.8;
+      }
+}
+
 .btn {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   &-primary {
-    background: $color-primary;
+    border: 1px solid $color-primary;
+    border-radius: 3px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+      &-active {
+       @include primary($color: $color-primary)
+      }
+
+      &-inactive {
+        @include primary($color: $color-disable)
+      }
+
+      &-success {
+        @include primary($color: $color-success)
+      }
+
+      &-danger {
+        @include primary($color: $color-danger)
+      }
+      
   }
+
   &-secondary {
     background: $color-white;
+    border-radius: 3px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    &-active {
+      @include secondary($color: $color-primary  )
+     }
+
+     &-inactive {
+       @include secondary($color: $color-disable  )
+     }
+
+     &-success {
+       @include secondary($color: $color-success  )
+     }
+
+     &-danger {
+       @include secondary($color: $color-danger  )
+     }
   }
 
   &-small {
-    width: 200px;
-    height: 50px;
+    min-width: 140px;
+    height: 35px;
     font-size: 1rem;
   }
 
   &-medium {
-    width: 200px;
+    min-width: 180px;
     height: 50px;
     font-size: 2rem;
   }
 
   &-large {
-    width: 200px;
+    min-width: 200px;
     height: 50px;
     font-size: 3rem;
+  }
+
+  &-textColor-primary{
+      color: $text-primary;
+  }
+
+  &-textColor-secondary{
+    color: $text-secondary;
   }
 }
