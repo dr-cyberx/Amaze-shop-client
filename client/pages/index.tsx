@@ -16,67 +16,11 @@ const Home: NextPage = () => {
         Home Page
       </Text>
       <Button
-        btnType={TypeButton.PRIMARY}
-        onClick={() => console.log('clicked')}
-        label="Click Me"
-        disable={false}
-        size={TypeButtonSize.MEDIUM}
-      />
-      <br/>
-      <Button
-        btnType={TypeButton.PRIMARY_DANGER}
-        onClick={() => console.log('clicked')}
-        label="Click Me"
-        disable={false}
-        size={TypeButtonSize.MEDIUM}
-      />
-      <br/>
-      <Button
-        btnType={TypeButton.PRIMARY_INACTIVE}
-        onClick={() => console.log('clicked')}
-        label="Click Me"
-        disable={false}
-        size={TypeButtonSize.MEDIUM}
-      />
-      <br/>
-      <Button
         btnType={TypeButton.PRIMARY_SUCCESS}
         onClick={() => console.log('clicked')}
         label="Click Me"
         disable={false}
-        size={TypeButtonSize.MEDIUM}
-      />
-      <br/>
-      <Button
-        btnType={TypeButton.SECONDARY}
-        onClick={() => console.log('clicked')}
-        label="Click Me"
-        disable={false}
-        size={TypeButtonSize.MEDIUM}
-      />
-      <br/>
-      <Button
-        btnType={TypeButton.SECONDARY_DANGER}
-        onClick={() => console.log('clicked')}
-        label="Click Me"
-        disable={false}
-        size={TypeButtonSize.MEDIUM}
-      />
-      <br/>
-      <Button
-        btnType={TypeButton.SECONDARY_INACTIVE}
-        onClick={() => console.log('clicked')}
-        label="Click Me"
-        disable={false}
-        size={TypeButtonSize.MEDIUM}
-      />
-      <br/>
-      <Button
-        btnType={TypeButton.SECONDARY_SUCCESS}
-        onClick={() => console.log('clicked')}
-        label="Click Me"
-        disable={false}
-        size={TypeButtonSize.MEDIUM}
+        size={TypeButtonSize.LARGE}
       />
     </div>
   );
