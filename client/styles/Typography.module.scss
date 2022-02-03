@@ -1,6 +1,7 @@
 @import 'variable.scss';
 
 .typography {
+  color: inherit;
   &__variant {
     &__h1 {
       font-size: 3.5rem;
@@ -33,19 +34,5 @@
       margin: 0px;
     }
 
-  }
-  &__color {
-    
-    &__primary {
-      color: $text-primary;
-    }
-
-    &__secondary {
-      color: $text-secondary;
-    }
-
-    &__error {
-      color: $color-danger;
-    }
   }
 }

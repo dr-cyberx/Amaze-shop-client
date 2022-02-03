@@ -1,13 +1,19 @@
-import React, { FunctionComponent, useEffect, useState, useMemo } from 'react';
+import React, { FunctionComponent, useEffect, useState, useMemo, memo } from 'react';
 import classnames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
 import Text, { TextVariant } from './Typography';
 import styles from '@styles/Button.module.scss';
 
 export enum TypeButton {
-  Primary = 'primary',
-  Secondary = 'secondary',
+  PRIMARY = 'primary-active',
+  PRIMARY_INACTIVE = 'primary-inactive',
+  PRIMARY_SUCCESS = 'primary-success',
+  PRIMARY_DANGER = 'primary-danger',
+  SECONDARY = 'secondary-active',
+  SECONDARY_INACTIVE = 'secondary-inactive',
+  SECONDARY_SUCCESS = 'secondary-success',
+  SECONDARY_DANGER = 'secondary-danger',
 }
 
 export enum TypeButtonSize {
@@ -24,7 +30,6 @@ export enum TypeTextColor {
 interface iButton {
   btnType: TypeButton;
   icon?: React.ReactNode;
-  TextColor?: TypeTextColor;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   label: string;
   disable: boolean;
@@ -36,7 +41,6 @@ const Button: FunctionComponent<iButton> = ({
   btnType,
   icon,
   onClick,
-  TextColor,
   label,
   disable,
   loading,
@@ -72,13 +76,13 @@ const Button: FunctionComponent<iButton> = ({
           [styles['btn']]: true,
           [styles[`btn-${btnType}`]]: true,
           [styles[`btn-${size}`]]: true,
-          [styles[`btn-textColor-${TextColor}`]]: true,
+          // [styles[`btn-textColor-${TextColor}`]]: true,
         })}
         onClick={onClick}
       >
-        {icon && icon}
-        <Text variant={variant} color={TextColor} style={{ marginLeft: '5px' }}>
-          {label}
+        {loading ? <FontAwesomeIcon icon={faHourglassHalf} /> : icon && icon}
+        <Text variant={variant} style={{ marginLeft: '5px' }}>
+          {loading ? 'loading...' : label}
         </Text>
       </button>
     </>
@@ -86,14 +90,13 @@ const Button: FunctionComponent<iButton> = ({
 };
 
 Button.defaultProps = {
-  btnType: TypeButton.Secondary,
+  btnType: TypeButton.PRIMARY,
   icon: <FontAwesomeIcon icon={faPlus} />,
-  TextColor: TypeTextColor.PRIMARY,
   onClick: () => console.log('hello'),
   label: 'submit',
   disable: false,
-  loading: false,
+  loading: true,
   size: TypeButtonSize.LARGE,
 };
 
-export default Button;
+export default memo(Button);

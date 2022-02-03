@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, memo } from 'react';
 import classnames from 'classnames';
 import styles from '@styles/Typography.module.scss';
 
@@ -41,7 +41,6 @@ const Text: React.FunctionComponent<ITypography> = ({
     <Component
       className={classnames({
         [styles[`typography__variant__${variant}`]]: variant,
-        [styles[`typography__color__${color}`]]: color,
       })}
       style={style}
     >
@@ -55,4 +54,4 @@ Text.defaultProps = {
   color: 'primary',
 };
 
-export default Text;
+export default memo(Text);
