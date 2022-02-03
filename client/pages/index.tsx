@@ -1,12 +1,10 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
 import Text, { TextVariant } from '@components/reusable/Typography';
 import Button, {
   TypeButton,
   TypeButtonSize,
-  TypeTextColor,
 } from '@components/reusable/Button';
+import Input from '@resusable/Input';
 import styles from '@styles/Home.module.css';
 
 const Home: NextPage = () => {
@@ -15,6 +13,12 @@ const Home: NextPage = () => {
       <Text variant={TextVariant.heading1} color="primary">
         Home Page
       </Text>
+      <br/>
+      <br/>
+      <Input />
+      <br/>
+      <br/>
+      <br/>
       <Button
         btnType={TypeButton.PRIMARY_SUCCESS}
         onClick={() => console.log('clicked')}
