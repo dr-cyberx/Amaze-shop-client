@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Head from 'next/head';
 
 interface IMetaData {
@@ -16,4 +16,4 @@ const MetaData: React.FunctionComponent<IMetaData> = ({
   );
 };
 
-export default MetaData;
+export default memo(MetaData);
