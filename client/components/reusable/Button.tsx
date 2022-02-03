@@ -77,7 +77,9 @@ const Button: FunctionComponent<iButton> = ({
         onClick={onClick}
       >
         {icon && icon}
-        <Text variant={variant} color={TextColor}>{label}</Text>
+        <Text variant={variant} color={TextColor} style={{ marginLeft: '5px' }}>
+          {label}
+        </Text>
       </button>
     </>
   );

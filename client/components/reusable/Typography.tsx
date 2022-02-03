@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import classnames from 'classnames';
 import styles from '@styles/Typography.module.scss';
 
@@ -24,7 +24,7 @@ interface ITypography {
   variant?: TextVariant;
   color?: 'primary' | 'secondary' | 'error';
   children: React.ReactNode;
-  style?: StyleSheet;
+  style?: CSSProperties;
 }
 
 const Text: React.FunctionComponent<ITypography> = ({
