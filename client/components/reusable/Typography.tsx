@@ -22,7 +22,7 @@ export enum TextVariant {
 
 interface ITypography {
   variant?: TextVariant;
-  color?: 'primary' | 'error';
+  color?: 'primary' | 'secondary' | 'error';
   children: React.ReactNode;
   style?: StyleSheet;
 }

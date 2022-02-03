@@ -4,6 +4,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  &:active{
+    background-color: $color-primary-active;
+  }
 
   &-primary {
     background: $color-primary;
@@ -13,20 +21,28 @@
   }
 
   &-small {
-    width: 200px;
+    min-width: 160px;
     height: 50px;
     font-size: 1rem;
   }
 
   &-medium {
-    width: 200px;
+    min-width: 200px;
     height: 50px;
     font-size: 2rem;
   }
 
   &-large {
-    width: 200px;
+    min-width: 220px;
     height: 50px;
     font-size: 3rem;
+  }
+
+  &-textColor-primary{
+      color: $text-primary;
+  }
+
+  &-textColor-secondary{
+    color: $text-secondary;
   }
 }

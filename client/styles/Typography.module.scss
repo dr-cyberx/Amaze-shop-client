@@ -35,8 +35,13 @@
 
   }
   &__color {
+    
     &__primary {
       color: $text-primary;
+    }
+
+    &__secondary {
+      color: $text-secondary;
     }
 
     &__error {
