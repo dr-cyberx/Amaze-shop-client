@@ -1,7 +1,19 @@
-import React, { FunctionComponent, useEffect, useState, useMemo, memo } from 'react';
+import React, {
+  FunctionComponent,
+  useEffect,
+  useState,
+  useMemo,
+  memo,
+  CSSProperties,
+  cloneElement,
+} from 'react';
 import classnames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHourglassHalf,
+  faPlug,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import Text, { TextVariant } from './Typography';
 import styles from '@styles/Button.module.scss';
 
@@ -29,12 +41,14 @@ export enum TypeTextColor {
 
 interface iButton {
   btnType: TypeButton;
-  icon?: React.ReactNode;
+  icon?: React.ReactElement;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   label: string;
   disable: boolean;
   loading?: boolean;
   size: TypeButtonSize;
+  style?: CSSProperties;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const Button: FunctionComponent<iButton> = ({
@@ -45,6 +59,8 @@ const Button: FunctionComponent<iButton> = ({
   disable,
   loading,
   size,
+  style,
+  type,
 }): JSX.Element => {
   const [variant, setVariant] = useState<TextVariant>(TextVariant.heading6);
 
@@ -61,7 +77,7 @@ const Button: FunctionComponent<iButton> = ({
           case TypeButtonSize.MEDIUM:
             return TextVariant.heading4;
           case TypeButtonSize.SMALL:
-            return TextVariant.heading6;
+            return TextVariant.heading5;
           default:
             return TextVariant.heading4;
         }
@@ -76,14 +92,21 @@ const Button: FunctionComponent<iButton> = ({
           [styles['btn']]: true,
           [styles[`btn-${btnType}`]]: true,
           [styles[`btn-${size}`]]: true,
-          // [styles[`btn-textColor-${TextColor}`]]: true,
         })}
         onClick={onClick}
+        style={style}
+        type={type ? type : 'submit'}
       >
-        {loading ? <FontAwesomeIcon icon={faHourglassHalf} /> : icon && icon}
-        <Text variant={variant} style={{ marginLeft: '5px' }}>
-          {loading ? 'loading...' : label}
-        </Text>
+        {loading ? (
+          <FontAwesomeIcon
+            icon={faHourglassHalf}
+            size={'xs'}
+            style={{ marginRight: '6px' }}
+          />
+        ) : (
+          icon && cloneElement(icon, { style: { marginRight: '6px' } })
+        )}
+        <Text variant={variant}>{loading ? 'loading...' : label}</Text>
       </button>
     </>
   );
@@ -91,11 +114,11 @@ const Button: FunctionComponent<iButton> = ({
 
 Button.defaultProps = {
   btnType: TypeButton.PRIMARY,
-  icon: <FontAwesomeIcon icon={faPlus} />,
+  // icon: <FontAwesomeIcon icon={faPlus} size={'xs'} />,
   onClick: () => console.log('hello'),
   label: 'submit',
   disable: false,
-  loading: true,
+  loading: false,
   size: TypeButtonSize.LARGE,
 };
 

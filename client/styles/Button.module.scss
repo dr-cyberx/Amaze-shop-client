@@ -5,6 +5,10 @@
   color: $text-secondary;
   border: 1px solid $color;
   border-radius: 3px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  &:hover{
+    opacity: 0.9;
+  }
   &:active{
     opacity: 0.8;
   }
@@ -34,7 +38,6 @@
   &-primary {
     border: 1px solid $color-primary;
     border-radius: 3px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
       &-active {
        @include primary($color: $color-primary)
@@ -78,20 +81,23 @@
 
   &-small {
     min-width: 140px;
-    height: 35px;
-    font-size: 1rem;
+    height: 30px;
+    font-size: 1.5rem;
+    padding: 20px 10px;
   }
 
   &-medium {
     min-width: 180px;
     height: 50px;
-    font-size: 2rem;
+    font-size: 1.8rem;
+    padding: 25px 15px;
   }
 
   &-large {
     min-width: 200px;
     height: 50px;
-    font-size: 3rem;
+    font-size: 2.2rem;
+    padding: 30px 20px;
   }
 
   &-textColor-primary{
