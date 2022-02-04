@@ -1,12 +1,23 @@
-import React, { FunctionComponent, ChangeEventHandler, memo } from 'react'
+import React, {
+  FunctionComponent,
+  ChangeEventHandler,
+  memo,
+  CSSProperties,
+} from 'react'
 import classnames from 'classnames'
 import Text, { TextVariant } from '@resusable/Typography'
 import styles from '@styles/Input.module.scss'
 
+export enum TypeInput {
+  SMALL = 'small',
+  MEDIUM = 'medium',
+  LARGE = 'large',
+}
+
 interface iInput {
   placeholder?: string
   inputType?: 'text' | 'number' | 'password' | 'email' | 'tel'
-  type?: 'small' | 'medium' | 'large'
+  type?: TypeInput
   disabled?: boolean
   name: string
   onChange: ChangeEventHandler<HTMLInputElement>
@@ -14,6 +25,7 @@ interface iInput {
   positionIcon?: 'left' | 'right'
   error?: boolean
   label?: string
+  style?: CSSProperties
 }
 
 const Input: FunctionComponent<iInput> = ({
@@ -27,6 +39,7 @@ const Input: FunctionComponent<iInput> = ({
   positionIcon,
   error,
   label,
+  style,
 }): JSX.Element => {
   return (
     <>
@@ -39,11 +52,11 @@ const Input: FunctionComponent<iInput> = ({
         {label && (
           <Text
             variant={
-              type === 'small'
+              type === TypeInput.SMALL
                 ? TextVariant.heading5
-                : type === 'medium'
+                : type === TypeInput.MEDIUM
                 ? TextVariant.heading4
-                : type === 'large'
+                : type === TypeInput.LARGE
                 ? TextVariant.heading3
                 : TextVariant.heading5
             }
@@ -52,6 +65,7 @@ const Input: FunctionComponent<iInput> = ({
           </Text>
         )}
         <input
+          style={{ ...style, marginTop: label && '7px' }}
           placeholder={placeholder}
           name={name}
           value={value}
@@ -73,7 +87,7 @@ const Input: FunctionComponent<iInput> = ({
 Input.defaultProps = {
   placeholder: 'Enter the value',
   inputType: 'text',
-  type: 'large',
+  type: TypeInput.MEDIUM,
   disabled: false,
   name: 'email',
   onChange: (e) => console.log(e.target.value),
