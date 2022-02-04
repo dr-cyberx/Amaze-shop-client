@@ -15,7 +15,6 @@ const Home: NextPage = () => {
       </Text>
       <br/>
       <br/>
-      <Input />
       <br/>
       <br/>
       <br/>
