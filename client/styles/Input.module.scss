@@ -1,5 +1,31 @@
 @import 'variable.scss';
 
-.input_wrapper{
-    border: 2px solid red;
+.input_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+  color: $text-secondary;
+  &__input {
+    outline: none;
+    width: 100%;
+    border-radius: 3px;
+    color: inherit;
+    border: 1px solid $text-secondary-active;
+    &:focus {
+      border: 1px solid $color-primary;
+    }
+    &__small {
+      padding: 7px;
+      font-size: 1rem;
+    }
+    &__medium {
+      font-size: 1.5rem;
+      padding: 7px;
+    }
+    &__large {
+      font-size: 2rem;
+      padding: 7px;
+    }
+  }
 }
