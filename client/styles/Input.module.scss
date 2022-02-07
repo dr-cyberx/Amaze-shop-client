@@ -12,6 +12,7 @@
     border-radius: 3px;
     color: inherit;
     border: 1px solid $text-secondary-active;
+    transition: border 0.2s ease-in-out;
     &:focus {
       border: 1px solid $color-primary;
     }
