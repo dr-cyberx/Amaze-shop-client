@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@components/*":["./components/*"],
-      "@resusable/*":["./components/reusable/*"],
+      "@reusable/*":["./components/reusable/*"],
       "@styles/*": ["./styles/*"],
       "@pages/*": ["./pages/*"],
       "@graphql-doc/*": ["./graphql-docs/*"]

@@ -6,16 +6,12 @@ import React, {
   memo,
   CSSProperties,
   cloneElement,
-} from 'react';
-import classnames from 'classnames';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faHourglassHalf,
-  faPlug,
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons';
-import Text, { TextVariant } from './Typography';
-import styles from '@styles/Button.module.scss';
+} from 'react'
+import classnames from 'classnames'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons'
+import Text, { TextVariant } from './Typography'
+import styles from '@styles/Button.module.scss'
 
 export enum TypeButton {
   PRIMARY = 'primary-active',
@@ -40,15 +36,15 @@ export enum TypeTextColor {
 }
 
 interface iButton {
-  btnType: TypeButton;
-  icon?: React.ReactElement;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  label: string;
-  disable: boolean;
-  loading?: boolean;
-  size: TypeButtonSize;
-  style?: CSSProperties;
-  type?: 'button' | 'submit' | 'reset';
+  btnType: TypeButton
+  icon?: React.ReactElement
+  onClick: React.MouseEventHandler<HTMLButtonElement>
+  label: string
+  // disable?: boolean
+  loading?: boolean
+  size: TypeButtonSize
+  style?: CSSProperties
+  type?: 'button' | 'submit' | 'reset'
 }
 
 const Button: FunctionComponent<iButton> = ({
@@ -56,34 +52,34 @@ const Button: FunctionComponent<iButton> = ({
   icon,
   onClick,
   label,
-  disable,
+  // disable,
   loading,
   size,
   style,
   type,
 }): JSX.Element => {
-  const [variant, setVariant] = useState<TextVariant>(TextVariant.heading6);
+  const [variant, setVariant] = useState<TextVariant>(TextVariant.heading6)
 
   useEffect(() => {
-    setVariant(handleTextVariant(size));
-  }, [size]);
+    setVariant(handleTextVariant(size))
+  }, [size])
 
   const handleTextVariant: (btnSize: TypeButtonSize) => TextVariant = useMemo(
     () =>
       (btnSize: TypeButtonSize): TextVariant => {
         switch (btnSize) {
           case TypeButtonSize.LARGE:
-            return TextVariant.heading3;
+            return TextVariant.heading3
           case TypeButtonSize.MEDIUM:
-            return TextVariant.heading4;
+            return TextVariant.heading4
           case TypeButtonSize.SMALL:
-            return TextVariant.heading5;
+            return TextVariant.heading5
           default:
-            return TextVariant.heading4;
+            return TextVariant.heading4
         }
       },
-    [size],
-  );
+    [size]
+  )
 
   return (
     <>
@@ -109,17 +105,17 @@ const Button: FunctionComponent<iButton> = ({
         <Text variant={variant}>{loading ? 'loading...' : label}</Text>
       </button>
     </>
-  );
-};
+  )
+}
 
 Button.defaultProps = {
   btnType: TypeButton.PRIMARY,
   // icon: <FontAwesomeIcon icon={faPlus} size={'xs'} />,
   onClick: () => console.log('hello'),
   label: 'submit',
-  disable: false,
+  // disable: false,
   loading: false,
   size: TypeButtonSize.LARGE,
-};
+}
 
-export default memo(Button);
+export default memo(Button)
