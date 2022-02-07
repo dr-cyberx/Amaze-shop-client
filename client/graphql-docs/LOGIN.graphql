@@ -1,0 +1,26 @@
+mutation Login(
+  $userName: String
+  $password: String
+  $email: String
+  $phoneNumber: String
+) {
+  login(
+    userName: $userName
+    email: $email
+    phoneNumber: $phoneNumber
+    password: $password
+  ) {
+    data {
+      id
+      email
+      password
+      phoneNumber
+      role
+      userName
+    }
+    error
+    message
+    status
+    token
+  }
+}
