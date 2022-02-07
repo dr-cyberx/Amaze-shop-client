@@ -1,12 +1,8 @@
-import React, {
-  FunctionComponent,
-  ChangeEventHandler,
-  memo,
-  CSSProperties,
-} from 'react'
-import classnames from 'classnames'
-import Text, { TextVariant } from '@resusable/Typography'
-import styles from '@styles/Input.module.scss'
+import React, { FunctionComponent, memo, CSSProperties } from 'react';
+import { useController } from 'react-hook-form';
+import classnames from 'classnames';
+import Text, { TextVariant } from '@reusable/Typography';
+import styles from '@styles/Input.module.scss';
 
 export enum TypeInput {
   SMALL = 'small',
@@ -15,17 +11,17 @@ export enum TypeInput {
 }
 
 interface iInput {
-  placeholder?: string
-  inputType?: 'text' | 'number' | 'password' | 'email' | 'tel'
-  type?: TypeInput
-  disabled?: boolean
-  name: string
-  onChange: ChangeEventHandler<HTMLInputElement>
-  value: string
-  positionIcon?: 'left' | 'right'
-  error?: boolean
-  label?: string
-  style?: CSSProperties
+  placeholder?: string;
+  inputType?: 'text' | 'number' | 'password' | 'email' | 'tel';
+  type?: TypeInput;
+  disabled?: boolean;
+  name: string;
+  positionIcon?: 'left' | 'right';
+  error?: boolean;
+  label?: string;
+  style?: CSSProperties;
+  control: any;
+  rules: any;
 }
 
 const Input: FunctionComponent<iInput> = ({
@@ -34,13 +30,21 @@ const Input: FunctionComponent<iInput> = ({
   type,
   disabled,
   name,
-  onChange,
-  value,
   positionIcon,
   error,
   label,
   style,
+  control,
+  rules,
 }): JSX.Element => {
+  const {
+    field: { onChange, value },
+    fieldState,
+  } = useController({
+    name,
+    control,
+    rules,
+  });
   return (
     <>
       <div
@@ -76,13 +80,14 @@ const Input: FunctionComponent<iInput> = ({
             [styles[`input_wrapper__input__${type}`]]: true,
             [styles[`input_wrapper__input__icon__${positionIcon}`]]:
               positionIcon,
-            [styles[`input_wrapper__input__error__${error}`]]: error,
+            [styles[`input_wrapper__input__error__${error}`]]:
+              (fieldState && fieldState.invalid) || error,
           })}
         />
       </div>
     </>
-  )
-}
+  );
+};
 
 Input.defaultProps = {
   placeholder: 'Enter the value',
@@ -90,11 +95,9 @@ Input.defaultProps = {
   type: TypeInput.MEDIUM,
   disabled: false,
   name: 'email',
-  onChange: (e) => console.log(e.target.value),
-  value: '',
   positionIcon: 'left',
   error: false,
   label: 'Email',
-}
+};
 
-export default memo(Input)
+export default memo(Input);

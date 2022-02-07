@@ -38,7 +38,7 @@ export enum TypeTextColor {
 interface iButton {
   btnType: TypeButton
   icon?: React.ReactElement
-  onClick: React.MouseEventHandler<HTMLButtonElement>
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
   label: string
   // disable?: boolean
   loading?: boolean
@@ -111,7 +111,7 @@ const Button: FunctionComponent<iButton> = ({
 Button.defaultProps = {
   btnType: TypeButton.PRIMARY,
   // icon: <FontAwesomeIcon icon={faPlus} size={'xs'} />,
-  onClick: () => console.log('hello'),
+  onClick: () => null,
   label: 'submit',
   // disable: false,
   loading: false,
