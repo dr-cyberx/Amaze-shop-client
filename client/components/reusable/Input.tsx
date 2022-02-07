@@ -71,7 +71,6 @@ const Input: FunctionComponent<iInput> = ({
         <input
           style={{ ...style, marginTop: label && '7px' }}
           placeholder={placeholder}
-          name={name}
           value={value}
           onChange={onChange}
           type={inputType}
@@ -94,7 +93,7 @@ Input.defaultProps = {
   inputType: 'text',
   type: TypeInput.MEDIUM,
   disabled: false,
-  name: 'email',
+  name: '',
   positionIcon: 'left',
   error: false,
   label: 'Email',
