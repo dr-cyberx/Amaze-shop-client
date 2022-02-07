@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import Input from '@reusable/Input';
 import Button, { TypeButton, TypeButtonSize } from './reusable/Button';
 import Text, { TextVariant } from './reusable/Typography';
@@ -11,9 +11,9 @@ type TypeFormDataLogin = {
 };
 
 const Login: React.FunctionComponent = (): JSX.Element => {
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control } = useForm<TypeFormDataLogin>();
 
-  const onSubmit = (data: TypeFormDataLogin) => {
+  const onSubmit: SubmitHandler<TypeFormDataLogin> = (data) => {
     console.log(data);
   };
 
