@@ -18,9 +18,17 @@ export const delFromDB = async (
 
 export const UpdateToDB = async (
   modelName: typeof User,
-  Id: mongoose.Types.ObjectId,
+  Id: string | any,
+  fields: any,
+  shouldNew: boolean = true,
 ) => {
-  const res: any = await modelName.findByIdAndUpdate(Id);
+  const res: any = await modelName.findByIdAndUpdate(
+    Id,
+    { ...fields },
+    {
+      new: shouldNew,
+    },
+  );
   return res?._doc;
 };
 

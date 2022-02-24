@@ -1,7 +1,4 @@
-import {
-  IGetAllData,
-  IauthResolver,
-} from '../../types/authType';
+import { IGetAllData, IauthResolver, IVerifiedResponse } from '../../types/authType';
 import { SingleuserType } from '../../types/userType';
 
 export const authResponse = (
@@ -15,6 +12,16 @@ export const authResponse = (
   token,
   error,
   status,
+  message,
+});
+
+export const verifiedResponse = (
+  message: string,
+  status: number = 400,
+  verified: boolean = false,
+): IVerifiedResponse => ({
+  status,
+  verified,
   message,
 });
 

@@ -21,3 +21,15 @@ export interface ISignup extends SingleuserType {
 export interface IauthResolver extends signUpUserInterface {
   token: string | undefined;
 }
+
+export interface IisValidUser {
+  isValid: boolean;
+  data?: any;
+  userId: string | null;
+}
+
+export interface IVerifiedResponse {
+  status: number;
+  verified: boolean;
+  message: string;
+}

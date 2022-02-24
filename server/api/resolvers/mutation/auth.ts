@@ -20,8 +20,8 @@ const authMutations = {
   },
 
   verifyNumber: async (_parents: any, args: any, { token }: any) => {
-    console.log(args);
     const verifiedRespose = await VerifyNumber(args, token);
+    console.log('verifiedRespose', verifiedRespose);
     return verifiedRespose;
   },
   verifyEmail: async () => 'hello',

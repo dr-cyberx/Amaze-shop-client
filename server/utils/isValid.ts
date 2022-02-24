@@ -1,24 +1,24 @@
 import { verify } from 'jsonwebtoken';
 import User from '../db/models/User';
+import { IisValidUser } from '../types/authType';
 import { findFromDB } from './shared';
 
 const isValidUser = async (
-  cb: any,
-  token: any,
+  cb: any = null,
+  token: any = '',
   ...rest: any
-): Promise<{
-  isValid: boolean;
-  data: any;
-  userId: string | null;
-}> => {
+): Promise<IisValidUser> => {
   try {
     const userDetail: any = await verify(token, `${process.env.JWT_SECRET}`);
     const isUserExist: any = await findFromDB(User, 'One', {
       email: userDetail?.userEmail,
     });
     if (isUserExist?.email || isUserExist?.phoneNumber) {
-      const res = await cb(...rest);
-      return { isValid: true, data: res, userId: isUserExist.id };
+      if (cb) {
+        const res = await cb(...rest);
+        return { isValid: true, data: res, userId: isUserExist.id };
+      }
+      return { isValid: true, userId: isUserExist.id };
     }
     return { isValid: false, data: null, userId: null };
   } catch (error) {

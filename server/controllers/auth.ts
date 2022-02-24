@@ -2,9 +2,10 @@ import { sign } from 'jsonwebtoken';
 import { hash, compare } from 'bcrypt';
 import { SingleuserType } from '../types/userType';
 import User from '../db/models/User';
-import { addToDB, findFromDB } from '../utils/shared';
-import { authResponse } from '../utils/shared/responses';
-import { IauthResolver } from '../types/authType';
+import { addToDB, findFromDB, UpdateToDB } from '../utils/shared';
+import { authResponse, verifiedResponse } from '../utils/shared/responses';
+import { IauthResolver, IVerifiedResponse } from '../types/authType';
+import isValidUser from '../utils/isValid';
 
 export const SignUp = async (args: SingleuserType): Promise<IauthResolver> => {
   try {
@@ -65,7 +66,15 @@ export const Login = async (args: SingleuserType): Promise<IauthResolver> => {
 export const VerifyNumber = async (
   args: { phoneNumber: string },
   token: string,
-) => {
-  // const res =
-  console.log('controller funtioon -> ', args, 'token ---> ', token);
+): Promise<IVerifiedResponse> => {
+  try {
+    const { isValid, userId } = await isValidUser(null, token);
+    if (isValid) {
+      await UpdateToDB(User, userId, { isPhoneVerified: true }, true);
+      return verifiedResponse('Phone number verified successfully!', 200, true);
+    }
+    return verifiedResponse('Invalid User!');
+  } catch (error) {
+    return verifiedResponse('Something went wrong!');
+  }
 };
