@@ -78,3 +78,19 @@ export const VerifyNumber = async (
     return verifiedResponse('Something went wrong!');
   }
 };
+
+export const VerifyEmail = async (
+  args: { phoneNumber: string },
+  token: string,
+): Promise<IVerifiedResponse> => {
+  try {
+    const { isValid, userId } = await isValidUser(null, token);
+    if (isValid) {
+      await UpdateToDB(User, userId, { isEmailVerified: true }, true);
+      return verifiedResponse('Email verified successfully!', 200, true);
+    }
+    return verifiedResponse('Invalid User!');
+  } catch (error) {
+    return verifiedResponse('Something went wrong!');
+  }
+};
