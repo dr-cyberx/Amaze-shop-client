@@ -23,6 +23,7 @@ type verifyResponse{
   message: String
 }
 `;
+
 export const verifyContacts: String = `
  verifyNumber(phoneNumber: String): verifyResponse
  verifyEmail(email: String): verifyResponse`;

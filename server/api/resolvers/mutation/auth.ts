@@ -1,5 +1,5 @@
 import { Login, SignUp, VerifyNumber } from '../../../controllers/auth';
-import { IauthResolver } from '../../../types/authType';
+import { IauthResolver, IVerifiedResponse } from '../../../types/authType';
 import { SingleuserType } from '../../../types/userType';
 
 const authMutations = {
@@ -19,9 +19,12 @@ const authMutations = {
     return User;
   },
 
-  verifyNumber: async (_parents: any, args: any, { token }: any) => {
-    const verifiedRespose = await VerifyNumber(args, token);
-    console.log('verifiedRespose', verifiedRespose);
+  verifyNumber: async (
+    _parents: any,
+    args: any,
+    { token }: any,
+  ): Promise<IVerifiedResponse> => {
+    const verifiedRespose: IVerifiedResponse = await VerifyNumber(args, token);
     return verifiedRespose;
   },
   verifyEmail: async () => 'hello',
