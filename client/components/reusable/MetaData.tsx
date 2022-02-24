@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import Head from 'next/head';
 
 interface IMetaData {
-  title: String;
+  title: string;
 }
 
 const MetaData: React.FunctionComponent<IMetaData> = ({

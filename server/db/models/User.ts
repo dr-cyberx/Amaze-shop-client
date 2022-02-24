@@ -24,6 +24,16 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    isPhoneVerified: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    isEmailVerified: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     address: [
       {
         houseNumber: {

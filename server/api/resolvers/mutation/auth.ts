@@ -1,4 +1,4 @@
-import { Login, SignUp } from '../../../controllers/auth';
+import { Login, SignUp, VerifyNumber } from '../../../controllers/auth';
 import { IauthResolver } from '../../../types/authType';
 import { SingleuserType } from '../../../types/userType';
 
@@ -18,6 +18,13 @@ const authMutations = {
     const User: IauthResolver = await Login(args);
     return User;
   },
+
+  verifyNumber: async (_parents: any, args: any, { token }: any) => {
+    console.log(args);
+    const verifiedRespose = await VerifyNumber(args, token);
+    return verifiedRespose;
+  },
+  verifyEmail: async () => 'hello',
 };
 
 export default authMutations;

@@ -15,3 +15,7 @@ type authResponse{
    message: String
  }
 `;
+
+export const verifyContacts: String = `
+ verifyNumber(phoneNumber: String): authResponse
+ verifyEmail(email: String): authResponse`;

@@ -61,3 +61,11 @@ export const Login = async (args: SingleuserType): Promise<IauthResolver> => {
     return authResponse(`failed to Logged in ${error}`);
   }
 };
+
+export const VerifyNumber = async (
+  args: { phoneNumber: string },
+  token: string,
+) => {
+  // const res =
+  console.log('controller funtioon -> ', args, 'token ---> ', token);
+};

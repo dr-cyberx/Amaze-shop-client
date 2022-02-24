@@ -33,6 +33,7 @@
       "graphql": "^16.2.0",
       "jsonwebtoken": "^8.5.1",
       "mongoose": "^6.1.5",
-      "react-hook-form": "^7.25.3"
+      "react-hook-form": "^7.25.3",
+      "twilio": "^3.75.0"
    }
 }

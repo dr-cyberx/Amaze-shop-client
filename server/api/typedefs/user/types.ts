@@ -2,6 +2,8 @@ export const newUser: string = `  type newUser{
    id: ID!
    userName: String
    email: String
+   isPhoneVerified: Boolean
+   isEmailVerified: Boolean
    password: String
    phoneNumber: String
    role:String
