@@ -16,6 +16,13 @@ type authResponse{
  }
 `;
 
+export const verifyResponse: string = `
+type verifyResponse{
+  status: Int!
+  verified: Boolean!
+  message: String
+}
+`;
 export const verifyContacts: String = `
- verifyNumber(phoneNumber: String): authResponse
- verifyEmail(email: String): authResponse`;
+ verifyNumber(phoneNumber: String): verifyResponse
+ verifyEmail(email: String): verifyResponse`;

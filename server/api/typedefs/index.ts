@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-express';
 import { DocumentNode } from 'graphql';
 import {
-  Login, signUp, authResponse, verifyContacts,
+  Login, signUp, authResponse, verifyContacts, verifyResponse,
 } from './auth/index';
 import { createProduct } from './Product/query';
 import { createProductInput, createProductResponse } from './Product/types';
@@ -20,6 +20,7 @@ const TypeDefs: DocumentNode = gql`
   ${authResponse}
   ${createProductInput}
   ${createProductResponse}
+  ${verifyResponse}
 
   type Mutation{
     ${Login}
