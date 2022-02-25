@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
 import Modal, { TypeModal } from './reusable/modal';
-import styles from '@styles/Register.module.scss';
-import Input from './reusable/Input';
+import Input, { TypeInput } from './reusable/Input';
 import { useForm } from 'react-hook-form';
 import Switch from 'react-switch';
 import { useMutation } from '@apollo/client';
-// import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
+import {
+  faEnvelope,
+  faKey,
+  faPhone,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
+import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
 import Button, { TypeButton, TypeButtonSize } from './reusable/Button';
 import Checkbox from './reusable/checkbox';
+import styles from '@styles/Register.module.scss';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 export type SignUpInputType = {
   name: string;
   label: string;
   inputType: 'number' | 'email' | 'password' | 'text' | 'tel' | undefined;
   placeholder: string;
+  icon: IconProp;
 };
 
 const inputFields: Array<SignUpInputType> = [
@@ -22,24 +30,28 @@ const inputFields: Array<SignUpInputType> = [
     label: 'Email',
     inputType: 'email',
     placeholder: 'Enter your email',
+    icon: faEnvelope,
   },
   {
     name: 'password',
     label: 'Password',
     inputType: 'password',
     placeholder: 'Enter your password',
+    icon: faKey,
   },
   {
     name: 'phoneNumber',
     label: 'Phone number',
     inputType: 'number',
     placeholder: 'Enter your phone no.',
+    icon: faPhone,
   },
   {
     name: 'userName',
     label: 'Username',
     inputType: 'text',
     placeholder: 'Enter your usernames',
+    icon: faUser,
   },
 ];
 
@@ -53,15 +65,21 @@ type TypeFormDataRegister = {
 const Register: React.FunctionComponent = (): JSX.Element => {
   const { handleSubmit, control } = useForm<TypeFormDataRegister>();
   const [userRole, setUserRole] = useState<boolean>(false);
-  // const [] = useMutation();
+  const [registerUser, { data, error, loading }] = useMutation(REGISTER_USER);
 
-  const onSubmit = (data: TypeFormDataRegister): void => {
+  const onSubmit = async (data: TypeFormDataRegister): Promise<void> => {
     const FinalRegisterData = {
       ...data,
-      userRole: userRole ? 'Buyer' : 'Seller',
+      userRole: !userRole ? 'Buyer' : 'Seller',
     };
 
-    console.log('final register data --> ', FinalRegisterData);
+    const res = await registerUser({
+      variables: {
+        ...FinalRegisterData,
+      },
+    });
+
+    console.log('api register data --> ', res);
 
     return;
   };
@@ -77,6 +95,7 @@ const Register: React.FunctionComponent = (): JSX.Element => {
             <Input
               key={d.name}
               name={d.name}
+              iconLeft={d.icon}
               label={d.label}
               inputType={d.inputType}
               rules={{ required: true }}
@@ -92,6 +111,7 @@ const Register: React.FunctionComponent = (): JSX.Element => {
           <Button
             btnType={TypeButton.PRIMARY}
             label="Login"
+            loading={loading}
             size={TypeButtonSize.MEDIUM}
             type="submit"
           />

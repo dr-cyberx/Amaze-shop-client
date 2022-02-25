@@ -22,7 +22,10 @@ const Checkbox: React.FunctionComponent<iCheckbox> = ({
       <Switch
         onChange={(checked: boolean) => setState(checked)}
         checked={state}
+        onColor={'#00aeff'}
         name="role"
+        checkedIcon={false}
+        uncheckedIcon={false}
       />
     </div>
   );
