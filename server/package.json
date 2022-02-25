@@ -33,7 +33,10 @@
       "graphql": "^16.2.0",
       "jsonwebtoken": "^8.5.1",
       "mongoose": "^6.1.5",
+      "nodemailer": "^6.7.2",
       "react-hook-form": "^7.25.3",
+      "sib-api-v3-sdk": "^8.2.1",
+      "sib-api-v3-typescript": "^2.2.2",
       "twilio": "^3.75.0"
    }
 }
