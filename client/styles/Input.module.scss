@@ -5,13 +5,21 @@
   flex-direction: column;
   justify-content: space-between;
   height: auto;
-  color: $text-secondary;
+  color: inherit;
+  position: relative;
+  .input_front_icon{
+    border: 2px solid red;
+    position: absolute;
+    top: 58%;
+    left: 7px;
+  }
   &__input {
     outline: none;
     width: 100%;
     border-radius: 3px;
     color: inherit;
     border: 1px solid $text-secondary-active;
+    // padding-left: 34px;
     transition: border 0.2s ease-in-out;
     &:focus {
       border: 1px solid $color-primary;
