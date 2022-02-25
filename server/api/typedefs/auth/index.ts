@@ -3,7 +3,7 @@ login(userName: String, email: String, phoneNumber: String, password: String) : 
 `;
 
 export const signUp: String = `
-signUp(userName: String, email: String, phoneNumber: String, password: String!, Role: userRole) : authResponse!
+signUp(userName: String, email: String, phoneNumber: String, password: String!, role: userRole) : authResponse!
 `;
 
 export const authResponse: String = `

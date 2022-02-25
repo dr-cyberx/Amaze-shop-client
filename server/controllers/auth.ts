@@ -10,7 +10,9 @@ import sendOtp from '../utils/sendOtp';
 
 export const SignUp = async (args: SingleuserType): Promise<IauthResolver> => {
   try {
-    const isUserExist: any = await findFromDB(User, 'One', args?.email);
+    const isUserExist: any = await findFromDB(User, 'One', {
+      email: args?.email,
+    });
     if (!isUserExist?.email) {
       const password: string = await hash(args?.password, 12);
       const user: Promise<SingleuserType> | any = await addToDB(User, {

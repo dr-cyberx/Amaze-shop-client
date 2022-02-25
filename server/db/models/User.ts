@@ -13,7 +13,6 @@ const userSchema = new Schema(
     role: {
       type: String,
       enum: ['BUYER', 'SELLER'],
-      default: 'BUYER',
       required: true,
     },
     password: {
