@@ -2,7 +2,7 @@ import React, { FunctionComponent, memo, CSSProperties } from 'react';
 import { useController } from 'react-hook-form';
 import classnames from 'classnames';
 import Text, { TextVariant } from '@reusable/Typography';
-import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import styles from '@styles/Input.module.scss';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -50,6 +50,7 @@ const Input: FunctionComponent<iInput> = ({
     control,
     rules,
   });
+
   return (
     <>
       <div
@@ -62,7 +63,7 @@ const Input: FunctionComponent<iInput> = ({
           <div className={styles.input_front_icon}>
             <FontAwesomeIcon
               icon={iconLeft}
-              size={'1x'}
+              size={'lg'}
               style={{ marginRight: '6px' }}
             />
           </div>
@@ -73,7 +74,7 @@ const Input: FunctionComponent<iInput> = ({
               type === TypeInput.SMALL
                 ? TextVariant.heading5
                 : type === TypeInput.MEDIUM
-                ? TextVariant.heading4
+                ? TextVariant.heading5
                 : type === TypeInput.LARGE
                 ? TextVariant.heading3
                 : TextVariant.heading5
@@ -83,7 +84,11 @@ const Input: FunctionComponent<iInput> = ({
           </Text>
         )}
         <input
-          style={{ ...style, marginTop: label && '7px', paddingLeft: icon }}
+          style={{
+            ...style,
+            marginTop: label && '7px',
+            paddingLeft: iconLeft ? '40px' : 'inherit',
+          }}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -97,22 +102,13 @@ const Input: FunctionComponent<iInput> = ({
               (fieldState && fieldState.invalid) || error,
           })}
         />
-        {/* {icon && (
-          <div>
-            <FontAwesomeIcon
-              icon={faHourglassHalf}
-              size={'xs'}
-              style={{ marginRight: '6px' }}
-            />
-          </div>
-        )} */}
       </div>
     </>
   );
 };
 
 Input.defaultProps = {
-  placeholder: 'Enter the value',
+  placeholder: '',
   inputType: 'text',
   type: TypeInput.MEDIUM,
   disabled: false,
@@ -120,7 +116,7 @@ Input.defaultProps = {
   positionIcon: 'left',
   error: false,
   label: 'Email',
-  iconLeft: faEye
+  iconLeft: faEye,
 };
 
 export default memo(Input);

@@ -8,7 +8,21 @@ body {
     Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
     Helvetica Neue, sans-serif;
 }
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(182, 182, 182);
+  opacity: 1; /* Firefox */
+}
 
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: rgb(182, 182, 182);
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: rgb(182, 182, 182);
+}
 a {
   color: inherit;
   text-decoration: none;

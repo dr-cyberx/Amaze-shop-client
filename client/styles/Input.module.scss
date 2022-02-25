@@ -7,11 +7,11 @@
   height: auto;
   color: inherit;
   position: relative;
-  .input_front_icon{
-    border: 2px solid red;
+  .input_front_icon {
     position: absolute;
-    top: 58%;
-    left: 7px;
+    top: 54%;
+    left: 12px;
+    cursor: pointer;
   }
   &__input {
     outline: none;
@@ -26,11 +26,11 @@
     }
     &__small {
       padding: 7px;
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
     &__medium {
-      font-size: 1.5rem;
-      padding: 7px;
+      font-size: 1.3rem;
+      padding: 9px;
     }
     &__large {
       font-size: 2rem;
