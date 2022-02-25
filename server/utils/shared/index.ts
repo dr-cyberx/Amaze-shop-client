@@ -3,7 +3,10 @@ import mongoose from 'mongoose';
 import User from '../../db/models/User';
 import { SingleuserType } from '../../types/userType';
 
-export const addToDB = async (modelName: typeof User, args: SingleuserType) => {
+export const addToDB = async (
+  modelName: typeof User,
+  args: SingleuserType,
+): Promise<any> => {
   const res: any = await new modelName(args).save();
   return res;
 };
@@ -11,7 +14,7 @@ export const addToDB = async (modelName: typeof User, args: SingleuserType) => {
 export const delFromDB = async (
   modelName: typeof User,
   Id: mongoose.Types.ObjectId,
-) => {
+): Promise<any> => {
   const res: any = await modelName.findByIdAndRemove(Id);
   return res?._doc;
 };
@@ -21,7 +24,7 @@ export const UpdateToDB = async (
   Id: string | any,
   fields: any,
   shouldNew: boolean = true,
-) => {
+): Promise<any> => {
   const res: any = await modelName.findByIdAndUpdate(
     Id,
     { ...fields },

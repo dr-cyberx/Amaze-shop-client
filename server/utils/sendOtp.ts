@@ -1,11 +1,4 @@
-// const accountSid = process.env.TWILLIO_ACCOUNT_SID;
-// const authToken = process.env.TWILLIO_AUTH_TOKEN;
 const Twilio = require('twilio');
-
-// const client = require('twilio')(
-//   process.env.TWILLIO_ACCOUNT_SID,
-//   process.env.TWILLIO_AUTH_TOKEN,
-// );
 
 const sendOtp = async (phoneNumber: number): Promise<string | null> => {
   try {
