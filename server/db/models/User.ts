@@ -34,6 +34,10 @@ const userSchema = new Schema(
       required: false,
       default: false,
     },
+    otp: {
+      type: String,
+      required: false,
+    },
     address: [
       {
         houseNumber: {

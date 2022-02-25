@@ -10,4 +10,5 @@ export interface SingleuserType {
   phoneNumber: String;
   role?: String;
   address?: { houseNumber: String; city: String; street: String }[];
+  otp?: string;
 }

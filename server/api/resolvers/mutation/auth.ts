@@ -1,5 +1,9 @@
 import {
-  Login, SignUp, VerifyEmail, VerifyNumber,
+  Login,
+  SignUp,
+  VerifyEmail,
+  SendOtpNumber,
+  VerifyOtpNumber,
 } from '../../../controllers/auth';
 import { IauthResolver, IVerifiedResponse } from '../../../types/authType';
 import { SingleuserType } from '../../../types/userType';
@@ -21,13 +25,25 @@ const authMutations = {
     return User;
   },
 
-  verifyNumber: async (
+  sendOtpNumber: async (
     _parents: any,
     args: any,
     { token }: any,
   ): Promise<IVerifiedResponse> => {
-    const verifiedRespose: IVerifiedResponse = await VerifyNumber(args, token);
+    const verifiedRespose: IVerifiedResponse = await SendOtpNumber(args, token);
     return verifiedRespose;
+  },
+
+  verifyOtpNumber: async (
+    _parents: any,
+    args: any,
+    { token }: any,
+  ): Promise<IVerifiedResponse> => {
+    const verifiedNumberResponse: IVerifiedResponse = await VerifyOtpNumber(
+      args,
+      token,
+    );
+    return verifiedNumberResponse;
   },
 
   verifyEmail: async (

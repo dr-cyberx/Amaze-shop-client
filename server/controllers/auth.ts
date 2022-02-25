@@ -6,6 +6,7 @@ import { addToDB, findFromDB, UpdateToDB } from '../utils/shared';
 import { authResponse, verifiedResponse } from '../utils/shared/responses';
 import { IauthResolver, IVerifiedResponse } from '../types/authType';
 import isValidUser from '../utils/isValid';
+import sendOtp from '../utils/sendOtp';
 
 export const SignUp = async (args: SingleuserType): Promise<IauthResolver> => {
   try {
@@ -63,24 +64,49 @@ export const Login = async (args: SingleuserType): Promise<IauthResolver> => {
   }
 };
 
-export const VerifyNumber = async (
+export const SendOtpNumber = async (
   args: { phoneNumber: string },
   token: string,
 ): Promise<IVerifiedResponse> => {
   try {
-    const { isValid, userId } = await isValidUser(null, token);
+    const { isValid, userId, data } = await isValidUser(null, token);
     if (isValid) {
-      await UpdateToDB(User, userId, { isPhoneVerified: true }, true);
-      return verifiedResponse('Phone number verified successfully!', 200, true);
+      const otp = await sendOtp(data.phoneNumber);
+      if (otp) {
+        await UpdateToDB(User, userId, { otp }, true);
+        return verifiedResponse('Otp sent successfully!');
+      }
+      return verifiedResponse('Sending Otp failed !');
     }
     return verifiedResponse('Invalid User!');
+  } catch (error) {
+    return verifiedResponse(`Something went wrong! ${error}`);
+  }
+};
+
+export const VerifyOtpNumber = async (
+  args: { otp: string },
+  token: string,
+): Promise<any> => {
+  try {
+    const { isValid, userId } = await isValidUser(null, token);
+    if (isValid) {
+      const foundUser: any | SingleuserType = await findFromDB(User, 'One', {
+        id: userId,
+      });
+      if (foundUser?.otp === args.otp) {
+        return verifiedResponse('Phone number verified Successfully!');
+      }
+      return verifiedResponse('Phone enter correct otp!');
+    }
+    return verifiedResponse('Invalid user!');
   } catch (error) {
     return verifiedResponse('Something went wrong!');
   }
 };
 
 export const VerifyEmail = async (
-  args: { phoneNumber: string },
+  args: { email: string; otp: number },
   token: string,
 ): Promise<IVerifiedResponse> => {
   try {
