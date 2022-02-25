@@ -3,23 +3,25 @@
 .modal_container {
   height: 100vh;
   width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  &__child {
+  &__child{
 
-    
     &__small {
-      min-height: 200px;
-      max-height: 200px;
+      min-height: auto;
+      min-width: auto;
     }
 
     &__medium {
-      min-height: 350px;
-      max-height: 350px;
+      min-height: auto;
+      min-width: auto;
     }
 
     &__large {
-      min-height: 500px;
-      max-height: 500px;
+      min-height: auto;
+      min-width: auto;
     }
   }
 }

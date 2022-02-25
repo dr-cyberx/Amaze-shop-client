@@ -23,7 +23,8 @@ const Modal: React.FunctionComponent<iModal> = ({
     <div className={styles.modal_container}>
       <div
         className={classnames({
-          [`modal_container__child__${type}`]: true,
+          [styles[`modal_container__child`]]: true,
+          [styles[`modal_container__child__${type}`]]: true,
         })}
         style={style}
       >

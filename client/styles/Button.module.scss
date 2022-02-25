@@ -82,21 +82,22 @@
   }
 
   &-small {
-    min-width: 140px;
+    min-width: 100%;
     height: 30px;
     font-size: 1.5rem;
     padding: 20px 10px;
   }
 
   &-medium {
-    min-width: 180px;
+    min-width: 100%;
     height: 50px;
     font-size: 1.8rem;
     padding: 25px 15px;
   }
 
   &-large {
-    min-width: 200px;
+    min-width: 100%;
+
     height: 50px;
     font-size: 2.2rem;
     padding: 30px 20px;

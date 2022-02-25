@@ -5,8 +5,9 @@ import Input from './reusable/Input';
 import { useForm } from 'react-hook-form';
 import Switch from 'react-switch';
 import { useMutation } from '@apollo/client';
-// import REGISTER_USER from '@graphql-doc/REGISTER'
+// import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
 import Button, { TypeButton, TypeButtonSize } from './reusable/Button';
+import Checkbox from './reusable/checkbox';
 
 export type SignUpInputType = {
   name: string;
@@ -60,13 +61,18 @@ const Register: React.FunctionComponent = (): JSX.Element => {
       userRole: userRole ? 'Buyer' : 'Seller',
     };
 
+    console.log('final register data --> ', FinalRegisterData);
+
     return;
   };
 
   return (
     <div className={styles.register_container}>
       <Modal type={TypeModal.MEDIUM}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className={styles.register_form}
+        >
           {inputFields.map((d: SignUpInputType) => (
             <Input
               key={d.name}
@@ -78,10 +84,10 @@ const Register: React.FunctionComponent = (): JSX.Element => {
               placeholder={d.placeholder}
             />
           ))}
-          <Switch
-            onChange={(checked: boolean) => setUserRole(checked)}
-            checked={userRole}
-            name="role"
+          <Checkbox
+            label="Want to Create Seller account ?"
+            setState={setUserRole}
+            state={userRole}
           />
           <Button
             btnType={TypeButton.PRIMARY}

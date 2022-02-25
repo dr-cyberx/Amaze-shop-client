@@ -2,7 +2,10 @@ import React, { FunctionComponent, memo, CSSProperties } from 'react';
 import { useController } from 'react-hook-form';
 import classnames from 'classnames';
 import Text, { TextVariant } from '@reusable/Typography';
+import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import styles from '@styles/Input.module.scss';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 export enum TypeInput {
   SMALL = 'small',
@@ -22,6 +25,7 @@ interface iInput {
   style?: CSSProperties;
   control: any;
   rules: any;
+  iconLeft?: IconProp;
 }
 
 const Input: FunctionComponent<iInput> = ({
@@ -36,6 +40,7 @@ const Input: FunctionComponent<iInput> = ({
   style,
   control,
   rules,
+  iconLeft,
 }): JSX.Element => {
   const {
     field: { onChange, value },
@@ -53,6 +58,15 @@ const Input: FunctionComponent<iInput> = ({
           [styles[`input_wrapper_disable`]]: disabled,
         })}
       >
+        {iconLeft && (
+          <div className={styles.input_front_icon}>
+            <FontAwesomeIcon
+              icon={iconLeft}
+              size={'1x'}
+              style={{ marginRight: '6px' }}
+            />
+          </div>
+        )}
         {label && (
           <Text
             variant={
@@ -69,7 +83,7 @@ const Input: FunctionComponent<iInput> = ({
           </Text>
         )}
         <input
-          style={{ ...style, marginTop: label && '7px' }}
+          style={{ ...style, marginTop: label && '7px', paddingLeft: icon }}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -83,6 +97,15 @@ const Input: FunctionComponent<iInput> = ({
               (fieldState && fieldState.invalid) || error,
           })}
         />
+        {/* {icon && (
+          <div>
+            <FontAwesomeIcon
+              icon={faHourglassHalf}
+              size={'xs'}
+              style={{ marginRight: '6px' }}
+            />
+          </div>
+        )} */}
       </div>
     </>
   );
@@ -97,6 +120,7 @@ Input.defaultProps = {
   positionIcon: 'left',
   error: false,
   label: 'Email',
+  iconLeft: faEye
 };
 
 export default memo(Input);
