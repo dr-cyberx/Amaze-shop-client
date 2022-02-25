@@ -1,12 +1,18 @@
 // const accountSid = process.env.TWILLIO_ACCOUNT_SID;
 // const authToken = process.env.TWILLIO_AUTH_TOKEN;
-const client = require('twilio')(
-  'AC95f351d2bdff3e4060d39c391b1d6894',
-  '4f9eed297e6d62e1950d0582c401f1cc',
-);
+const Twilio = require('twilio');
+
+// const client = require('twilio')(
+//   process.env.TWILLIO_ACCOUNT_SID,
+//   process.env.TWILLIO_AUTH_TOKEN,
+// );
 
 const sendOtp = async (phoneNumber: number): Promise<string | null> => {
   try {
+    const client = Twilio(
+      process.env.TWILLIO_ACCOUNT_SID,
+      process.env.TWILLIO_AUTH_TOKEN,
+    );
     const OTP: number = Math.floor(1000 + Math.random() * 9000);
     await client.messages
       .create({
@@ -14,7 +20,6 @@ const sendOtp = async (phoneNumber: number): Promise<string | null> => {
         messagingServiceSid: process.env.MESSAGING_SERVICE,
         to: `91${phoneNumber}`,
       })
-      .then((message: any) => console.log(message.sid))
       .done();
     return `${OTP}`;
   } catch (error: any) {

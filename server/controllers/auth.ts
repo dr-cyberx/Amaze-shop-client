@@ -87,7 +87,7 @@ export const SendOtpNumber = async (
 export const VerifyOtpNumber = async (
   args: { otp: string },
   token: string,
-): Promise<any> => {
+): Promise<IVerifiedResponse> => {
   try {
     const { isValid, userId } = await isValidUser(null, token);
     if (isValid) {
