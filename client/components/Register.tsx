@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, ReactNode, memo } from 'react';
 import Modal, { TypeModal } from './reusable/modal';
-import Input, { TypeInput } from './reusable/Input';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useForm } from 'react-hook-form';
-import Switch from 'react-switch';
-import { useMutation } from '@apollo/client';
+import { FetchResult, useMutation } from '@apollo/client';
 import {
   faEnvelope,
   faKey,
@@ -11,10 +10,10 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
-import Button, { TypeButton, TypeButtonSize } from './reusable/Button';
-import Checkbox from './reusable/checkbox';
+import Input from '@reusable/Input';
+import Button, { TypeButton, TypeButtonSize } from '@reusable/Button';
+import Checkbox from '@reusable/checkbox';
 import styles from '@styles/Register.module.scss';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 export type SignUpInputType = {
   name: string;
@@ -68,12 +67,12 @@ const Register: React.FunctionComponent = (): JSX.Element => {
   const [registerUser, { data, error, loading }] = useMutation(REGISTER_USER);
 
   const onSubmit = async (data: TypeFormDataRegister): Promise<void> => {
-    const FinalRegisterData = {
+    const FinalRegisterData: TypeFormDataRegister & { role: string } = {
       ...data,
-      userRole: !userRole ? 'Buyer' : 'Seller',
+      role: !userRole ? 'BUYER' : 'SELLER',
     };
 
-    const res = await registerUser({
+    const res: FetchResult<any> = await registerUser({
       variables: {
         ...FinalRegisterData,
       },
@@ -91,18 +90,20 @@ const Register: React.FunctionComponent = (): JSX.Element => {
           onSubmit={handleSubmit(onSubmit)}
           className={styles.register_form}
         >
-          {inputFields.map((d: SignUpInputType) => (
-            <Input
-              key={d.name}
-              name={d.name}
-              iconLeft={d.icon}
-              label={d.label}
-              inputType={d.inputType}
-              rules={{ required: true }}
-              control={control}
-              placeholder={d.placeholder}
-            />
-          ))}
+          {inputFields.map(
+            (d: SignUpInputType): ReactNode => (
+              <Input
+                key={d.name}
+                name={d.name}
+                iconLeft={d.icon}
+                label={d.label}
+                inputType={d.inputType}
+                rules={{ required: true }}
+                control={control}
+                placeholder={d.placeholder}
+              />
+            )
+          )}
           <Checkbox
             label="Want to Create Seller account ?"
             setState={setUserRole}
@@ -121,4 +122,4 @@ const Register: React.FunctionComponent = (): JSX.Element => {
   );
 };
 
-export default Register;
+export default memo(Register);
