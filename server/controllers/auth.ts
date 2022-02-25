@@ -74,7 +74,7 @@ export const SendOtpNumber = async (
       const otp = await sendOtp(data.phoneNumber);
       if (otp) {
         await UpdateToDB(User, userId, { otp }, true);
-        return verifiedResponse('Otp sent successfully!');
+        return verifiedResponse('Otp sent successfully!', 200);
       }
       return verifiedResponse('Sending Otp failed !');
     }
@@ -95,7 +95,12 @@ export const VerifyOtpNumber = async (
         id: userId,
       });
       if (foundUser?.otp === args.otp) {
-        return verifiedResponse('Phone number verified Successfully!');
+        await UpdateToDB(User, userId, { isPhoneVerified: true });
+        return verifiedResponse(
+          'Phone number verified Successfully!',
+          200,
+          true,
+        );
       }
       return verifiedResponse('Phone enter correct otp!');
     }
