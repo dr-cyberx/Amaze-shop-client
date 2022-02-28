@@ -141,16 +141,22 @@ export const SendOtpEmail = async (
 };
 
 export const VerifyEmail = async (
-  args: { email: string; otp: number },
+  args: { otp: number },
   token: string,
 ): Promise<IVerifiedResponse> => {
   try {
     const { isValid, userId } = await isValidUser(null, token);
     if (isValid) {
-      await UpdateToDB(User, userId, { isEmailVerified: true }, true);
-      return verifiedResponse('Email verified successfully!', 200, true);
+      const foundUser: any | SingleuserType = await findFromDB(User, 'One', {
+        id: userId,
+      });
+      if (foundUser?.otp === args.otp) {
+        await UpdateToDB(User, userId, { isEmailVerified: true });
+        return verifiedResponse('Email verified Successfully!', 200, true);
+      }
+      return verifiedResponse('Phone enter correct otp!');
     }
-    return verifiedResponse('Invalid User!');
+    return verifiedResponse('Invalid user!');
   } catch (error) {
     return verifiedResponse('Something went wrong!');
   }

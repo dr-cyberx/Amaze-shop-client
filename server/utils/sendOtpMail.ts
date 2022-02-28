@@ -1,10 +1,10 @@
 const nodemailer = require('nodemailer');
 
-const sendMailOtp = (to: string) => {
+const sendMailOtp = async (to: string): Promise<string | null> => {
   try {
     const OTP: number = Math.floor(1000 + Math.random() * 9000);
 
-    const transporter = nodemailer.createTransport({
+    const transporter = await nodemailer.createTransport({
       port: 465, // true for 465, false for other ports
       host: 'smtp.gmail.com',
       auth: {
@@ -22,7 +22,7 @@ const sendMailOtp = (to: string) => {
       html: `<br>Otp for verifying you email ${OTP}<br/>`,
     };
 
-    transporter.sendMail(mailData);
+    await transporter.sendMail(mailData);
     return `${OTP}`;
   } catch (error) {
     console.log(error);
