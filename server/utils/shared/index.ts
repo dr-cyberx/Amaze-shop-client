@@ -1,6 +1,7 @@
 /* eslint-disable new-cap */
 import mongoose from 'mongoose';
 import User from '../../db/models/User';
+import { TypeProduct } from '../../types/ProductType';
 import { SingleuserType } from '../../types/userType';
 
 export const addToDB = async (
@@ -39,7 +40,7 @@ export const findFromDB = async (
   modelName: typeof User,
   filter: 'All' | 'One',
   otherCreds?: any,
-): Promise<any[] | SingleuserType | SingleuserType[]> => {
+): Promise<any[] | SingleuserType | SingleuserType[] | TypeProduct[]> => {
   if (filter === 'All') {
     const res: Promise<SingleuserType[]> | any[] | null = await modelName.find(
       {},

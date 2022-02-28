@@ -2,7 +2,7 @@ import Product from '../db/models/Product';
 import { IGetAllData } from '../types/authType';
 import { Type_Create_Update_Product } from '../types/ProductType';
 import isValidUser from '../utils/isValid';
-import { addToDB, UpdateToDB } from '../utils/shared';
+import { addToDB, findFromDB, UpdateToDB } from '../utils/shared';
 import { amazeResponse } from '../utils/shared/responses';
 
 export const CreateProduct = async (
@@ -52,6 +52,19 @@ export const UpdateProduct = async (
   } catch (error) {
     console.log(error);
     return amazeResponse('something went wrong!', null, true, 401);
+  }
+};
+
+export const GetAllProducts = async (token: any) => {
+  try {
+    const { isValid } = await isValidUser(null, token);
+    if (isValid) {
+      const res: any = await findFromDB(Product, 'All');
+      return amazeResponse('fetched all user successfully', res, false, 200);
+    }
+    return amazeResponse('Invalid user!');
+  } catch (error: any) {
+    return amazeResponse('something went wrong!');
   }
 };
 
