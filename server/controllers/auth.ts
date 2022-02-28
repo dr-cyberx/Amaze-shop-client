@@ -7,6 +7,7 @@ import { authResponse, verifiedResponse } from '../utils/shared/responses';
 import { IauthResolver, IVerifiedResponse } from '../types/authType';
 import isValidUser from '../utils/isValid';
 import sendOtp from '../utils/sendOtp';
+import sendOtpMail from '../utils/sendOtpMail';
 
 export const SignUp = async (args: SingleuserType): Promise<IauthResolver> => {
   try {
@@ -109,6 +110,26 @@ export const VerifyOtpNumber = async (
     return verifiedResponse('Invalid user!');
   } catch (error) {
     return verifiedResponse('Something went wrong!');
+  }
+};
+
+export const SendOtpEmail = async (
+  args: { phoneNumber: string },
+  token: string,
+): Promise<IVerifiedResponse> => {
+  try {
+    const { isValid, userId, data } = await isValidUser(null, token);
+    if (isValid) {
+      const otp = await sendOtpMail(data.email);
+      if (otp) {
+        await UpdateToDB(User, userId, { otp }, true);
+        return verifiedResponse('Otp sent successfully!', 200);
+      }
+      return verifiedResponse('Sending Otp failed !');
+    }
+    return verifiedResponse('Invalid User!');
+  } catch (error) {
+    return verifiedResponse(`Something went wrong! ${error}`);
   }
 };
 
