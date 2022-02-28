@@ -4,7 +4,11 @@ import { SingleuserType } from '../types/userType';
 import User from '../db/models/User';
 import { addToDB, findFromDB, UpdateToDB } from '../utils/shared';
 import { authResponse, verifiedResponse } from '../utils/shared/responses';
-import { IauthResolver, IVerifiedResponse } from '../types/authType';
+import {
+  IauthResolver,
+  IisValidUser,
+  IVerifiedResponse,
+} from '../types/authType';
 import isValidUser from '../utils/isValid';
 import sendOtp from '../utils/sendOtp';
 import sendOtpMail from '../utils/sendOtpMail';
@@ -114,13 +118,16 @@ export const VerifyOtpNumber = async (
 };
 
 export const SendOtpEmail = async (
-  args: { phoneNumber: string },
+  args: { email: string },
   token: string,
 ): Promise<IVerifiedResponse> => {
   try {
-    const { isValid, userId, data } = await isValidUser(null, token);
+    const { isValid, userId, data }: IisValidUser = await isValidUser(
+      null,
+      token,
+    );
     if (isValid) {
-      const otp = await sendOtpMail(data.email);
+      const otp: string | null = await sendOtpMail(data.email);
       if (otp) {
         await UpdateToDB(User, userId, { otp }, true);
         return verifiedResponse('Otp sent successfully!', 200);

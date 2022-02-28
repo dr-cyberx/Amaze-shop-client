@@ -299,6 +299,14 @@
   resolved "https://registry.yarnpkg.com/@josephg/resolvable/-/resolvable-1.0.1.tgz#69bc4db754d79e1a2f17a650d3466e038d94a5eb"
   integrity sha512-CtzORUwWTTOTqfVtHaKRJ0I1kNQd1bpn3sUh8I3nJDVY+5/M/Oe1DnEWzPQvqq/xPIIkzzzIP7mfCoAjFRvDhg==
 
+"@mailchimp/mailchimp_marketing@^3.0.74":
+  version "3.0.74"
+  resolved "https://registry.yarnpkg.com/@mailchimp/mailchimp_marketing/-/mailchimp_marketing-3.0.74.tgz#0ba72dd53594ac0331191d34836b8b0600ed289a"
+  integrity sha512-039iu4GRr7wpXqweBLuS05wvOBtPxSa31cjxgftBYSt7031f0sHEi8Up2DicfbSuQK0AynPDeVyuxrb31Lx+yQ==
+  dependencies:
+    dotenv "^8.2.0"
+    superagent "3.8.1"
+
 "@mapbox/node-pre-gyp@^1.0.0":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.8.tgz#32abc8a5c624bc4e46c43d84dfb8b26d33a96f58"
@@ -923,6 +931,13 @@ aws4@^1.8.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
+
+axios@^0.21.0:
+  version "0.21.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
+  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+  dependencies:
+    follow-redirects "^1.14.0"
 
 axios@^0.25.0:
   version "0.25.0"
@@ -1564,6 +1579,11 @@ dotenv@^10.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
+dotenv@^8.2.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
+  integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
+
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
@@ -1954,7 +1974,7 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.4.tgz#28d9969ea90661b5134259f312ab6aa7929ac5e2"
   integrity sha512-8/sOawo8tJ4QOBX8YlQBMxL8+RLZfxMQOif9o0KUKTNTjMYElWPE0r/m5VNFxTRd0NSw8qSy8dajrwX4RYI1Hw==
 
-follow-redirects@^1.14.7:
+follow-redirects@^1.14.0, follow-redirects@^1.14.7:
   version "1.14.9"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.9.tgz#dd4ea157de7bfaf9ea9b3fbd85aa16951f78d8d7"
   integrity sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==
@@ -3752,6 +3772,22 @@ superagent@3.7.0:
     qs "^6.5.1"
     readable-stream "^2.0.5"
 
+superagent@3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/superagent/-/superagent-3.8.1.tgz#2571fd921f3fcdba43ac68c3b35c91951532701f"
+  integrity sha512-VMBFLYgFuRdfeNQSMLbxGSLfmXL/xc+OO+BZp41Za/NRDBet/BNbkRJrYzCUu0u4GU0i/ml2dtT8b9qgkw9z6Q==
+  dependencies:
+    component-emitter "^1.2.0"
+    cookiejar "^2.1.0"
+    debug "^3.1.0"
+    extend "^3.0.0"
+    form-data "^2.3.1"
+    formidable "^1.1.1"
+    methods "^1.1.1"
+    mime "^1.4.1"
+    qs "^6.5.1"
+    readable-stream "^2.0.5"
+
 supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
@@ -3925,6 +3961,13 @@ twilio@^3.75.0:
     scmp "^2.1.0"
     url-parse "^1.5.6"
     xmlbuilder "^13.0.2"
+
+two-step-auth@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/two-step-auth/-/two-step-auth-1.1.2.tgz#af026f0f5f9a1d14848279256efb17274d700664"
+  integrity sha512-ve9s3yDIxd5X9FWb5ebcD3pitETer1EZLeq7yLR4sjHJ44GkOvUZLTrUJ4QLNlT5ofNbsxydBMR2/dc8hBl04g==
+  dependencies:
+    axios "^0.21.0"
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
