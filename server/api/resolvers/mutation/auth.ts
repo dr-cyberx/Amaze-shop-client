@@ -4,6 +4,7 @@ import {
   VerifyEmail,
   SendOtpNumber,
   VerifyOtpNumber,
+  SendOtpEmail,
 } from '../../../controllers/auth';
 import { IauthResolver, IVerifiedResponse } from '../../../types/authType';
 import { SingleuserType } from '../../../types/userType';
@@ -44,6 +45,15 @@ const authMutations = {
       token,
     );
     return verifiedNumberResponse;
+  },
+
+  sendOtpEmail: async (
+    _parents: any,
+    args: any,
+    { token }: any,
+  ): Promise<IVerifiedResponse> => {
+    const verifiedRespose: IVerifiedResponse = await SendOtpEmail(args, token);
+    return verifiedRespose;
   },
 
   verifyEmail: async (

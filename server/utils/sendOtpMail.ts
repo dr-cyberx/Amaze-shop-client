@@ -1,44 +1,33 @@
-const SibApiV3Sdk = require('sib-api-v3-sdk');
+const nodemailer = require('nodemailer');
 
-const sendEmailotp = (): string => {
-  const defaultClient = SibApiV3Sdk.ApiClient.instance;
+const sendMailOtp = (to: string) => {
+  try {
+    const OTP: number = Math.floor(1000 + Math.random() * 9000);
 
-  // Configure API key authorization: api-key
-  const apiKey =
-    defaultClient.authentications[`${process.env.SEND_IN_BLUE_API_KEY}`];
-  apiKey.apiKey = process.env.SEND_IN_BLUE_API_KEY;
-
-  const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-
-  let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
-
-  sendSmtpEmail = {
-    to: [
-      {
-        email: 'testmail@example.com',
-        name: 'John Doe',
+    const transporter = nodemailer.createTransport({
+      port: 465, // true for 465, false for other ports
+      host: 'smtp.gmail.com',
+      auth: {
+        user: process.env.ADMIN_EMAIL,
+        pass: process.env.ADMIN_PASSWORD,
       },
-    ],
-    templateId: 59,
-    params: {
-      name: 'John',
-      surname: 'Doe',
-    },
-    headers: {
-      'X-Mailin-custom':
-        'custom_header_1:custom_value_1|custom_header_2:custom_value_2',
-    },
-  };
+      secure: true,
+    });
 
-  apiInstance.sendTransacEmail(sendSmtpEmail).then(
-    function (data: any) {
-      console.log(`API called successfully. Returned data: ${data}`);
-    },
-    function (error: any) {
-      console.error(error);
-    },
-  );
-  return '0000';
+    const mailData = {
+      from: process.env.ADMIN_EMAIL, // sender address
+      to, // list of receivers
+      subject: 'Amaze shop otp',
+      text: `${OTP}`,
+      html: `<br>Otp for verifying you email ${OTP}<br/>`,
+    };
+
+    transporter.sendMail(mailData);
+    return `${OTP}`;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
 
-export default sendEmailotp;
+export default sendMailOtp;
