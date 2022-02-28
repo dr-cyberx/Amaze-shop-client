@@ -24,4 +24,13 @@ export const CreateProduct = async (
   }
 };
 
+export const UpdateProduct = async (args: any, token: any) => {
+  try {
+    const { isValid, userId, data } = await isValidUser(null, token);
+    console.log('update product data ---> ', isValid, userId, data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const hi = 'hllo';

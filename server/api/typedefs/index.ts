@@ -1,10 +1,18 @@
 import { gql } from 'apollo-server-express';
 import { DocumentNode } from 'graphql';
 import {
-  Login, signUp, authResponse, verifyContacts, verifyResponse,
+  Login,
+  signUp,
+  authResponse,
+  verifyContacts,
+  verifyResponse,
 } from './auth/index';
-import { createProduct } from './Product/query';
-import { createProductInput, createProductResponse } from './Product/types';
+import {
+  createProduct,
+  createProductInput,
+  createProductResponse,
+  updateProduct,
+} from './Product';
 import getAllUser from './user/query';
 import { getAllUserResponse, newUser, userRole } from './user/types';
 
@@ -27,6 +35,7 @@ const TypeDefs: DocumentNode = gql`
     ${signUp}
     ${verifyContacts}
     ${createProduct}
+    ${updateProduct}
   }
 `;
 
