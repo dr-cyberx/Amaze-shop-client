@@ -1,3 +1,4 @@
+import { TypeProduct } from './ProductType';
 import { SingleuserType } from './userType';
 
 export interface commonResponse {
@@ -11,7 +12,7 @@ export interface signUpUserInterface extends commonResponse {
 }
 
 export interface IGetAllData extends commonResponse {
-  data: [SingleuserType] | null;
+  data: [SingleuserType] | null | TypeProduct[];
 }
 
 export interface ISignup extends SingleuserType {

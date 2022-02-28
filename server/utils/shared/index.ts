@@ -38,8 +38,8 @@ export const UpdateToDB = async (
 export const findFromDB = async (
   modelName: typeof User,
   filter: 'All' | 'One',
-  otherCreds: any,
-): Promise<any[] | SingleuserType> => {
+  otherCreds?: any,
+): Promise<any[] | SingleuserType | SingleuserType[]> => {
   if (filter === 'All') {
     const res: Promise<SingleuserType[]> | any[] | null = await modelName.find(
       {},

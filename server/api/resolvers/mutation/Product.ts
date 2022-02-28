@@ -7,7 +7,7 @@ const ProductMutations = {
     args: any,
     { token }: any,
   ): Promise<IGetAllData> => {
-    const product = await CreateProduct(args, token);
+    const product: IGetAllData = await CreateProduct(args, token);
     return product;
   },
 
@@ -16,7 +16,7 @@ const ProductMutations = {
     args: any,
     { token }: any,
   ): Promise<IGetAllData> => {
-    const product = await UpdateProduct(
+    const product: IGetAllData = await UpdateProduct(
       { ...args.input, productId: args.productId },
       token,
     );

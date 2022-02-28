@@ -26,7 +26,8 @@
     "new-cap": "off",
     "func-names": "off",
     "prefer-arrow-callback": "off",
-    "operator-linebreak": "warn"
+    "operator-linebreak": "warn",
+    "camelcase": "off"
   },
   "settings": {
     "import/resolver": {

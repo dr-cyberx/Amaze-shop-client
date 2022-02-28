@@ -34,4 +34,8 @@ type createProductMutationResponse{
 
 `;
 
+export const getAllProducts: string = `
+  getallproducts: [createProductResponse]!
+`;
+
 export const hello = 'hello';

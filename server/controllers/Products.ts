@@ -1,5 +1,6 @@
 import Product from '../db/models/Product';
 import { IGetAllData } from '../types/authType';
+import { Type_Create_Update_Product } from '../types/ProductType';
 import isValidUser from '../utils/isValid';
 import { addToDB, UpdateToDB } from '../utils/shared';
 import { amazeResponse } from '../utils/shared/responses';
@@ -7,7 +8,7 @@ import { amazeResponse } from '../utils/shared/responses';
 export const CreateProduct = async (
   args: any,
   token: any,
-): Promise<IGetAllData> => {
+): Promise<IGetAllData | Type_Create_Update_Product> => {
   try {
     const { isValid, data } = await isValidUser(
       addToDB,
@@ -24,7 +25,10 @@ export const CreateProduct = async (
   }
 };
 
-export const UpdateProduct = async (args: any, token: any) => {
+export const UpdateProduct = async (
+  args: any,
+  token: any,
+): Promise<IGetAllData | Type_Create_Update_Product> => {
   try {
     const { isValid, userId } = await isValidUser(null, token);
     if (isValid) {

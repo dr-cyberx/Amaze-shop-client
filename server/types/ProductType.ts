@@ -9,7 +9,7 @@ export interface TypeProduct {
 }
 
 export interface Type_Create_Update_Product {
-  data: TypeProduct | null;
+  data: TypeProduct | TypeProduct[] | null;
   error: Boolean;
   message: string;
   status: number;

@@ -11,6 +11,7 @@ import {
   createProduct,
   createProductInput,
   createProductResponse,
+  getAllProducts,
   updateProduct,
 } from './Product';
 import getAllUser from './user/query';
@@ -20,6 +21,7 @@ const TypeDefs: DocumentNode = gql`
   type Query {
     hello: String!
     ${getAllUser}
+    ${getAllProducts}
   }
 
   ${newUser}

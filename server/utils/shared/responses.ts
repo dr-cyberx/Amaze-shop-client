@@ -1,4 +1,9 @@
-import { IGetAllData, IauthResolver, IVerifiedResponse } from '../../types/authType';
+import {
+  IGetAllData,
+  IauthResolver,
+  IVerifiedResponse,
+} from '../../types/authType';
+import { TypeProduct, Type_Create_Update_Product } from '../../types/ProductType';
 import { SingleuserType } from '../../types/userType';
 
 export const authResponse = (
@@ -27,10 +32,10 @@ export const verifiedResponse = (
 
 export const amazeResponse = (
   message: string = 'Something Went wrong',
-  data: [SingleuserType] | null = null,
+  data: [SingleuserType] | null | TypeProduct[] = null,
   error: boolean = true,
   status: number = 400,
-): IGetAllData => ({
+): IGetAllData | Type_Create_Update_Product => ({
   data,
   error,
   status,
