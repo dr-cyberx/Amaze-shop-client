@@ -9,7 +9,7 @@ mutation SignUp(
     password: $password
     email: $email
     phoneNumber: $phoneNumber
-    Role: $role
+    role: $role
     userName: $userName
   ) {
     data {

@@ -39,7 +39,7 @@ interface iButton {
   btnType: TypeButton;
   icon?: React.ReactElement;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  label: string;
+  label?: string;
   // disable?: boolean
   loading?: boolean;
   size: TypeButtonSize;
@@ -102,7 +102,9 @@ const Button: FunctionComponent<iButton> = ({
         ) : (
           icon && cloneElement(icon, { style: { marginRight: '6px' } })
         )}
-        <Text variant={variant}>{loading ? 'loading...' : label}</Text>
+        {label && (
+          <Text variant={variant}>{loading ? 'loading...' : label}</Text>
+        )}
       </button>
     </>
   );
@@ -112,7 +114,7 @@ Button.defaultProps = {
   btnType: TypeButton.PRIMARY,
   // icon: <FontAwesomeIcon icon={faPlus} size={'xs'} />,
   onClick: () => null,
-  label: 'submit',
+  label: '',
   // disable: false,
   loading: false,
   size: TypeButtonSize.LARGE,

@@ -1,20 +1,28 @@
 @import 'variable.scss';
 
 .register_container {
+  background-image: linear-gradient(to right bottom, rgb(255, 255, 255) , rgb(196, 236, 255));
   // border: 2px solid rgb(60, 255, 0);
+
   .register_form {
     border-radius: 6px;
     padding: 30px;
     border: 2px solid rgb(243, 243, 243);
-    box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
-    min-width: 500px;
-    min-height: 550px;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+      rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    min-width: 520px;
+    min-height: 650px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     color: $text-secondary;
+    backdrop-filter: blur(10px);
+    .form_header {
+      color: $text-secondary;
+      margin: 0px;
+    }
 
-    .checkbox_container{
+    .checkbox_container {
       border: 2px solid red;
       display: flex;
       align-items: center;

@@ -8,12 +8,15 @@ import {
   faKey,
   faPhone,
   faUser,
+  faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
 import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
 import Input from '@reusable/Input';
 import Button, { TypeButton, TypeButtonSize } from '@reusable/Button';
+import Text, { TextVariant } from '@components/reusable/Typography';
 import Checkbox from '@reusable/checkbox';
 import styles from '@styles/Register.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export type SignUpInputType = {
   name: string;
@@ -90,6 +93,17 @@ const Register: React.FunctionComponent = (): JSX.Element => {
           onSubmit={handleSubmit(onSubmit)}
           className={styles.register_form}
         >
+          <div className={styles.form_header}>
+            <Text
+              variant={TextVariant.heading2}
+              style={{
+                textAlign: 'center',
+                marginBottom: '10px',
+              }}
+            >
+              Sign up
+            </Text>
+          </div>
           {inputFields.map(
             (d: SignUpInputType): ReactNode => (
               <Input
@@ -111,7 +125,8 @@ const Register: React.FunctionComponent = (): JSX.Element => {
           />
           <Button
             btnType={TypeButton.PRIMARY}
-            label="Login"
+            // label="Next "
+            icon={<FontAwesomeIcon icon={faArrowRight} size={'1x'} />}
             loading={loading}
             size={TypeButtonSize.MEDIUM}
             type="submit"
