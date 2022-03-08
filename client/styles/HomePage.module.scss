@@ -7,10 +7,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: $text-secondary;
   & .buttonContainer {
-    width: 400px;
+    width: 600px;
     display: flex;
     justify-content: space-between;
     margin-top: 35px;
+    & .singleBtnContainer{
+      width: 48%;
+    }
   }
+
 }

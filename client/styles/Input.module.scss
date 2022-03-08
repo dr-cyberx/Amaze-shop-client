@@ -9,7 +9,7 @@
   position: relative;
   .input_front_icon {
     position: absolute;
-    top: 54%;
+    top: 0%;
     left: 12px;
     cursor: pointer;
   }
@@ -36,5 +36,13 @@
       font-size: 2rem;
       padding: 7px;
     }
+    &__error{
+      border: 2px solid $color-danger;
+    }
   }
+}
+
+.errorMessage{
+  color: $color-danger;
+  margin-top: 10px;
 }
