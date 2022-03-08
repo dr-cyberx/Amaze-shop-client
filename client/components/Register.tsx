@@ -1,4 +1,4 @@
-import React, { useState, ReactNode, memo } from 'react';
+import React, { useState, ReactNode, memo, useEffect } from 'react';
 import Modal, { TypeModal } from './reusable/modal';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useForm } from 'react-hook-form';
@@ -10,8 +10,9 @@ import {
   faUser,
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
+import cookie from 'cookie';
 import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
-import Input from '@reusable/Input';
+import Input, { TypeInput } from '@reusable/Input';
 import Button, { TypeButton, TypeButtonSize } from '@reusable/Button';
 import Text, { TextVariant } from '@components/reusable/Typography';
 import Checkbox from '@reusable/checkbox';
@@ -66,8 +67,19 @@ type TypeFormDataRegister = {
 
 const Register: React.FunctionComponent = (): JSX.Element => {
   const { handleSubmit, control } = useForm<TypeFormDataRegister>();
+  const [signUpStep, setSignUpStep] = useState<number>(0);
   const [userRole, setUserRole] = useState<boolean>(false);
   const [registerUser, { data, error, loading }] = useMutation(REGISTER_USER);
+
+  useEffect(() => {
+    if (data?.signUp?.data) {
+      document.cookie = cookie.serialize('auth_token', data.signUp.token, {
+        maxAge: 36000,
+        path: '/',
+      });
+      setSignUpStep((previousData: number) => previousData + 1);
+    }
+  }, [data]);
 
   const onSubmit = async (data: TypeFormDataRegister): Promise<void> => {
     const FinalRegisterData: TypeFormDataRegister & { role: string } = {
@@ -86,13 +98,68 @@ const Register: React.FunctionComponent = (): JSX.Element => {
     return;
   };
 
+  const showFormSteps = (step: number): any => {
+    switch (step) {
+      case 0:
+        return (
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={styles.register_form}
+          >
+            <div className={styles.form_header}>
+              <Text
+                variant={TextVariant.heading2}
+                style={{
+                  textAlign: 'center',
+                  marginBottom: '10px',
+                }}
+              >
+                Sign up
+              </Text>
+            </div>
+            {inputFields.map(
+              (d: SignUpInputType): ReactNode => (
+                <Input
+                  key={d.name}
+                  name={d.name}
+                  iconLeft={d.icon}
+                  label={d.label}
+                  inputType={d.inputType}
+                  rules={{ required: true }}
+                  control={control}
+                  placeholder={d.placeholder}
+                />
+              )
+            )}
+            <Checkbox
+              label="Want to Create Seller account ?"
+              setState={setUserRole}
+              state={userRole}
+            />
+            <Button
+              btnType={TypeButton.PRIMARY}
+              // label="Next "
+              icon={<FontAwesomeIcon icon={faArrowRight} size={'1x'} />}
+              loading={loading}
+              size={TypeButtonSize.MEDIUM}
+              type="submit"
+            />
+          </form>
+        );
+        break;
+
+      case 1:
+        return <></>;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <div className={styles.register_container}>
       <Modal type={TypeModal.MEDIUM}>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className={styles.register_form}
-        >
+        <div className={styles.verification_container}>
           <div className={styles.form_header}>
             <Text
               variant={TextVariant.heading2}
@@ -101,27 +168,19 @@ const Register: React.FunctionComponent = (): JSX.Element => {
                 marginBottom: '10px',
               }}
             >
-              Sign up
+              Verify Email
             </Text>
           </div>
-          {inputFields.map(
-            (d: SignUpInputType): ReactNode => (
-              <Input
-                key={d.name}
-                name={d.name}
-                iconLeft={d.icon}
-                label={d.label}
-                inputType={d.inputType}
-                rules={{ required: true }}
-                control={control}
-                placeholder={d.placeholder}
-              />
-            )
-          )}
-          <Checkbox
-            label="Want to Create Seller account ?"
-            setState={setUserRole}
-            state={userRole}
+
+          <Input
+            rules={{ required: true }}
+            control={control}
+            name={'verificationCode'}
+            label={'Enter OTP:'}
+            inputType={'text'}
+            type={TypeInput.LARGE}
+            style={{ paddingLeft: '15px ' }}
+            // placeholder={'Enter Otp here...'}
           />
           <Button
             btnType={TypeButton.PRIMARY}
@@ -131,7 +190,7 @@ const Register: React.FunctionComponent = (): JSX.Element => {
             size={TypeButtonSize.MEDIUM}
             type="submit"
           />
-        </form>
+        </div>
       </Modal>
     </div>
   );

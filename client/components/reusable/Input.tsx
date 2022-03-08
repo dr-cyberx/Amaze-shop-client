@@ -93,6 +93,7 @@ const Input: FunctionComponent<iInput> = ({
           value={value}
           onChange={onChange}
           type={inputType}
+          autoComplete="false"
           className={classnames({
             [styles[`input_wrapper__input`]]: true,
             [styles[`input_wrapper__input__${type}`]]: true,
@@ -119,7 +120,7 @@ Input.defaultProps = {
   positionIcon: 'left',
   error: false,
   label: 'Email',
-  iconLeft: faEye,
+  // iconLeft: null,
 };
 
 export default memo(Input);
