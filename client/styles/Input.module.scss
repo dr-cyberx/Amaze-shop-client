@@ -9,7 +9,7 @@
   position: relative;
   .input_front_icon {
     position: absolute;
-    top: 0%;
+    top: 52%;
     left: 12px;
     cursor: pointer;
   }
@@ -44,5 +44,4 @@
 
 .errorMessage{
   color: $color-danger;
-  margin-top: 10px;
 }

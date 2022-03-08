@@ -102,10 +102,10 @@ const Input: FunctionComponent<iInput> = ({
               (fieldState && fieldState.invalid) || error,
           })}
         />
-        {fieldState && fieldState.invalid && (
-          <span className={styles.errorMessage}>{`${label} is required`}</span>
-        )}
       </div>
+      {fieldState && fieldState.invalid && (
+        <span className={styles.errorMessage}>{`${label} is required !`}</span>
+      )}
     </>
   );
 };
