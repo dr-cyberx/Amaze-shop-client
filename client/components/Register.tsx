@@ -89,7 +89,7 @@ type TypeFormDataRegister = {
 
 const Register: React.FunctionComponent = (): JSX.Element => {
   const { handleSubmit, control } = useForm<TypeFormDataRegister>();
-  const [signUpStep, setSignUpStep] = useState<number>(0);
+  const [signUpStep, setSignUpStep] = useState<number>(1);
   const [userRole, setUserRole] = useState<boolean>(false);
   const [sendResendOtpIcon, setSendResendOtpIcon] = useState<boolean>(false);
   const [userPhoneNumber, setUserPhoneNumber] = useState<string>();
@@ -149,11 +149,18 @@ const Register: React.FunctionComponent = (): JSX.Element => {
     return;
   };
 
-  const verifyOtpHandler = (): void => {
-    return;
+  const verifyOtpHandler = async (data: {
+    verificationCode: number;
+  }): Promise<void> => {
+    console.log('input otp -> ', data)
+    const res = await verifyOtpNumber({
+      variables: {
+        otp: data.verificationCode,
+      },
+    });
   };
 
-  const showFormSteps = (step: number): any => {
+  const showFormSteps = (step: number): JSX.Element => {
     switch (step) {
       case 0:
         return (
@@ -206,7 +213,10 @@ const Register: React.FunctionComponent = (): JSX.Element => {
 
       case 1:
         return (
-          <div className={styles.verification_container}>
+          <form
+            onSubmit={handleSubmit(verifyOtpHandler)}
+            className={styles.verification_container}
+          >
             <div className={styles.form_header}>
               <Text
                 variant={TextVariant.heading2}
@@ -255,10 +265,11 @@ const Register: React.FunctionComponent = (): JSX.Element => {
               btnType={TypeButton.PRIMARY}
               icon={<FontAwesomeIcon icon={faArrowRight} size={'1x'} />}
               loading={loading}
+              type={'submit'}
               size={TypeButtonSize.MEDIUM}
-              onClick={verifyOtpHandler}
+              // onClick={verifyOtpHandler}
             />
-          </div>
+          </form>
         );
 
       default:
