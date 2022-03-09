@@ -30,6 +30,7 @@ import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
 import SEND_OTP_NUMBER from '@graphql-doc/SEND_OTP_NUMBER.graphql';
 import VERIFY_OTP_NUMBER from '@graphql-doc/VERIFY_OTP_NUMBER.graphql';
 import styles from '@styles/Register.module.scss';
+import AmazeToast from './reusable/AmazeToast';
 
 export type SignUpInputType = {
   name: string;
@@ -156,39 +157,44 @@ const Register: React.FunctionComponent = (): JSX.Element => {
       }
 
       if (isVerified.verified === false) {
-        notifyWarn();
+        AmazeToast({ message: 'Please enter correct otp!', type: 'warn' });
+        // notifyWarn();
       }
     }
     return;
   }, [verifyOtpNumberData]);
 
   const onSubmit = async (data: TypeFormDataRegister): Promise<void> => {
-    const FinalRegisterData: TypeFormDataRegister & { role: string } = {
-      ...data,
-      role: !userRole ? 'BUYER' : 'SELLER',
-    };
+    try {
+      const FinalRegisterData: TypeFormDataRegister & { role: string } = {
+        ...data,
+        role: !userRole ? 'BUYER' : 'SELLER',
+      };
 
-    const res: FetchResult<any> = await registerUser({
-      variables: {
-        ...FinalRegisterData,
-      },
-    });
+      const res: FetchResult<any> = await registerUser({
+        variables: {
+          ...FinalRegisterData,
+        },
+      });
 
-    if (res?.data) {
-      const { signUp }: any = res?.data;
+      if (res?.data) {
+        const { signUp }: any = res?.data;
 
-      if (signUp?.data?.phoneNumber) {
-        setUserPhoneNumber(signUp?.data?.phoneNumber);
-        setSignUpStep((previousVal: number) => previousVal++);
-        const otp = await sendOtpNumber({
-          variables: {
-            phoneNumber: userPhoneNumber,
-          },
-        });
+        if (signUp?.data?.phoneNumber) {
+          setUserPhoneNumber(signUp?.data?.phoneNumber);
+          setSignUpStep((previousVal: number) => previousVal++);
+          const otp = await sendOtpNumber({
+            variables: {
+              phoneNumber: userPhoneNumber,
+            },
+          });
+        }
       }
-    }
 
-    return;
+      return;
+    } catch (error: any) {
+      return;
+    }
   };
 
   const verifyOtpHandler = async (data: TypeVerifyOtp): Promise<void> => {
@@ -291,7 +297,12 @@ const Register: React.FunctionComponent = (): JSX.Element => {
                 cursor: 'pointer',
               }}
               onClick={() => {
-                sendResendOtpIcon ? notify() : resendOtp();
+                sendResendOtpIcon
+                  ? AmazeToast({
+                      message: 'Wait 30 sec before sending otp again',
+                      type: 'info',
+                    })
+                  : resendOtp();
               }}
             >
               resend code{' '}
@@ -326,7 +337,10 @@ const Register: React.FunctionComponent = (): JSX.Element => {
     });
     if (otp?.data?.sendOtpNumber?.status === 200) {
       setSendResendOtpIcon(true);
-      notify();
+      AmazeToast({
+        message: 'Wait 30 sec before sending otp again',
+        type: 'info',
+      });
       setTimeout(() => {
         setSendResendOtpIcon(false);
       }, 30000);
