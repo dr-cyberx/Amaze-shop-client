@@ -15,8 +15,11 @@ import {
   faPhone,
   faUser,
   faArrowRight,
+  faQuestion,
+  faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import cookie from 'cookie';
+import { ToastContainer, toast } from 'react-toastify';
 import Input, { TypeInput } from '@reusable/Input';
 import Button, { TypeButton, TypeButtonSize } from '@reusable/Button';
 import Text, { TextVariant } from '@components/reusable/Typography';
@@ -24,6 +27,7 @@ import Checkbox from '@reusable/checkbox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
 import SEND_OTP_NUMBER from '@graphql-doc/SEND_OTP_NUMBER.graphql';
+import VERIFY_OTP_NUMBER from '@graphql-doc/VERIFY_OTP_NUMBER.graphql';
 import styles from '@styles/Register.module.scss';
 
 export type SignUpInputType = {
@@ -65,6 +69,17 @@ const inputFields: Array<SignUpInputType> = [
   },
 ];
 
+const notify = () =>
+  toast.info('Wait 30 sec before sending otp again', {
+    position: 'top-right',
+    autoClose: 6000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+
 type TypeFormDataRegister = {
   email: string;
   password: string;
@@ -76,8 +91,17 @@ const Register: React.FunctionComponent = (): JSX.Element => {
   const { handleSubmit, control } = useForm<TypeFormDataRegister>();
   const [signUpStep, setSignUpStep] = useState<number>(0);
   const [userRole, setUserRole] = useState<boolean>(false);
+  const [sendResendOtpIcon, setSendResendOtpIcon] = useState<boolean>(false);
   const [userPhoneNumber, setUserPhoneNumber] = useState<string>();
   const [registerUser, { data, error, loading }] = useMutation(REGISTER_USER);
+  const [
+    verifyOtpNumber,
+    {
+      data: verifyOtpNumberData,
+      error: verifyOtpNumberError,
+      loading: verifyOtpNumberLoading,
+    },
+  ] = useMutation(VERIFY_OTP_NUMBER);
   const [
     sendOtpNumber,
     { error: OtpError, loading: OtpLoading, data: OtpData },
@@ -92,10 +116,6 @@ const Register: React.FunctionComponent = (): JSX.Element => {
       setSignUpStep((previousData: number) => previousData + 1);
     }
   }, [data]);
-
-  useEffect(() => {
-    console.log('OtpData ->>> ', OtpData);
-  }, [OtpData]);
 
   const onSubmit = async (data: TypeFormDataRegister): Promise<void> => {
     const FinalRegisterData: TypeFormDataRegister & { role: string } = {
@@ -126,6 +146,10 @@ const Register: React.FunctionComponent = (): JSX.Element => {
       }
     }
 
+    return;
+  };
+
+  const verifyOtpHandler = (): void => {
     return;
   };
 
@@ -210,17 +234,29 @@ const Register: React.FunctionComponent = (): JSX.Element => {
             />
             <Text
               variant={TextVariant.heading5}
-              style={{ color: 'blue', cursor: 'pointer' }}
-              onClick={resendOtp}
+              style={{
+                ...(sendResendOtpIcon
+                  ? { color: 'rgb(187, 187, 187)' }
+                  : { color: 'rgb(0, 174, 255)' }),
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                sendResendOtpIcon ? notify() : resendOtp();
+              }}
             >
-              resend code ?
+              resend code{' '}
+              {sendResendOtpIcon ? (
+                <FontAwesomeIcon icon={faCheck} size={'sm'} />
+              ) : (
+                <FontAwesomeIcon icon={faQuestion} size={'sm'} />
+              )}
             </Text>
             <Button
               btnType={TypeButton.PRIMARY}
               icon={<FontAwesomeIcon icon={faArrowRight} size={'1x'} />}
               loading={loading}
               size={TypeButtonSize.MEDIUM}
-              type="submit"
+              onClick={verifyOtpHandler}
             />
           </div>
         );
@@ -237,12 +273,20 @@ const Register: React.FunctionComponent = (): JSX.Element => {
         phoneNumber: userPhoneNumber,
       },
     });
-    console.log(otp);
+    if (otp?.data?.sendOtpNumber?.status === 200) {
+      setSendResendOtpIcon(true);
+      notify();
+      setTimeout(() => {
+        setSendResendOtpIcon(false);
+      }, 30000);
+    }
+    console.log('otp ---> ', otp.data.sendOtpNumber);
   };
 
   return (
     <div className={styles.register_container}>
       <Modal type={TypeModal.SMALL}>{showFormSteps(signUpStep)}</Modal>
+      <ToastContainer />
     </div>
   );
 };
