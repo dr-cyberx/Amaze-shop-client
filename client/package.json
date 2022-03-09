@@ -21,6 +21,7 @@
     "react-dom": "17.0.2",
     "react-hook-form": "^7.26.0",
     "react-switch": "^6.0.0",
+    "react-toastify": "^8.2.0",
     "sass": "^1.49.4"
   },
   "devDependencies": {
