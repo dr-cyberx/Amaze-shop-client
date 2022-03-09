@@ -1,7 +1,7 @@
 import React, { useState, ReactNode, memo, useEffect } from 'react';
 import Modal, { TypeModal } from './reusable/modal';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import {
   FetchResult,
   useMutation,
@@ -25,6 +25,7 @@ import Button, { TypeButton, TypeButtonSize } from '@reusable/Button';
 import Text, { TextVariant } from '@components/reusable/Typography';
 import Checkbox from '@reusable/checkbox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NextRouter, useRouter } from 'next/router';
 import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
 import SEND_OTP_NUMBER from '@graphql-doc/SEND_OTP_NUMBER.graphql';
 import VERIFY_OTP_NUMBER from '@graphql-doc/VERIFY_OTP_NUMBER.graphql';
@@ -80,6 +81,28 @@ const notify = () =>
     progress: undefined,
   });
 
+const notifyWarn = () =>
+  toast.error('Please enter correct otp!', {
+    position: 'top-right',
+    autoClose: 6000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+
+const somethingWentWrong = () =>
+  toast.error('something went wrong!', {
+    position: 'top-right',
+    autoClose: 6000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+
 type TypeFormDataRegister = {
   email: string;
   password: string;
@@ -87,9 +110,16 @@ type TypeFormDataRegister = {
   phoneNumber: string;
 };
 
+type TypeVerifyOtp = {
+  verificationCode: string;
+};
+
 const Register: React.FunctionComponent = (): JSX.Element => {
+  const router: NextRouter = useRouter();
   const { handleSubmit, control } = useForm<TypeFormDataRegister>();
-  const [signUpStep, setSignUpStep] = useState<number>(1);
+  const { handleSubmit: handleSubmitVerifyOtp, control: verifyOtpcontrol } =
+    useForm<TypeVerifyOtp>();
+  const [signUpStep, setSignUpStep] = useState<number>(0);
   const [userRole, setUserRole] = useState<boolean>(false);
   const [sendResendOtpIcon, setSendResendOtpIcon] = useState<boolean>(false);
   const [userPhoneNumber, setUserPhoneNumber] = useState<string>();
@@ -115,7 +145,22 @@ const Register: React.FunctionComponent = (): JSX.Element => {
       });
       setSignUpStep((previousData: number) => previousData + 1);
     }
+    return;
   }, [data]);
+
+  useEffect(() => {
+    if (verifyOtpNumberData?.verifyOtpNumber) {
+      const isVerified = verifyOtpNumberData?.verifyOtpNumber;
+      if (isVerified.verified === true) {
+        router.push('/');
+      }
+
+      if (isVerified.verified === false) {
+        notifyWarn();
+      }
+    }
+    return;
+  }, [verifyOtpNumberData]);
 
   const onSubmit = async (data: TypeFormDataRegister): Promise<void> => {
     const FinalRegisterData: TypeFormDataRegister & { role: string } = {
@@ -131,7 +176,6 @@ const Register: React.FunctionComponent = (): JSX.Element => {
 
     if (res?.data) {
       const { signUp }: any = res?.data;
-      console.log('signUp -> ', signUp);
 
       if (signUp?.data?.phoneNumber) {
         setUserPhoneNumber(signUp?.data?.phoneNumber);
@@ -141,23 +185,20 @@ const Register: React.FunctionComponent = (): JSX.Element => {
             phoneNumber: userPhoneNumber,
           },
         });
-
-        console.log('otp ---> ', otp);
       }
     }
 
     return;
   };
 
-  const verifyOtpHandler = async (data: {
-    verificationCode: number;
-  }): Promise<void> => {
-    console.log('input otp -> ', data)
+  const verifyOtpHandler = async (data: TypeVerifyOtp): Promise<void> => {
+    console.log('input otp -> ', data);
     const res = await verifyOtpNumber({
       variables: {
         otp: data.verificationCode,
       },
     });
+    console.log('res ---> ', res?.data);
   };
 
   const showFormSteps = (step: number): JSX.Element => {
@@ -214,7 +255,7 @@ const Register: React.FunctionComponent = (): JSX.Element => {
       case 1:
         return (
           <form
-            onSubmit={handleSubmit(verifyOtpHandler)}
+            onSubmit={handleSubmitVerifyOtp(verifyOtpHandler)}
             className={styles.verification_container}
           >
             <div className={styles.form_header}>
@@ -230,8 +271,8 @@ const Register: React.FunctionComponent = (): JSX.Element => {
             </div>
 
             <Input
-              rules={{ required: true }}
-              control={control}
+              rules={{ required: true, length: 4 }}
+              control={verifyOtpcontrol}
               name={'verificationCode'}
               label={`Enter OTP we sent you on ${userPhoneNumber
                 ?.slice(-4)
@@ -240,7 +281,6 @@ const Register: React.FunctionComponent = (): JSX.Element => {
               type={TypeInput.LARGE}
               style={{ paddingLeft: '15px ' }}
               labelSize={TextVariant.heading5}
-              // placeholder={'Enter Otp here...'}
             />
             <Text
               variant={TextVariant.heading5}
@@ -264,7 +304,7 @@ const Register: React.FunctionComponent = (): JSX.Element => {
             <Button
               btnType={TypeButton.PRIMARY}
               icon={<FontAwesomeIcon icon={faArrowRight} size={'1x'} />}
-              loading={loading}
+              loading={verifyOtpNumberLoading}
               type={'submit'}
               size={TypeButtonSize.MEDIUM}
               // onClick={verifyOtpHandler}
