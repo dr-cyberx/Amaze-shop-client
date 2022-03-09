@@ -26,6 +26,7 @@ interface iInput {
   control: any;
   rules: any;
   iconLeft?: IconProp;
+  labelSize?: TextVariant;
 }
 
 const Input: FunctionComponent<iInput> = ({
@@ -41,6 +42,7 @@ const Input: FunctionComponent<iInput> = ({
   control,
   rules,
   iconLeft,
+  labelSize,
 }): JSX.Element => {
   const {
     field: { onChange, value },
@@ -71,7 +73,9 @@ const Input: FunctionComponent<iInput> = ({
         {label && (
           <Text
             variant={
-              type === TypeInput.SMALL
+              labelSize
+                ? labelSize
+                : type === TypeInput.SMALL
                 ? TextVariant.heading5
                 : type === TypeInput.MEDIUM
                 ? TextVariant.heading5
@@ -85,9 +89,9 @@ const Input: FunctionComponent<iInput> = ({
         )}
         <input
           style={{
-            ...style,
             marginTop: label && '7px',
             paddingLeft: iconLeft ? '40px' : 'inherit',
+            ...style,
           }}
           placeholder={placeholder}
           value={value}

@@ -2,7 +2,13 @@ import React, { useState, ReactNode, memo, useEffect } from 'react';
 import Modal, { TypeModal } from './reusable/modal';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useForm } from 'react-hook-form';
-import { FetchResult, useMutation } from '@apollo/client';
+import {
+  FetchResult,
+  useMutation,
+  useLazyQuery,
+  LazyQueryResult,
+  OperationVariables,
+} from '@apollo/client';
 import {
   faEnvelope,
   faKey,
@@ -11,13 +17,14 @@ import {
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
 import cookie from 'cookie';
-import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
 import Input, { TypeInput } from '@reusable/Input';
 import Button, { TypeButton, TypeButtonSize } from '@reusable/Button';
 import Text, { TextVariant } from '@components/reusable/Typography';
 import Checkbox from '@reusable/checkbox';
-import styles from '@styles/Register.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
+import SEND_OTP_NUMBER from '@graphql-doc/SEND_OTP_NUMBER.graphql';
+import styles from '@styles/Register.module.scss';
 
 export type SignUpInputType = {
   name: string;
@@ -69,7 +76,12 @@ const Register: React.FunctionComponent = (): JSX.Element => {
   const { handleSubmit, control } = useForm<TypeFormDataRegister>();
   const [signUpStep, setSignUpStep] = useState<number>(0);
   const [userRole, setUserRole] = useState<boolean>(false);
+  const [userPhoneNumber, setUserPhoneNumber] = useState<string>();
   const [registerUser, { data, error, loading }] = useMutation(REGISTER_USER);
+  const [
+    sendOtpNumber,
+    { error: OtpError, loading: OtpLoading, data: OtpData },
+  ] = useLazyQuery(SEND_OTP_NUMBER);
 
   useEffect(() => {
     if (data?.signUp?.data) {
@@ -80,6 +92,10 @@ const Register: React.FunctionComponent = (): JSX.Element => {
       setSignUpStep((previousData: number) => previousData + 1);
     }
   }, [data]);
+
+  useEffect(() => {
+    console.log('OtpData ->>> ', OtpData);
+  }, [OtpData]);
 
   const onSubmit = async (data: TypeFormDataRegister): Promise<void> => {
     const FinalRegisterData: TypeFormDataRegister & { role: string } = {
@@ -93,7 +109,22 @@ const Register: React.FunctionComponent = (): JSX.Element => {
       },
     });
 
-    console.log('api register data --> ', res);
+    if (res?.data) {
+      const { signUp }: any = res?.data;
+      console.log('signUp -> ', signUp);
+
+      if (signUp?.data?.phoneNumber) {
+        setUserPhoneNumber(signUp?.data?.phoneNumber);
+        setSignUpStep((previousVal: number) => previousVal++);
+        const otp = await sendOtpNumber({
+          variables: {
+            phoneNumber: userPhoneNumber,
+          },
+        });
+
+        console.log('otp ---> ', otp);
+      }
+    }
 
     return;
   };
@@ -124,6 +155,7 @@ const Register: React.FunctionComponent = (): JSX.Element => {
                   name={d.name}
                   iconLeft={d.icon}
                   label={d.label}
+                  type={TypeInput.MEDIUM}
                   inputType={d.inputType}
                   rules={{ required: true }}
                   control={control}
@@ -149,49 +181,68 @@ const Register: React.FunctionComponent = (): JSX.Element => {
         break;
 
       case 1:
-        return <></>;
+        return (
+          <div className={styles.verification_container}>
+            <div className={styles.form_header}>
+              <Text
+                variant={TextVariant.heading2}
+                style={{
+                  textAlign: 'center',
+                  marginBottom: '10px',
+                }}
+              >
+                Verify Phone no.
+              </Text>
+            </div>
+
+            <Input
+              rules={{ required: true }}
+              control={control}
+              name={'verificationCode'}
+              label={`Enter OTP we sent you on ${userPhoneNumber
+                ?.slice(-4)
+                .padStart(userPhoneNumber.length, '*')}`}
+              inputType={'number'}
+              type={TypeInput.LARGE}
+              style={{ paddingLeft: '15px ' }}
+              labelSize={TextVariant.heading5}
+              // placeholder={'Enter Otp here...'}
+            />
+            <Text
+              variant={TextVariant.heading5}
+              style={{ color: 'blue', cursor: 'pointer' }}
+              onClick={resendOtp}
+            >
+              resend code ?
+            </Text>
+            <Button
+              btnType={TypeButton.PRIMARY}
+              icon={<FontAwesomeIcon icon={faArrowRight} size={'1x'} />}
+              loading={loading}
+              size={TypeButtonSize.MEDIUM}
+              type="submit"
+            />
+          </div>
+        );
 
       default:
+        return <></>;
         break;
     }
   };
 
+  const resendOtp = async (): Promise<void> => {
+    const otp: LazyQueryResult<any, OperationVariables> = await sendOtpNumber({
+      variables: {
+        phoneNumber: userPhoneNumber,
+      },
+    });
+    console.log(otp);
+  };
+
   return (
     <div className={styles.register_container}>
-      <Modal type={TypeModal.MEDIUM}>
-        <div className={styles.verification_container}>
-          <div className={styles.form_header}>
-            <Text
-              variant={TextVariant.heading2}
-              style={{
-                textAlign: 'center',
-                marginBottom: '10px',
-              }}
-            >
-              Verify Email
-            </Text>
-          </div>
-
-          <Input
-            rules={{ required: true }}
-            control={control}
-            name={'verificationCode'}
-            label={'Enter OTP:'}
-            inputType={'text'}
-            type={TypeInput.LARGE}
-            style={{ paddingLeft: '15px ' }}
-            // placeholder={'Enter Otp here...'}
-          />
-          <Button
-            btnType={TypeButton.PRIMARY}
-            // label="Next "
-            icon={<FontAwesomeIcon icon={faArrowRight} size={'1x'} />}
-            loading={loading}
-            size={TypeButtonSize.MEDIUM}
-            type="submit"
-          />
-        </div>
-      </Modal>
+      <Modal type={TypeModal.SMALL}>{showFormSteps(signUpStep)}</Modal>
     </div>
   );
 };

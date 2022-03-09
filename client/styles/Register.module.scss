@@ -1,23 +1,29 @@
 @import 'variable.scss';
 
+%basicContainerStyle {
+  color: $text-secondary;
+  backdrop-filter: blur(10px);
+  background: $color-white;
+  border-radius: 6px;
+  padding: 30px;
+  border: 2px solid rgb(243, 243, 243);
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .register_container {
   background: rgb(118, 223, 255);
   // border: 2px solid rgb(60, 255, 0);
 
   .register_form {
-    border-radius: 6px;
-    padding: 30px;
-    border: 2px solid rgb(243, 243, 243);
-    box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
-      rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    @extend %basicContainerStyle;
+
     min-width: 520px;
     min-height: 650px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: $text-secondary;
-    backdrop-filter: blur(10px);
-    background: $color-white;
+
     .form_header {
       color: $text-secondary;
       margin: 0px;
@@ -28,5 +34,9 @@
       display: flex;
       align-items: center;
     }
+  }
+  .verification_container {
+    height: 350px;
+    @extend %basicContainerStyle;
   }
 }

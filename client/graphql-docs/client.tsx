@@ -13,7 +13,7 @@ const httpLink: ApolloLink = createHttpLink({
 });
 
 const authLink: ApolloLink = setContext((_, { headers }) => {
-  const token = cookie.parse(document.cookie)?.authToken;
+  const token = cookie.parse(document.cookie)?.auth_token;
 
   return {
     headers: {

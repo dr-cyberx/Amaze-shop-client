@@ -24,8 +24,10 @@ type verifyResponse{
 }
 `;
 
-export const verifyContacts: String = `
+export const sendOtpToContacts: String = `
  sendOtpNumber(phoneNumber: String): verifyResponse
+ sendOtpEmail(email: String): verifyResponse`;
+
+export const verifyContacts: String = `
  verifyOtpNumber(otp: String): verifyResponse
- sendOtpEmail(email: String): verifyResponse
  verifyEmail(otp: String): verifyResponse`;

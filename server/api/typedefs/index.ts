@@ -6,6 +6,7 @@ import {
   authResponse,
   verifyContacts,
   verifyResponse,
+  sendOtpToContacts,
 } from './auth/index';
 import {
   createProduct,
@@ -22,6 +23,7 @@ const TypeDefs: DocumentNode = gql`
     hello: String!
     ${getAllUser}
     ${getAllProducts}
+    ${sendOtpToContacts}
   }
 
   ${newUser}

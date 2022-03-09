@@ -25,6 +25,7 @@ interface ITypography {
   color?: 'primary' | 'secondary' | 'error';
   children: React.ReactNode;
   style?: CSSProperties;
+  onClick?: () => void;
 }
 
 const Text: React.FunctionComponent<ITypography> = ({
@@ -32,8 +33,8 @@ const Text: React.FunctionComponent<ITypography> = ({
   color,
   children,
   style,
+  onClick
 }): JSX.Element => {
-
   // @ts-ignore
   const Component: Html = variant ? variantsMapping[variant] : 'p';
 
@@ -43,6 +44,7 @@ const Text: React.FunctionComponent<ITypography> = ({
         [styles[`typography__variant__${variant}`]]: variant,
       })}
       style={style}
+      onClick={onClick}
     >
       {children}
     </Component>
