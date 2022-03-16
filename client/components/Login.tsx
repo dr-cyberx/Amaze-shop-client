@@ -41,22 +41,29 @@ const Login: React.FunctionComponent = (): JSX.Element => {
   const onSubmit: SubmitHandler<TypeFormDataLogin> = async (
     data
   ): Promise<void> => {
-    const loginCreds = {
-      email:
-        data.loginEmail.includes('@') && data.loginEmail.includes('.com')
-          ? data.loginEmail
-          : null,
+    const loginCreds: any = {
       password: data.loginPassword,
-      phoneNumber: typeof data.loginEmail == 'number' ? data.loginEmail : null,
-      userName:
-        data.loginEmail.includes('.com') && typeof data.loginEmail == 'number'
-          ? data.loginEmail
-          : null,
     };
+    if (data.loginEmail.includes('@') && data.loginEmail.includes('.com')) {
+      loginCreds['email'] = data.loginEmail;
+    }
+
+    if (typeof data.loginEmail == 'number') {
+      loginCreds['phoneNumber'] = data.loginEmail;
+    }
+    if (
+      data.loginEmail.includes('.com') &&
+      typeof data.loginEmail == 'number'
+    ) {
+      loginCreds['userName'] = data.loginEmail;
+    }
+
     const res = await loginUser({
-      variables: {},
+      variables: {
+        ...loginCreds,
+      },
     });
-    console.log('data -> ', data);
+    console.log('data -> ', res);
   };
 
   const ShowLoginForm = (): ReactNode => {
@@ -92,6 +99,7 @@ const Login: React.FunctionComponent = (): JSX.Element => {
           <Button
             btnType={TypeButton.PRIMARY}
             label="Login"
+            loading={loading}
             size={TypeButtonSize.MEDIUM}
             type="submit"
           />
