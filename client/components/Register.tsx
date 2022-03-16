@@ -125,6 +125,7 @@ const Register: React.FunctionComponent = (): JSX.Element => {
   const [sendResendOtpIcon, setSendResendOtpIcon] = useState<boolean>(false);
   const [userPhoneNumber, setUserPhoneNumber] = useState<string>();
   const [registerUser, { data, error, loading }] = useMutation(REGISTER_USER);
+
   const [
     verifyOtpNumber,
     {
@@ -133,6 +134,7 @@ const Register: React.FunctionComponent = (): JSX.Element => {
       loading: verifyOtpNumberLoading,
     },
   ] = useMutation(VERIFY_OTP_NUMBER);
+
   const [
     sendOtpNumber,
     { error: OtpError, loading: OtpLoading, data: OtpData },
@@ -198,13 +200,11 @@ const Register: React.FunctionComponent = (): JSX.Element => {
   };
 
   const verifyOtpHandler = async (data: TypeVerifyOtp): Promise<void> => {
-    console.log('input otp -> ', data);
     const res = await verifyOtpNumber({
       variables: {
         otp: data.verificationCode,
       },
     });
-    console.log('res ---> ', res?.data);
   };
 
   const showFormSteps = (step: number): JSX.Element => {
