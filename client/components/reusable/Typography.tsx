@@ -26,6 +26,7 @@ interface ITypography {
   children: React.ReactNode;
   style?: CSSProperties;
   onClick?: () => void;
+  textType?: 'text' | 'link';
 }
 
 const Text: React.FunctionComponent<ITypography> = ({
@@ -33,7 +34,8 @@ const Text: React.FunctionComponent<ITypography> = ({
   color,
   children,
   style,
-  onClick
+  onClick,
+  textType,
 }): JSX.Element => {
   // @ts-ignore
   const Component: Html = variant ? variantsMapping[variant] : 'p';
@@ -42,6 +44,7 @@ const Text: React.FunctionComponent<ITypography> = ({
     <Component
       className={classnames({
         [styles[`typography__variant__${variant}`]]: variant,
+        [styles[`typography__textType__${textType}`]]: textType,
       })}
       style={style}
       onClick={onClick}
@@ -54,6 +57,7 @@ const Text: React.FunctionComponent<ITypography> = ({
 Text.defaultProps = {
   variant: TextVariant.heading1,
   color: 'primary',
+  textType: 'text',
 };
 
 export default memo(Text);

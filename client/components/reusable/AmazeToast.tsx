@@ -8,10 +8,10 @@ type TypeToastInput = {
   message: string;
 };
 
-const AmazeToast = (input: TypeToastInput): (() => ReactText) | undefined => {
+const AmazeToast = (input: TypeToastInput): any => {
   const defaultkeys = {
     position: 'top-right',
-    autoClose: 6000,
+    autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -23,31 +23,26 @@ const AmazeToast = (input: TypeToastInput): (() => ReactText) | undefined => {
 
   switch (input.type) {
     case 'warn':
-      return () =>
-        toast.info(input.message, {
+      return toast.warn(input.message, {
           ...defaultkeys,
         });
       break;
 
     case 'info':
-      return () =>
-        toast.info(input.message, {
+      return toast.info(input.message, {
           ...defaultkeys,
         });
       break;
 
     case 'error':
-      return () =>
-        toast.error(input.message, {
+      return toast.error(input.message, {
           ...defaultkeys,
         });
-      break;
 
     default:
-      toast.info('welcome to Amaze shop', {
+      return toast.info('welcome to Amaze shop', {
         ...defaultkeys,
       });
-      break;
   }
 };
 

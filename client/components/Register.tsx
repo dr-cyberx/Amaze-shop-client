@@ -71,39 +71,6 @@ const inputFields: Array<SignUpInputType> = [
   },
 ];
 
-const notify = () =>
-  toast.info('Wait 30 sec before sending otp again', {
-    position: 'top-right',
-    autoClose: 6000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
-
-const notifyWarn = () =>
-  toast.error('Please enter correct otp!', {
-    position: 'top-right',
-    autoClose: 6000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
-
-const somethingWentWrong = () =>
-  toast.error('something went wrong!', {
-    position: 'top-right',
-    autoClose: 6000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
-
 type TypeFormDataRegister = {
   email: string;
   password: string;
@@ -148,6 +115,13 @@ const Register: React.FunctionComponent = (): JSX.Element => {
       });
       setSignUpStep((previousData: number) => previousData + 1);
     }
+    if (data?.signUp?.status === 409) {
+      AmazeToast({
+        message: 'User already exist',
+        type: 'error',
+        duration: 3000,
+      });
+    }
     return;
   }, [data]);
 
@@ -155,12 +129,10 @@ const Register: React.FunctionComponent = (): JSX.Element => {
     if (verifyOtpNumberData?.verifyOtpNumber) {
       const isVerified = verifyOtpNumberData?.verifyOtpNumber;
       if (isVerified.verified === true) {
-        router.push('/');
+        router.push('/home');
       }
-
       if (isVerified.verified === false) {
         AmazeToast({ message: 'Please enter correct otp!', type: 'warn' });
-        // notifyWarn();
       }
     }
     return;
@@ -205,6 +177,7 @@ const Register: React.FunctionComponent = (): JSX.Element => {
         otp: data.verificationCode,
       },
     });
+    return;
   };
 
   const showFormSteps = (step: number): JSX.Element => {
@@ -254,6 +227,17 @@ const Register: React.FunctionComponent = (): JSX.Element => {
               size={TypeButtonSize.MEDIUM}
               type="submit"
             />
+            <Text
+              variant={TextVariant.heading5}
+              style={{
+                textAlign: 'center',
+                marginBottom: '10px',
+              }}
+              textType="link"
+              onClick={() => router.push('/login')}
+            >
+              Already have account ? Sign in.
+            </Text>
           </form>
         );
         break;
@@ -338,14 +322,13 @@ const Register: React.FunctionComponent = (): JSX.Element => {
     if (otp?.data?.sendOtpNumber?.status === 200) {
       setSendResendOtpIcon(true);
       AmazeToast({
-        message: 'Wait 30 sec before sending otp again',
+        message: 'Wait 30 sec to get otp again',
         type: 'info',
       });
       setTimeout(() => {
         setSendResendOtpIcon(false);
       }, 30000);
     }
-    console.log('otp ---> ', otp.data.sendOtpNumber);
   };
 
   return (

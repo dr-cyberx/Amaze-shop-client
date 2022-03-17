@@ -1,6 +1,8 @@
 import React, { memo, ReactNode } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ToastContainer } from 'react-toastify';
+import cookie from 'cookie';
+import { NextRouter, useRouter } from 'next/router';
 import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 import Input, { TypeInput } from '@reusable/Input';
 import Button, { TypeButton, TypeButtonSize } from './reusable/Button';
@@ -10,6 +12,7 @@ import { useMutation } from '@apollo/client';
 import { SignUpInputType } from './Register';
 import LOGIN from '@graphql-doc/LOGIN.graphql';
 import styles from '@styles/Login.module.scss';
+import AmazeToast from './reusable/AmazeToast';
 // import Text, { TextVariant } from '@reusable/Typography';
 
 type TypeFormDataLogin = {
@@ -35,8 +38,9 @@ const inputFields: Array<SignUpInputType> = [
 ];
 
 const Login: React.FunctionComponent = (): JSX.Element => {
+  const router: NextRouter = useRouter();
   const { handleSubmit, control } = useForm<TypeFormDataLogin>();
-  const [loginUser, { data, error, loading }] = useMutation(LOGIN);
+  const [loginUser, { loading }] = useMutation(LOGIN);
 
   const onSubmit: SubmitHandler<TypeFormDataLogin> = async (
     data
@@ -63,7 +67,17 @@ const Login: React.FunctionComponent = (): JSX.Element => {
         ...loginCreds,
       },
     });
-    console.log('data -> ', res);
+    const { error, status, message, token } = res?.data?.login;
+    if (error === false && status === 200) {
+      document.cookie = cookie.serialize('auth_token', token, {
+        maxAge: 36000,
+        path: '/',
+      });
+      router.push('/home');
+    }
+    if (error) {
+      AmazeToast({ message, type: 'error' });
+    }
   };
 
   const ShowLoginForm = (): ReactNode => {
@@ -103,6 +117,17 @@ const Login: React.FunctionComponent = (): JSX.Element => {
             size={TypeButtonSize.MEDIUM}
             type="submit"
           />
+          <Text
+            variant={TextVariant.heading5}
+            style={{
+              textAlign: 'center',
+              marginBottom: '10px',
+            }}
+            textType="link"
+            onClick={() => router.push('/register')}
+          >
+            Don&rsquo;t have account ? Sign Up.
+          </Text>
         </form>
       </>
     );
