@@ -34,7 +34,7 @@ export const SignUp = async (args: SingleuserType): Promise<IauthResolver> => {
       }
       return authResponse('Sign Up failed');
     }
-    return authResponse('User already exist');
+    return authResponse('User already exist', null, '', true, 409);
   } catch (error) {
     return authResponse('Something went wrong');
   }
@@ -64,6 +64,7 @@ export const Login = async (args: SingleuserType): Promise<IauthResolver> => {
           200,
         );
       }
+      return authResponse('Invalid credentials!');
     }
     return authResponse('User not Found');
   } catch (error) {
