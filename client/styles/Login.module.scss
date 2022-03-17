@@ -1,0 +1,42 @@
+@import 'variable.scss';
+
+%basicContainerStyle {
+  color: $text-secondary;
+  backdrop-filter: blur(10px);
+  background: $color-white;
+  border-radius: 6px;
+  padding: 30px;
+  border: 2px solid rgb(243, 243, 243);
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login_container {
+  background: rgb(118, 223, 255);
+  // border: 2px solid rgb(60, 255, 0);
+
+  .login_form {
+    @extend %basicContainerStyle;
+
+    min-width: 520px;
+    min-height: 400px;
+
+    .login_header {
+      color: $text-secondary;
+      margin: 0px;
+    }
+
+    .checkbox_container {
+      border: 2px solid red;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .verification_container {
+    height: 350px;
+    @extend %basicContainerStyle;
+  }
+}
