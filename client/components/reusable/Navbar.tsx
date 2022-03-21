@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '@styles/reusable/Navbar.module.scss';
 import Image from 'next/image';
+import Searchbar from './Searchbar';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   return (
@@ -14,7 +15,9 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             width={160}
           />
         </div>
-        <div className={styles.searchbar__container}>Search...</div>
+        <div className={styles.searchbar__container}>
+          <Searchbar onchange={() => console.log('typed')} value={''} />
+        </div>
       </div>
     </div>
   );
