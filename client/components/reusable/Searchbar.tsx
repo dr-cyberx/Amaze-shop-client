@@ -2,6 +2,11 @@ import React, { memo, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import styles from '@styles/reusable/Searchbar.module.scss';
 
+enum SearchbarType {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+}
+
 interface ISeachbar {
   onchange: React.ChangeEventHandler<HTMLInputElement>;
   value: string;
@@ -21,12 +26,18 @@ const Searchbar: React.FunctionComponent<ISeachbar> = ({
   const [buttonType, setButtonType] = useState();
 
   const handleButtonType = (input: any): void => {
+    switch (input) {
+      case value:
+        break;
 
+      default:
+        break;
+    }
   };
 
   useEffect(() => {
-    handleButtonType(inputType);
-  }, [inputType]);
+    handleButtonType(type);
+  }, [type]);
 
   return (
     <div
@@ -44,7 +55,7 @@ const Searchbar: React.FunctionComponent<ISeachbar> = ({
       <button
         className={classNames({
           [styles['searchbar__button']]: true,
-          [styles[`searchbar__button__type`]]: buttonType,
+          [styles[`searchbar__button__${type}`]]: type,
         })}
       >
         Search
