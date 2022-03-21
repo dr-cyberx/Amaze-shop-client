@@ -16,7 +16,14 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
           />
         </div>
         <div className={styles.searchbar__container}>
-          <Searchbar onchange={() => console.log('typed')} value={''} />
+          <Searchbar
+            onchange={() => console.log('typed')}
+            value={''}
+            type={''}
+            inputType={undefined}
+            placeholder={''}
+            btnType={''}
+          />
         </div>
       </div>
     </div>
