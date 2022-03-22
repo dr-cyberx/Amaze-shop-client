@@ -4,13 +4,14 @@ import styles from '@styles/reusable/Searchbar.module.scss';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-enum SearchbarType {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
+export enum SearchbarType {
+  LARGE = 'large',
+  MEDIUM = 'medium',
+  SMALL = 'small',
 }
 
 interface ISeachbar {
-  onchange: React.ChangeEventHandler<HTMLInputElement>;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   value: string;
   type: SearchbarType;
   inputType: 'email' | 'text' | 'number' | undefined;
@@ -19,7 +20,7 @@ interface ISeachbar {
 }
 
 const Searchbar: React.FunctionComponent<ISeachbar> = ({
-  onchange,
+  onChange,
   value,
   type,
   inputType,
@@ -33,21 +34,28 @@ const Searchbar: React.FunctionComponent<ISeachbar> = ({
         [styles[`searchbar__type__${type}`]]: type,
       })}
     >
-      <FontAwesomeIcon icon={faSearch} />
+      <div
+        className={classNames({
+          [styles['searchbar__iconContainer']]: true,
+          [styles[`searchbar__iconContainer__${type}`]]: type,
+        })}
+      >
+        <FontAwesomeIcon icon={faSearch} />
+      </div>
       <input
         className={classNames({
           [styles['searchbar__input']]: true,
           [styles[`searchbar__input__type__${type}`]]: type,
         })}
-        onChange={onchange}
+        onChange={onChange}
         value={value}
         type={inputType}
         placeholder={placeholder}
       />
       <button
         className={classNames({
-          [styles['searchbar__button']]: true,
-          [styles[`searchbar__button__${type}`]]: type,
+          [styles['searchbar__searchbarBtn']]: true,
+          [styles[`searchbar__searchbarBtn__${type}`]]: type,
         })}
       >
         {label}
@@ -57,9 +65,9 @@ const Searchbar: React.FunctionComponent<ISeachbar> = ({
 };
 
 Searchbar.defaultProps = {
-  type: SearchbarType.PRIMARY,
+  type: SearchbarType.MEDIUM,
   inputType: 'text',
-  placeholder: 'Searchin for...',
+  placeholder: 'Searching for...',
   label: 'Search',
 };
 

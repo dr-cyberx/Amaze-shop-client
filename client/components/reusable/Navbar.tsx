@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '@styles/reusable/Navbar.module.scss';
 import Image from 'next/image';
-import Searchbar from './Searchbar';
+import Searchbar, { SearchbarType } from './Searchbar';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
+  const [searchbarVal, setSearchbarVal] = useState<string>('');
+
+  const handleSearchInput = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): any => {
+    setSearchbarVal(e.target.value);
+  };
   return (
     <div className={styles.navbar__container}>
       <div className={styles.navbar}>
@@ -17,12 +24,12 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
         </div>
         <div className={styles.searchbar__container}>
           <Searchbar
-            onchange={() => console.log('typed')}
-            value={''}
-            type={''}
+            onChange={handleSearchInput}
+            value={searchbarVal}
+            type={SearchbarType.MEDIUM}
             inputType={undefined}
-            placeholder={''}
-            btnType={''}
+            placeholder={'Searching for...'}
+            label="Search"
           />
         </div>
       </div>
