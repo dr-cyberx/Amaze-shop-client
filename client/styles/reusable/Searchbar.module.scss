@@ -39,6 +39,7 @@
     border: none;
     outline: none;
     flex: 1;
+    color: $text-secondary;
     &__type__medium {
       font-size: 1rem;
     }
@@ -62,7 +63,7 @@
       font-size: 1.2rem;
     }
     &__medium {
-      min-height: 50px;
+      min-height: 40px;
       max-height: 45px;
       border-radius: 0px 25px 25px 0px;
       font-size: 1.1rem;

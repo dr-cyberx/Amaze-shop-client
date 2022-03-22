@@ -19,12 +19,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 5px;
     & .logo__container {
-      padding: 10px;
       // border: 2px solid red;
     }
     & .searchbar__container {
       width: 480px;
+    }
+
+    & .other__navItems {
+      cursor: pointer;
+      font-size: 1.6rem;
+      color: $color-grey;
+      margin-right: 20px;
+      width: 65px;
+      display: flex;
+      justify-content: space-around;
+      transition: all 0.2s ease-in-out;
     }
   }
 }
