@@ -65,16 +65,25 @@
 
     padding-left: 0px;
 
+    // & .profileDropdown__listItem > * {
+    //   color: $text-secondary;
+    // }
+
     & .profileDropdown__listItem {
       border-bottom: 1px solid $text-secondary-active;
       list-style: none;
       width: 100%;
-      padding: 15px 10px;
+      padding: 16px 10px;
+      text-transform: capitalize;
       cursor: pointer;
 
-      &:hover{
+      & > * {
+        color: $text-secondary;
+      }
+
+      &:hover {
         background-color: $color-primary;
-        color: $color-white
+        color: $color-white;
       }
     }
   }
