@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '@styles/reusable/Navbar.module.scss';
 import Image from 'next/image';
+import { NextRouter, useRouter } from 'next/router';
 import Searchbar, { SearchbarType } from './Searchbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -8,8 +9,13 @@ import {
   faAngleUp,
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
+import {
+  IprofileDropdownOption,
+  profileDropdownOptions,
+} from 'utils/profileDropdownOptions';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
+  const router: NextRouter = useRouter();
   const [searchbarVal, setSearchbarVal] = useState<string>('');
   const [dropdownArrow, setDropdownArrow] = useState<boolean>(false);
 
@@ -49,6 +55,24 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
           )}
         </div>
       </div>
+      <ul
+        className={styles.profile__dropdown}
+        style={
+          dropdownArrow
+            ? { height: '200px' }
+            : { height: '0px', border: 'none' }
+        }
+      >
+        {profileDropdownOptions.map((item: IprofileDropdownOption) => (
+          <li
+            key={item.label}
+            onClick={() => router.push(item.path)}
+            className={styles.profileDropdown__listItem}
+          >
+            {item.label}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
