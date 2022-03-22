@@ -1,3 +1,80 @@
 @import '../variable.scss';
 
+.searchbar {
+  border: 1px solid $color-grey;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 50px;
+  transition: all 0.2s ease-in-out;
 
+  &__type__medium {
+    min-height: 50px;
+    min-width: 100%;
+  }
+  &__type__large {
+    min-height: 70px;
+  }
+  &__type__small {
+    min-height: 30px;
+  }
+
+  &__iconContainer {
+    flex: 0.2;
+    text-align: center;
+    color: $color-grey;
+    &__small {
+      font-size: 0.8rem;
+    }
+    &__medium {
+      font-size: 1.2rem;
+    }
+    &__large {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__input {
+    border: none;
+    outline: none;
+    flex: 1;
+    &__type__medium {
+      font-size: 1.2rem;
+    }
+    &__type__large {
+      font-size: 1.5rem;
+    }
+    &__type__small {
+      font-size: 0.8rem;
+    }
+  }
+
+  &__searchbarBtn {
+    flex: 0.3;
+    border: none;
+    background-color: $color-primary;
+    color: $color-white;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &__large {
+      min-height: 70px;
+      font-size: 1.2rem;
+    }
+    &__medium {
+      min-height: 50px;
+      border-radius: 0px 25px 25px 0px;
+      font-size: 1.1rem;
+      letter-spacing: 0.6px;
+    }
+    &__small {
+      min-height: 30px;
+      font-size: 0.6rem;
+    }
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  &:hover {
+    border: 1px solid $color-primary;
+  }
+}

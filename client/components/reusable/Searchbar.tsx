@@ -1,44 +1,32 @@
 import React, { memo, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import styles from '@styles/reusable/Searchbar.module.scss';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-enum SearchbarType {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
+export enum SearchbarType {
+  LARGE = 'large',
+  MEDIUM = 'medium',
+  SMALL = 'small',
 }
 
 interface ISeachbar {
-  onchange: React.ChangeEventHandler<HTMLInputElement>;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   value: string;
-  type: string;
+  type: SearchbarType;
   inputType: 'email' | 'text' | 'number' | undefined;
   placeholder: string;
-  btnType: string;
+  label: string;
 }
 
 const Searchbar: React.FunctionComponent<ISeachbar> = ({
-  onchange,
+  onChange,
   value,
   type,
   inputType,
   placeholder,
+  label,
 }): JSX.Element => {
-  const [buttonType, setButtonType] = useState();
-
-  const handleButtonType = (input: any): void => {
-    switch (input) {
-      case value:
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  useEffect(() => {
-    handleButtonType(type);
-  }, [type]);
-
   return (
     <div
       className={classNames({
@@ -46,22 +34,41 @@ const Searchbar: React.FunctionComponent<ISeachbar> = ({
         [styles[`searchbar__type__${type}`]]: type,
       })}
     >
+      <div
+        className={classNames({
+          [styles['searchbar__iconContainer']]: true,
+          [styles[`searchbar__iconContainer__${type}`]]: type,
+        })}
+      >
+        <FontAwesomeIcon icon={faSearch} />
+      </div>
       <input
-        onChange={onchange}
+        className={classNames({
+          [styles['searchbar__input']]: true,
+          [styles[`searchbar__input__type__${type}`]]: type,
+        })}
+        onChange={onChange}
         value={value}
         type={inputType}
         placeholder={placeholder}
       />
       <button
         className={classNames({
-          [styles['searchbar__button']]: true,
-          [styles[`searchbar__button__${type}`]]: type,
+          [styles['searchbar__searchbarBtn']]: true,
+          [styles[`searchbar__searchbarBtn__${type}`]]: type,
         })}
       >
-        Search
+        {label}
       </button>
     </div>
   );
+};
+
+Searchbar.defaultProps = {
+  type: SearchbarType.MEDIUM,
+  inputType: 'text',
+  placeholder: 'Searching for...',
+  label: 'Search',
 };
 
 export default memo(Searchbar);
