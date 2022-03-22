@@ -1,6 +1,8 @@
 import React, { memo, useState, useEffect } from 'react';
 import classNames from 'classnames';
 import styles from '@styles/reusable/Searchbar.module.scss';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 enum SearchbarType {
   PRIMARY = 'primary',
@@ -10,10 +12,10 @@ enum SearchbarType {
 interface ISeachbar {
   onchange: React.ChangeEventHandler<HTMLInputElement>;
   value: string;
-  type: string;
+  type: SearchbarType;
   inputType: 'email' | 'text' | 'number' | undefined;
   placeholder: string;
-  btnType: string;
+  label: string;
 }
 
 const Searchbar: React.FunctionComponent<ISeachbar> = ({
@@ -22,23 +24,8 @@ const Searchbar: React.FunctionComponent<ISeachbar> = ({
   type,
   inputType,
   placeholder,
+  label,
 }): JSX.Element => {
-  const [buttonType, setButtonType] = useState();
-
-  const handleButtonType = (input: any): void => {
-    switch (input) {
-      case value:
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  useEffect(() => {
-    handleButtonType(type);
-  }, [type]);
-
   return (
     <div
       className={classNames({
@@ -46,7 +33,12 @@ const Searchbar: React.FunctionComponent<ISeachbar> = ({
         [styles[`searchbar__type__${type}`]]: type,
       })}
     >
+      <FontAwesomeIcon icon={faSearch} />
       <input
+        className={classNames({
+          [styles['searchbar__input']]: true,
+          [styles[`searchbar__input__type__${type}`]]: type,
+        })}
         onChange={onchange}
         value={value}
         type={inputType}
@@ -58,10 +50,17 @@ const Searchbar: React.FunctionComponent<ISeachbar> = ({
           [styles[`searchbar__button__${type}`]]: type,
         })}
       >
-        Search
+        {label}
       </button>
     </div>
   );
+};
+
+Searchbar.defaultProps = {
+  type: SearchbarType.PRIMARY,
+  inputType: 'text',
+  placeholder: 'Searchin for...',
+  label: 'Search',
 };
 
 export default memo(Searchbar);
