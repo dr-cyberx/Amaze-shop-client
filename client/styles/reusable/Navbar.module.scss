@@ -8,12 +8,12 @@
   background-color: transparent;
   display: flex;
   justify-content: center;
+
   & .navbar {
     margin-top: 20px;
     border-radius: 50px;
     overflow-x: hidden;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-      rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     background-color: $color-white;
     width: 90%;
     display: flex;
@@ -36,6 +36,55 @@
       display: flex;
       justify-content: space-around;
       transition: all 0.2s ease-in-out;
+      position: relative;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+
+  & .profile__dropdown {
+    position: absolute;
+    outline: none;
+    top: 60px;
+    right: 5%;
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 6px;
+    background: $color-white;
+    backdrop-filter: blur(10px);
+    max-height: auto;
+    min-width: 180px;
+    max-width: auto;
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+
+    padding-left: 0px;
+
+    // & .profileDropdown__listItem > * {
+    //   color: $text-secondary;
+    // }
+
+    & .profileDropdown__listItem {
+      border-bottom: 1px solid $text-secondary-active;
+      list-style: none;
+      width: 100%;
+      padding: 16px 10px;
+      text-transform: capitalize;
+      cursor: pointer;
+
+      & > * {
+        color: $text-secondary;
+      }
+
+      &:hover {
+        background-color: $color-primary;
+        color: $color-white;
+      }
     }
   }
 }

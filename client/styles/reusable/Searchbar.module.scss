@@ -1,7 +1,7 @@
 @import '../variable.scss';
 
 .searchbar {
-  border: 1px solid $color-grey;
+  border: 1px solid $text-secondary-active;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,8 +63,8 @@
       font-size: 1.2rem;
     }
     &__medium {
-      min-height: 40px;
-      max-height: 45px;
+      min-height: 45px;
+      max-height: auto;
       border-radius: 0px 25px 25px 0px;
       font-size: 1.1rem;
       letter-spacing: 0.6px;

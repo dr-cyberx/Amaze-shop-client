@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
-import styles from '@styles/reusable/Navbar.module.scss';
 import Image from 'next/image';
-import Searchbar, { SearchbarType } from './Searchbar';
+import { NextRouter, useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faAngleDown,
   faAngleUp,
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
+import Text, { TextVariant } from '@reusable/Typography';
+import Searchbar, { SearchbarType } from './Searchbar';
+import {
+  IprofileDropdownOption,
+  profileDropdownOptions,
+} from 'utils/profileDropdownOptions';
+import styles from '@styles/reusable/Navbar.module.scss';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
+  const router: NextRouter = useRouter();
   const [searchbarVal, setSearchbarVal] = useState<string>('');
   const [dropdownArrow, setDropdownArrow] = useState<boolean>(false);
 
@@ -49,6 +56,29 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
           )}
         </div>
       </div>
+      <ul
+        className={styles.profile__dropdown}
+        style={
+          dropdownArrow
+            ? { height: '210px' }
+            : { height: '0px', border: 'none' }
+        }
+      >
+        {profileDropdownOptions.map((item: IprofileDropdownOption) => (
+          <li
+            key={item.label}
+            onClick={() => router.push(item.path)}
+            className={styles.profileDropdown__listItem}
+          >
+            <Text
+              variant={TextVariant.heading6}
+              style={{ fontWeight: '600', letterSpacing: '1px' }}
+            >
+              {item.label}
+            </Text>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
