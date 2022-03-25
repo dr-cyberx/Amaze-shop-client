@@ -7,6 +7,7 @@
   align-items: center;
   border-radius: 50px;
   transition: all 0.2s ease-in-out;
+  background-color: $color-white;
 
   &__type__medium {
     min-height: 30px;
@@ -39,6 +40,7 @@
     border: none;
     outline: none;
     flex: 1;
+    background: transparent;
     color: $text-secondary;
     &__type__medium {
       font-size: 1rem;
