@@ -28,7 +28,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
       <div className={styles.navbar}>
         <div className={styles.logo__container}>
           <Image
-            src={'/amazeViewLogo.png'}
+            src={'/logo-png.png'}
             alt="logo"
             height={50}
             width={165}
