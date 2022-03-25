@@ -1,5 +1,6 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
+import styles from '@styles/reusable/crousel.module.scss';
 
 interface IAmazeCrousel {
   DataList: any[];
@@ -8,6 +9,8 @@ interface IAmazeCrousel {
   navButtonsAlwaysVisible?: boolean;
   autoPlay?: boolean;
   animationDuration?: number;
+  swipe?: boolean;
+  animationInterval?: number;
 }
 
 const AmazeCrousel: React.FunctionComponent<IAmazeCrousel> = ({
@@ -16,7 +19,9 @@ const AmazeCrousel: React.FunctionComponent<IAmazeCrousel> = ({
   animationType,
   autoPlay,
   navButtonsAlwaysInvisible,
+  swipe,
   navButtonsAlwaysVisible,
+  animationInterval,
 }): JSX.Element => {
   return (
     <Carousel
@@ -25,10 +30,14 @@ const AmazeCrousel: React.FunctionComponent<IAmazeCrousel> = ({
       navButtonsAlwaysInvisible={navButtonsAlwaysInvisible}
       duration={animationDuration}
       autoPlay={autoPlay}
+      swipe={swipe}
+      interval={animationInterval}
     >
-      <div>hello</div>
-      <div>word</div>
-      <div>bye</div>
+      {DataList.map((item) => (
+        <div key={item.id} className={styles.courselImage__Container}>
+          {item.content}
+        </div>
+      ))}
     </Carousel>
   );
 };
@@ -40,6 +49,8 @@ AmazeCrousel.defaultProps = {
   autoPlay: true,
   navButtonsAlwaysInvisible: true,
   navButtonsAlwaysVisible: false,
+  swipe: false,
+  animationInterval: 3000,
 };
 
 export default AmazeCrousel;
