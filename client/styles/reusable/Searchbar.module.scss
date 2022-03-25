@@ -1,16 +1,18 @@
 @import '../variable.scss';
 
 .searchbar {
-  border: 1px solid $color-grey;
+  border: 1px solid $text-secondary-active;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 50px;
   transition: all 0.2s ease-in-out;
+  background-color: $color-white;
 
   &__type__medium {
-    min-height: 50px;
+    min-height: 30px;
     min-width: 100%;
+    max-height: 45px;
   }
   &__type__large {
     min-height: 70px;
@@ -38,11 +40,13 @@
     border: none;
     outline: none;
     flex: 1;
+    background: transparent;
+    color: $text-secondary;
     &__type__medium {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
     &__type__large {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
     &__type__small {
       font-size: 0.8rem;
@@ -61,7 +65,8 @@
       font-size: 1.2rem;
     }
     &__medium {
-      min-height: 50px;
+      min-height: 45px;
+      max-height: auto;
       border-radius: 0px 25px 25px 0px;
       font-size: 1.1rem;
       letter-spacing: 0.6px;
