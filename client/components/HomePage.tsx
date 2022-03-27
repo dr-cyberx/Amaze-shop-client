@@ -26,15 +26,11 @@ const HomePageCrouselContent = [
 const HomePage: React.FunctionComponent = (): JSX.Element => {
   return (
     <Layout>
-      <div className={styles.coursel__Container}>
-        <AmazeCrousel
-          DataList={HomePageCrouselContent}
-          animationDuration={2000}
-          // navButtonsAlwaysVisible
-          navButtonsAlwaysInvisible={false}
-          autoPlay={true}
-          animationInterval={3000}
-        />
+      <div className={styles.homePage__image__container}>
+        <img src="/phone.jpg" alt="phone image" />
+        <div className={styles.bottom__container}>
+kjhkjkhkj
+        </div>
       </div>
     </Layout>
   );
