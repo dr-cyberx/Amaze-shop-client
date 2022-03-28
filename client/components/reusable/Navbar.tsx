@@ -74,7 +74,6 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             </Text>
           </li>
         ))}
-
       </ul>
     </div>
   );
