@@ -1,5 +1,6 @@
 import React from 'react';
 // import Carousel from 'react-material-ui-carousel';
+import Carousel from 'react-elastic-carousel';
 import Layout from './reusable/Layout';
 import styles from '@styles/HomePage.module.scss';
 import Text, { TextVariant } from './reusable/Typography';
@@ -24,11 +25,22 @@ const HomePageCrouselContent = [
   },
 ];
 
+const breakPoints = [
+  { width: 1, itemsToShow: 1 },
+  { width: 550, itemsToShow: 2, itemsToScroll: 2 },
+  { width: 768, itemsToShow: 3 },
+  { width: 1200, itemsToShow: 4 },
+];
+
 const HomePage: React.FunctionComponent = (): JSX.Element => {
   return (
     <Layout>
       <div className={styles.homePage__image__container}>
-        <img className={styles.homepage__image} src="/phone.jpg" alt="phone image" />
+        <img
+          className={styles.homepage__image}
+          src="/phone.jpg"
+          alt="phone image"
+        />
         <div className={styles.bottom__container}>
           <Text
             variant={TextVariant.heading3}
@@ -43,7 +55,17 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
           </Text>
 
           <div className={styles.Product__card__container}>
-            <ProductCard />
+            <Carousel
+              isRTL
+              pagination={false}
+              itemPosition={'CENTER'}
+              breakPoints={breakPoints}
+              className={styles.Product__card__crousel}
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((d) => (
+                <ProductCard key={d} />
+              ))}
+            </Carousel>
           </div>
         </div>
       </div>

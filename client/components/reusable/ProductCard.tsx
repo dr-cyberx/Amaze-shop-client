@@ -11,8 +11,12 @@ interface IProductCard {
 const ProductCard: React.FunctionComponent<IProductCard> = (): JSX.Element => {
   return (
     <div className={styles.Product__Card}>
-      <div className={styles.Product__image}>
-        {/* <img /> */}
+      <div className={styles.Product__image__container}>
+        <img
+          className={styles.Product__image}
+          src="/console.jpg"
+          alt="product image"
+        />
       </div>
     </div>
   );
