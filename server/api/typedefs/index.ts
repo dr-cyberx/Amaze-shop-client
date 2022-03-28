@@ -12,6 +12,7 @@ import {
   createProduct,
   createProductInput,
   createProductResponse,
+  getAllProductResponse,
   getAllProducts,
   updateProduct,
 } from './Product';
@@ -28,6 +29,7 @@ const TypeDefs: DocumentNode = gql`
 
   ${newUser}
   ${getAllUserResponse}
+  ${getAllProductResponse}
   ${userRole}
   ${authResponse}
   ${createProductInput}

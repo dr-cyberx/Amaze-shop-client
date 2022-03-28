@@ -13,13 +13,13 @@ const isValidUser = async (
     const isUserExist: any = await findFromDB(User, 'One', {
       email: userDetail?.userEmail,
     });
-
     if (isUserExist?.email || isUserExist?.phoneNumber) {
       if (cb) {
         const res = await cb(...rest);
         return { isValid: true, data: res, userId: isUserExist.id };
       }
 
+      console.log('hi');
       return {
         isValid: true,
         data: {

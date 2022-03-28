@@ -1,5 +1,4 @@
 import React from 'react';
-// import Carousel from 'react-material-ui-carousel';
 import Carousel from 'react-elastic-carousel';
 import Layout from './reusable/Layout';
 import styles from '@styles/HomePage.module.scss';
@@ -56,14 +55,20 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
 
           <div className={styles.Product__card__container}>
             <Carousel
-              isRTL
+              isRTL={false}
               pagination={false}
               itemPosition={'CENTER'}
               breakPoints={breakPoints}
               className={styles.Product__card__crousel}
             >
               {[1, 2, 3, 4, 5, 6, 7, 8].map((d) => (
-                <ProductCard key={d} />
+                <ProductCard
+                  key={d}
+                  image="/console.jpg"
+                  placeholderText="console"
+                  rating={4.5}
+                  title="PS5 controller"
+                />
               ))}
             </Carousel>
           </div>

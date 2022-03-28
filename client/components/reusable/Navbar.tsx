@@ -14,6 +14,7 @@ import {
   profileDropdownOptions,
 } from 'utils/profileDropdownOptions';
 import styles from '@styles/reusable/Navbar.module.scss';
+import TextRating from './TextRating';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   const router: NextRouter = useRouter();
@@ -27,12 +28,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
     <div className={styles.navbar__container}>
       <div className={styles.navbar}>
         <div className={styles.logo__container}>
-          <Image
-            src={'/logo-png.png'}
-            alt="logo"
-            height={50}
-            width={165}
-          />
+          <Image src={'/logo-png.png'} alt="logo" height={50} width={165} />
         </div>
         <div className={styles.searchbar__container}>
           <Searchbar

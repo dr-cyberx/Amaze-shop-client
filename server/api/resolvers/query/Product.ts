@@ -10,7 +10,6 @@ export const productquery = {
   ): Promise<Type_Create_Update_Product | IGetAllData> => {
     const allProducts: Type_Create_Update_Product | IGetAllData =
       await GetAllProducts(token);
-    console.log('allProducts -> ', allProducts);
     return allProducts;
   },
 };
