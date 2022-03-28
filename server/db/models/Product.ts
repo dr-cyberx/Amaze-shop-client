@@ -27,6 +27,10 @@ const ProductSchema: mongoose.Schema<
       type: mongoose.Types.ObjectId,
       ref: 'User',
     },
+    productBrand: {
+      type: String,
+      required: true,
+    },
     productRating: {
       type: Number,
       required: true,

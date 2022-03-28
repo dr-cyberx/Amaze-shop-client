@@ -7,10 +7,11 @@ export const updateProduct: string =
 export const createProductInput: string = `input createProductInput{
   productName: String!
   productImage: String!
+  productBrand: String!
   productDescription: String!
   productPrice: String!
   productSeller: String!
-  productRating: Int!
+  productRating: Float!
 }`;
 
 export const createProductResponse: string = `
@@ -20,9 +21,10 @@ type createProductResponse{
   productName: String!
   productImage: String!
   productDescription: String!
+  productBrand: String!
   productPrice: String!
   productSeller: String!
-  productRating: Int!
+  productRating: Float!
 }
 
 type createProductMutationResponse{
@@ -34,8 +36,17 @@ type createProductMutationResponse{
 
 `;
 
+export const getAllProductResponse: string = `
+type getAllProductResponse{
+  data: [createProductResponse]!
+  error: Boolean!
+  message: String!
+  status: Int!
+}
+`;
+
 export const getAllProducts: string = `
-  getallproducts: [createProductResponse]!
+  getallproducts: getAllProductResponse!
 `;
 
 export const hello = 'hello';

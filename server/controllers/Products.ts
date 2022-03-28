@@ -60,7 +60,7 @@ export const GetAllProducts = async (token: any) => {
     const { isValid } = await isValidUser(null, token);
     if (isValid) {
       const res: any = await findFromDB(Product, 'All');
-      return amazeResponse('fetched all user successfully', res, false, 200);
+      return amazeResponse('fetched all Products successfully', res, false, 200);
     }
     return amazeResponse('Invalid user!');
   } catch (error: any) {
