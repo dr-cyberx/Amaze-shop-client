@@ -29,7 +29,9 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
       <div className={styles.homePage__image__container}>
         <img src="/phone.jpg" alt="phone image" />
         <div className={styles.bottom__container}>
-kjhkjkhkj
+          {
+
+          }
         </div>
       </div>
     </Layout>
