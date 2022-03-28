@@ -28,7 +28,7 @@
   margin-top: -50px;
   display: flex;
   justify-content: center;
-  & img {
+  .homepage__image {
     height: 850px;
     width: 100%;
     overflow: hidden;
@@ -40,11 +40,21 @@
     width: 90%;
     margin: auto;
     position: absolute;
-    bottom: -10%;
+    bottom: -30%;
     border-radius: 10px;
     padding: 20px;
     background-image: linear-gradient($color-white-blur, rgb(255, 255, 255));
     backdrop-filter: blur(10px);
     // background-color: $color-white-blur;
+  }
+
+  .Product__card__container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    border: 2px solid red;
+    padding: 5px;
+    min-height: 500px;
+    max-height: auto;
   }
 }
