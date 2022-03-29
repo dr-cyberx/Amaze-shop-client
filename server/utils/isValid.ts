@@ -19,7 +19,6 @@ const isValidUser = async (
         return { isValid: true, data: res, userId: isUserExist.id };
       }
 
-      console.log('hi');
       return {
         isValid: true,
         data: {
