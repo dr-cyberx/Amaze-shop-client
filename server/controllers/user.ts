@@ -15,7 +15,7 @@ export const GetAllUser = async (
       return amazeResponse('fetched Successfully', res.data, false, 200);
     }
     return amazeResponse('InValid User');
-  } catch (err: any) {
+  } catch (err) {
     return amazeResponse(`failed to fetch ${new ApolloError(err)}`);
   }
 };

@@ -69,7 +69,7 @@ export const GetAllProducts = async (
       );
     }
     return amazeResponse('Invalid user!');
-  } catch (error: any) {
+  } catch (error) {
     return amazeResponse('something went wrong!');
   }
 };
