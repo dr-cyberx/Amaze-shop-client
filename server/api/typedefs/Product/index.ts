@@ -43,10 +43,18 @@ type getAllProductResponse{
   message: String!
   status: Int!
 }
+
+type singleProductResponse{
+  data: createProductResponse
+  error: Boolean!
+  message: String!
+  status: Int!
+}
 `;
 
 export const getAllProducts: string = `
   getallproducts: getAllProductResponse!
+  getProductById(id: ID!): singleProductResponse!
 `;
 
 export const hello = 'hello';

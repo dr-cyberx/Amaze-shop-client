@@ -1,0 +1,16 @@
+query Getallproducts {
+  getallproducts {
+    data {
+      id
+      productDescription
+      productImage
+      productName
+      productPrice
+      productRating
+      productSeller
+    }
+    error
+    message
+    status
+  }
+}
