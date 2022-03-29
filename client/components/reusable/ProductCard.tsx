@@ -34,6 +34,7 @@ const ProductCard: React.FunctionComponent<IProductCard> = ({
   title,
   placeholderText,
 }): JSX.Element => {
+  console.log('rating -> ', rating);
   return (
     <div className={styles.Product__Card}>
       <div className={styles.Product__image__container}>
@@ -53,7 +54,7 @@ const ProductCard: React.FunctionComponent<IProductCard> = ({
           </Text>
         </div>
         <div className={styles.product__card__rating__container}>
-          <TextRating readOnly={true} value={3.5} />
+          <TextRating readOnly={true} value={rating ? rating : 0} />
         </div>
       </div>
     </div>
