@@ -4,16 +4,19 @@ import Layout from './Layout';
 import GET_PRODUCT_BY_ID from '@graphql-doc/GET_PRODUCT_BY_ID.graphql';
 import { typeProduct } from '@components/HomePage';
 import styles from '@styles/reusable/ProductOverview.module.scss';
+import { useRouter } from 'next/router';
 
 interface iProductOverview {
   children?: React.ReactNode;
-  productId: string | string[] | undefined;
+  // productId: string | string[] | undefined;
 }
 
 const ProductOverview: React.FunctionComponent<iProductOverview> = ({
   children,
-  productId,
+  // productId,
 }) => {
+  const router = useRouter();
+  const { productId } = router.query;
   const { data, loading, error } = useQuery(GET_PRODUCT_BY_ID, {
     variables: {
       getProductById: productId,
