@@ -1,5 +1,5 @@
+import React, { memo } from 'react';
 import { CircularProgress } from '@mui/material';
-import React from 'react';
 import Carousel from 'react-elastic-carousel';
 import ProductCard from './ProductCard';
 import Text, { TextVariant } from './Typography';
@@ -66,4 +66,4 @@ const ProductCrouselContainer: React.FunctionComponent<
   );
 };
 
-export default ProductCrouselContainer;
+export default memo(ProductCrouselContainer);
