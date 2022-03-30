@@ -11,32 +11,6 @@ import { CircularProgress } from '@mui/material';
 import Modal from './reusable/modal';
 import ProductCrouselContainer from './reusable/ProductCrouselContainer';
 
-const HomePageCrouselContent = [
-  {
-    id: 0,
-    content: <img src="/4ktv.jpg" alt="image 1" />,
-  },
-  {
-    id: 1,
-    content: <img src="/console2.jpg" alt="image 2" />,
-  },
-  {
-    id: 2,
-    content: <img src="/laptop.jpg" alt="image 3" />,
-  },
-  {
-    id: 3,
-    content: <img src="/phone.jpg" alt="image 4" />,
-  },
-];
-
-const breakPoints = [
-  { width: 1, itemsToShow: 1 },
-  { width: 550, itemsToShow: 2, itemsToScroll: 2 },
-  { width: 768, itemsToShow: 3 },
-  { width: 1200, itemsToShow: 4 },
-];
-
 export type typeProduct = {
   id: string;
   productDescription: string;
@@ -65,7 +39,7 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
       <div className={styles.homePage__image__container}>
         <img
           className={styles.homepage__image}
-          src="/phone.jpg"
+          src="/phone-min.jpg"
           alt="phone image"
         />
         <div className={styles.bottom__container}>
