@@ -9,6 +9,7 @@ import GET_ALL_PRODUCTS from '@graphql-doc/GET_ALL_PRODUCTS.graphql';
 import styles from '@styles/HomePage.module.scss';
 import { CircularProgress } from '@mui/material';
 import Modal from './reusable/modal';
+import ProductCrouselContainer from './reusable/ProductCrouselContainer';
 
 const HomePageCrouselContent = [
   {
@@ -68,43 +69,11 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
           alt="phone image"
         />
         <div className={styles.bottom__container}>
-          <Text
-            variant={TextVariant.heading3}
-            style={{
-              textAlign: 'left',
-              marginLeft: '20px',
-              marginTop: '20px',
-              color: 'rgb(43, 52, 69)',
-            }}
-          >
-            Top Selling Product
-          </Text>
-
-          <div className={styles.Product__card__container}>
-            {loading ? (
-              <Modal>
-                <CircularProgress color="primary" />
-              </Modal>
-            ) : (
-              <Carousel
-                isRTL={false}
-                pagination={false}
-                itemPosition={'CENTER'}
-                breakPoints={breakPoints}
-                className={styles.Product__card__crousel}
-              >
-                {TopSellingProducts.map((d) => (
-                  <ProductCard
-                    key={d.id}
-                    image={d.productImage}
-                    placeholderText={d.productName}
-                    rating={d.productRating}
-                    title={d.productName}
-                  />
-                ))}
-              </Carousel>
-            )}
-          </div>
+          <ProductCrouselContainer
+            containerTitle="Top Selling Products"
+            isLoading={loading}
+            itemArray={TopSellingProducts}
+          />
         </div>
       </div>
     </Layout>
