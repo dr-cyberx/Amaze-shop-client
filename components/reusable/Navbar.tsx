@@ -14,7 +14,6 @@ import {
   profileDropdownOptions,
 } from 'utils/profileDropdownOptions';
 import styles from '@styles/reusable/Navbar.module.scss';
-import TextRating from './TextRating';
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   const router: NextRouter = useRouter();
