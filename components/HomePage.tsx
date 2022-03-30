@@ -50,6 +50,7 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
           />
         </div>
       </div>
+      {/* <div>hello world</div> */}
     </Layout>
   );
 };
