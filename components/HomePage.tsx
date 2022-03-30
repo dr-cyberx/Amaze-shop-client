@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Carousel from 'react-elastic-carousel';
 import { useQuery } from '@apollo/client';
+import { InfinitySpin } from 'react-loader-spinner';
 import Layout from './reusable/Layout';
 import Text, { TextVariant } from './reusable/Typography';
 import ProductCard from './reusable/ProductCard';
@@ -27,17 +28,6 @@ const HomePageCrouselContent = [
     content: <img src="/phone.jpg" alt="image 4" />,
   },
 ];
-
-// {
-//   "__typename": "createProductResponse",
-//   "id": "6241975c5aefc0d3014f0f5a",
-//   "productDescription": "Max Air changed the game in '87. Now, we honour its emerald anniversary (35 years!) with the Nike Air Max 90 SE. Emerald graphics and colours highlight this big landmark, while its classic Waffle outsole and exposed Air cushioning keep you living the legacy in comfort.",
-//   "productImage": "https://bazar-react.vercel.app/assets/images/products/nike-black.png",
-//   "productName": "Nike storm",
-//   "productPrice": "100.00",
-//   "productRating": 4.5,
-//   "productSeller": "62418a6cd6cdf2ee9316aa17"
-// }
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -70,7 +60,7 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
   }, [data]);
 
   return (
-    <Layout>
+    <Layout isLoading={loading}>
       <div className={styles.homePage__image__container}>
         <img
           className={styles.homepage__image}
