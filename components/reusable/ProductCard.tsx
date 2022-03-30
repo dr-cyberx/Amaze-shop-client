@@ -12,6 +12,7 @@ interface IProductCard {
   id?: string;
   rating?: number;
   placeholderText?: string;
+  onClick?: () => void;
 }
 
 const labels: { [index: string]: string } = {
@@ -33,10 +34,10 @@ const ProductCard: React.FunctionComponent<IProductCard> = ({
   rating,
   title,
   placeholderText,
+  onClick,
 }): JSX.Element => {
-  console.log('rating -> ', rating);
   return (
-    <div className={styles.Product__Card}>
+    <div className={styles.Product__Card} onClick={onClick}>
       <div className={styles.Product__image__container}>
         <img
           className={styles.Product__image}

@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import { NextRouter, useRouter } from 'next/router';
 import { CircularProgress } from '@mui/material';
 import Carousel from 'react-elastic-carousel';
 import ProductCard from './ProductCard';
@@ -23,6 +24,7 @@ const breakPoints = [
 const ProductCrouselContainer: React.FunctionComponent<
   IProductCrouselContainer
 > = ({ isLoading, itemArray, containerTitle }) => {
+  const router: NextRouter = useRouter();
   return (
     <div className={styles.ProductCrousel__container}>
       <Text
@@ -53,6 +55,7 @@ const ProductCrouselContainer: React.FunctionComponent<
             {itemArray.map((d) => (
               <ProductCard
                 key={d.id}
+                onClick={() => router.push(`product/${d.id}`)}
                 image={d.productImage}
                 placeholderText={d.productName}
                 rating={d.productRating}
