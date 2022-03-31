@@ -33,7 +33,6 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
 
   useEffect(() => {
     if (data?.getProductById.data) {
-      console.log('data --- > ', data.getProductById.data);
       setProduct(data.getProductById.data);
     }
   }, [data]);

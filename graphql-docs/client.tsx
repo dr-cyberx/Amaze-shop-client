@@ -9,8 +9,8 @@ import cookie from "cookie";
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink: ApolloLink = createHttpLink({
-  uri: 'http://localhost:4000/amazeshop',
-  // uri: process.env.LOCAL_SERVER_URL,
+  // uri: 'http://localhost:4000/amazeshop',
+  uri: 'https://amaze-shop-server.herokuapp.com/amazeshop',
 });
 
 const authLink: ApolloLink = setContext((_, { headers }) => {
