@@ -15,6 +15,7 @@ export type typeProduct = {
   id: string;
   productDescription: string;
   productImage: string;
+  productBrand: string;
   productName: string;
   productPrice: string;
   productRating: number;

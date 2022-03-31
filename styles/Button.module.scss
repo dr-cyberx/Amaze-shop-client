@@ -22,10 +22,9 @@
   color: $color;
   border: 1px solid $color;
   border-radius: 3px;
-  transition: background 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
   &:hover {
-    background-color: $color;
-    color: $color-white;
+    opacity: 0.9;
   }
   &:active {
     opacity: 0.8;
