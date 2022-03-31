@@ -8,6 +8,8 @@
   padding-right: 100px;
   display: flex;
   justify-content: space-between;
+  transition: all 0.2s ease-in-out;
+
   .product__overview__child_1 {
     flex: 0.8;
     display: flex;
@@ -43,6 +45,14 @@
 
     .price__and__rating__container {
       margin-top: 20px;
+
+      .product__brand {
+        font-size: 1.3rem;
+        span {
+          font-weight: 600;
+          color: $color-primary;
+        }
+      }
     }
 
     .BuyNow__add__to__cart {
