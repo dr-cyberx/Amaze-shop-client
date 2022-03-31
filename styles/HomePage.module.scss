@@ -21,10 +21,8 @@
 }
 
 .homePage__image__container {
-  // border: 2px solid red;
   height: 850px;
   width: 100%;
-  // overflow: hidden;
   margin-top: -50px;
   display: flex;
   justify-content: center;
@@ -35,7 +33,6 @@
     overflow: hidden;
   }
   .bottom__container {
-    // border: 2px solid red;
     min-height: 250px;
     max-height: auto;
     width: 90%;
@@ -43,30 +40,5 @@
     position: absolute;
     bottom: -35%;
     border-radius: 10px;
-    padding: 20px;
-    background-image: linear-gradient($color-white-blur, rgb(255, 255, 255));
-    backdrop-filter: blur(10px);
-    box-shadow: $box-shadow-primary;
-    // background-color: $color-white-blur;
-  }
-
-  .Product__card__container {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-    // border: 2px solid red;
-    padding: 5px;
-    min-height: 500px;
-    max-height: auto;
-    position: relative;
-
-    .Product__card__crousel{
-      position: absolute;
-      // border: 2px solid red;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      width: 105%;
-      left: -2.5%;
-    }
   }
 }

@@ -1,0 +1,32 @@
+@import '../variable.scss';
+
+.layout {
+  min-height: 100vh;
+  max-height: auto;
+  max-width: 100vw;
+  // overflow-x: scroll;
+  background-color: $background-primary;
+  .loader__container {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 9999999999999999;
+    // height: 500px;
+    top: 0%;
+    left: 0%;
+    background-color: rgba(0, 0, 0, 0.575);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3%;
+    padding-left: 14%;
+
+    .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform: scale(1.4);
+    }
+  }
+}

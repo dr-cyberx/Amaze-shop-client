@@ -1,10 +1,11 @@
-query GetProductById($getProductById: ID!) {
-  getProductById(id: $getProductById) {
+query Getallproducts {
+  getallproducts {
     data {
       id
       productDescription
       productImage
       productName
+      productBrand
       productPrice
       productRating
       productSeller
