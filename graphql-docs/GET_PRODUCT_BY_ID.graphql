@@ -4,6 +4,7 @@ query GetProductById($getProductById: ID!) {
       id
       productDescription
       productImage
+      productBrand
       productName
       productPrice
       productRating

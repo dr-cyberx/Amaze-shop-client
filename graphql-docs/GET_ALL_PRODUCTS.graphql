@@ -5,6 +5,7 @@ query Getallproducts {
       productDescription
       productImage
       productName
+      productBrand
       productPrice
       productRating
       productSeller
