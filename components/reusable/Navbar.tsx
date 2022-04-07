@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Image from 'next/image';
 import { NextRouter, useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,15 +7,16 @@ import {
   faAngleUp,
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
+import { Badge, BadgeProps, IconButton, styled } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Text, { TextVariant } from '@reusable/Typography';
 import Searchbar, { SearchbarType } from './Searchbar';
 import {
   IprofileDropdownOption,
   profileDropdownOptions,
 } from 'utils/profileDropdownOptions';
+import { CartContext } from '@context/Cart/CartContext';
 import styles from '@styles/reusable/Navbar.module.scss';
-import { Badge, BadgeProps, IconButton, styled } from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -28,12 +29,14 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   const router: NextRouter = useRouter();
+  const { openPostModal } = useContext(CartContext);
   const [searchbarVal, setSearchbarVal] = useState<string>('');
   const [dropdownArrow, setDropdownArrow] = useState<boolean>(false);
 
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>): any => {
     setSearchbarVal(e.target.value);
   };
+
   return (
     <div className={styles.navbar__container}>
       <div className={styles.navbar}>
@@ -55,7 +58,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
         </div>
         <div className={styles.other__navItems}>
           <div className={styles.cart__Count}>
-            <IconButton aria-label="cart">
+            <IconButton aria-label="cart" onClick={openPostModal}>
               <StyledBadge badgeContent={0} color="primary">
                 <ShoppingCartIcon />
               </StyledBadge>

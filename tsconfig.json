@@ -6,7 +6,8 @@
       "@reusable/*":["./components/reusable/*"],
       "@styles/*": ["./styles/*"],
       "@pages/*": ["./pages/*"],
-      "@graphql-doc/*": ["./graphql-docs/*"]
+      "@graphql-doc/*": ["./graphql-docs/*"],
+      "@context/*": ["./context/*"],
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

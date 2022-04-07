@@ -1,0 +1,13 @@
+@import '../variable.scss';
+
+.Cart {
+  min-height: 600px;
+  min-width: 80vw;
+  max-width: 90vw;
+  margin: auto;
+  // border: 2px solid red;
+  margin-top: 8%;
+  background: $color-white-blur-2;
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+}

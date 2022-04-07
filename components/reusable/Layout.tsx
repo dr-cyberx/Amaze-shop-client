@@ -2,6 +2,7 @@ import React from 'react';
 import { InfinitySpin } from 'react-loader-spinner';
 import Navbar from './Navbar';
 import styles from '@styles/reusable/Layout.module.scss';
+import AmazeCart from './AmazeCart';
 
 interface iLayout {
   children: React.ReactNode;
@@ -23,6 +24,11 @@ const Layout: React.FunctionComponent<iLayout> = ({
           </div>
         </div>
       ) : null}
+      {
+        <div className={styles.cart__container}>
+          <AmazeCart />
+        </div>
+      }
     </div>
   );
 };

@@ -15,5 +15,23 @@ export const CartContextProvider = ({
     cartProductsCount: 0,
   });
 
-  return <CartContext.Provider value={{}}>{children}</CartContext.Provider>;
+  const openPostModal = (): void => {
+    dispatch({
+      type: 'OPEN_MODEL',
+    });
+    return;
+  };
+
+  const closePostModal = (): void => {
+    dispatch({
+      type: 'OPEN_MODEL',
+    });
+    return;
+  };
+
+  return (
+    <CartContext.Provider value={{ state, closePostModal, openPostModal }}>
+      {children}
+    </CartContext.Provider>
+  );
 };

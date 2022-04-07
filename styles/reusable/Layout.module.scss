@@ -29,4 +29,13 @@
       transform: scale(1.4);
     }
   }
+
+  .cart__container {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    height: 100vh;
+    width: 100vw;
+    border: 2px solid red;
+  }
 }

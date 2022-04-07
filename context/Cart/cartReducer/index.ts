@@ -5,16 +5,13 @@ const cartReducer = (state: any, action: any) => {
     case actionsType.OPEN_MODEL:
       return {
         ...state,
+        showCartModal: true,
       };
       break;
     case actionsType.CLOSE_MODEL:
       return {
         ...state,
-      };
-      break;
-    case actionsType.GET_ALL_CART_PRODUCT:
-      return {
-        ...state,
+        showCartModal: false,
       };
       break;
     case actionsType.REMOVE_CART_PRODUCT:
