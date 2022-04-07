@@ -29,7 +29,7 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   const router: NextRouter = useRouter();
-  const { openPostModal } = useContext(CartContext);
+  const { state, openPostModal, closePostModal } = useContext(CartContext);
   const [searchbarVal, setSearchbarVal] = useState<string>('');
   const [dropdownArrow, setDropdownArrow] = useState<boolean>(false);
 
@@ -58,7 +58,13 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
         </div>
         <div className={styles.other__navItems}>
           <div className={styles.cart__Count}>
-            <IconButton aria-label="cart" onClick={openPostModal}>
+            <IconButton
+              aria-label="cart"
+              onClick={(event: any) => {
+                event.stopPropagation();
+                state.showCartModal ? closePostModal() : openPostModal();
+              }}
+            >
               <StyledBadge badgeContent={0} color="primary">
                 <ShoppingCartIcon />
               </StyledBadge>

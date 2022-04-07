@@ -10,4 +10,18 @@
   background: $color-white-blur-2;
   backdrop-filter: blur(10px);
   border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+  .cart__product__list {
+    flex: 1;
+    border: 2px solid red;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .cart__product__price {
+    flex: 1;
+    border: 2px solid red;
+    border-radius: 8px;
+  }
 }

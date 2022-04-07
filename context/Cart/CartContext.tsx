@@ -24,7 +24,7 @@ export const CartContextProvider = ({
 
   const closePostModal = (): void => {
     dispatch({
-      type: 'OPEN_MODEL',
+      type: 'CLOSE_MODEL',
     });
     return;
   };
