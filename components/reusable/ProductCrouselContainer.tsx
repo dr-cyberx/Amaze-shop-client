@@ -6,6 +6,7 @@ import ProductCard from './ProductCard';
 import Text, { TextVariant } from './Typography';
 import Modal from './modal';
 import styles from '@styles/reusable/ProductCrouselContainer.module.scss';
+import { typeProduct } from '@components/HomePage';
 
 interface IProductCrouselContainer {
   children?: React.ReactNode;
@@ -52,9 +53,10 @@ const ProductCrouselContainer: React.FunctionComponent<
             breakPoints={breakPoints}
             className={styles.Product__card__crousel}
           >
-            {itemArray.map((d) => (
+            {itemArray.map((d: typeProduct) => (
               <ProductCard
                 key={d.id}
+                productPrice={d.productPrice}
                 onClick={() => router.push(`product/${d.id}`)}
                 image={d.productImage}
                 placeholderText={d.productName}

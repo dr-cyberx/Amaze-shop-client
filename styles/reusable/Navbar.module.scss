@@ -39,14 +39,21 @@
       font-size: 1.6rem;
       color: $color-primary;
       margin-right: 20px;
-      width: 65px;
+      width: 150px;
       display: flex;
       justify-content: space-around;
+      align-items: center;
       transition: all 0.2s ease-in-out;
       position: relative;
 
       &:hover {
         color: $color-primary;
+      }
+
+      & .cart__Count {
+        & > * {
+          color: $color-primary;
+        }
       }
     }
   }

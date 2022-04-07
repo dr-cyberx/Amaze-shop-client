@@ -14,6 +14,17 @@ import {
   profileDropdownOptions,
 } from 'utils/profileDropdownOptions';
 import styles from '@styles/reusable/Navbar.module.scss';
+import { Badge, BadgeProps, IconButton, styled } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
 
 const Navbar: React.FunctionComponent = (): JSX.Element => {
   const router: NextRouter = useRouter();
@@ -42,16 +53,28 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             label="Search"
           />
         </div>
-        <div
-          className={styles.other__navItems}
-          onClick={() => setDropdownArrow(!dropdownArrow)}
-        >
-          <FontAwesomeIcon icon={faUserCircle} />
-          {dropdownArrow ? (
-            <FontAwesomeIcon icon={faAngleUp} />
-          ) : (
-            <FontAwesomeIcon icon={faAngleDown} />
-          )}
+        <div className={styles.other__navItems}>
+          <div className={styles.cart__Count}>
+            <IconButton aria-label="cart">
+              <StyledBadge badgeContent={0} color="primary">
+                <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+          </div>
+          <div
+            className={styles.other_nav_links}
+            onClick={() => setDropdownArrow(!dropdownArrow)}
+          >
+            <FontAwesomeIcon
+              icon={faUserCircle}
+              style={{ marginRight: '5px' }}
+            />
+            {dropdownArrow ? (
+              <FontAwesomeIcon icon={faAngleUp} />
+            ) : (
+              <FontAwesomeIcon icon={faAngleDown} />
+            )}
+          </div>
         </div>
       </div>
       <ul
@@ -61,6 +84,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             ? { height: '210px' }
             : { height: '0px', border: 'none' }
         }
+        onMouseLeave={() => setDropdownArrow(false)}
       >
         {profileDropdownOptions.map((item: IprofileDropdownOption) => (
           <li

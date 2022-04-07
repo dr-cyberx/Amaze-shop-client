@@ -1,0 +1,22 @@
+query GetCartByUserID {
+  getCartByUserID {
+    data {
+      id
+      userId
+      productCount
+      products {
+        id
+        productName
+        productBrand
+        productDescription
+        productImage
+        productPrice
+        productRating
+        productSeller
+      }
+    }
+    error
+    message
+    status
+  }
+}

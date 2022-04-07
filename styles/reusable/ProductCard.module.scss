@@ -2,19 +2,26 @@
 
 .Product__Card {
   // border: 2px solid red;
-  min-height: 450px;
+  min-height: 430px;
   width: 300px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: $box-shadow-primary;
   backdrop-filter: blur(10px);
-  background-color: transparent;
+  background-color: white;
+  margin: 5px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    filter: brightness(0.8);
+  }
 
   .Product__image__container {
     .Product__image {
-      height: 330px;
+      height: 300px;
       width: 100%;
+      object-fit: contain;
     }
   }
 
@@ -26,5 +33,10 @@
   .product__card__rating__container {
     height: 30px;
     width: 100%;
+    padding: 5px;
+  }
+  .product__price__container {
+    margin-top: 5px;
+    padding: 10px;
   }
 }

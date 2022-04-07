@@ -1,0 +1,22 @@
+mutation AddItemToCart($productId: ID!) {
+  addItemToCart(productId: $productId) {
+    data {
+      products {
+        id
+        productName
+        productBrand
+        productDescription
+        productImage
+        productPrice
+        productRating
+        productSeller
+      }
+      userId
+      productCount
+      id
+    }
+    error
+    message
+    status
+  }
+}

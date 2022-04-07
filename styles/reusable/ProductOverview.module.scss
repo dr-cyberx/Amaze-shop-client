@@ -25,6 +25,7 @@
       width: 350px;
       border-radius: 8px;
       cursor: pointer;
+      object-fit: contain;
       transition: all 0.2s ease-in-out;
       &:hover {
         transform: scale(1.6);

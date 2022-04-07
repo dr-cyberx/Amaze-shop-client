@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
+import { Skeleton } from '@mui/material';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRouter } from 'next/router';
 import Layout from './Layout';
 import GET_PRODUCT_BY_ID from '@graphql-doc/GET_PRODUCT_BY_ID.graphql';
 import { typeProduct } from '@components/HomePage';
-import styles from '@styles/reusable/ProductOverview.module.scss';
-import { useRouter } from 'next/router';
 import Text, { TextVariant } from './Typography';
 import TextRating from './TextRating';
 import Button, { TypeButton, TypeButtonSize } from './Button';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Skeleton } from '@mui/material';
+import styles from '@styles/reusable/ProductOverview.module.scss';
 
 interface iProductOverview {
   children?: React.ReactNode;
@@ -47,7 +47,9 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
               src={product?.productImage}
               alt={product?.productName}
             />
-          ) : <Skeleton height="500px" width="300px" animation="wave" />}
+          ) : (
+            <Skeleton height="500px" width="300px" animation="wave" />
+          )}
         </div>
         <div className={styles.product__overview__child_2}>
           <div className={styles.product__title}>

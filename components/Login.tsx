@@ -67,6 +67,7 @@ const Login: React.FunctionComponent = (): JSX.Element => {
         ...loginCreds,
       },
     });
+
     const { error, status, message, token } = res?.data?.login;
     if (error === false && status === 200) {
       document.cookie = cookie.serialize('auth_token', token, {

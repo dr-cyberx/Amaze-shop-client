@@ -12,6 +12,7 @@ interface IProductCard {
   id?: string;
   rating?: number;
   placeholderText?: string;
+  productPrice?: string;
   onClick?: () => void;
 }
 
@@ -34,6 +35,7 @@ const ProductCard: React.FunctionComponent<IProductCard> = ({
   rating,
   title,
   placeholderText,
+  productPrice,
   onClick,
 }): JSX.Element => {
   return (
@@ -56,6 +58,16 @@ const ProductCard: React.FunctionComponent<IProductCard> = ({
         </div>
         <div className={styles.product__card__rating__container}>
           <TextRating readOnly={true} value={rating ? rating : 0} />
+        </div>
+        <div className={styles.product__price__container}>
+          <Text
+            variant={TextVariant.heading5}
+            style={{
+              color: 'rgb(43, 52, 69)',
+            }}
+          >
+            ${productPrice} /-
+          </Text>
         </div>
       </div>
     </div>
