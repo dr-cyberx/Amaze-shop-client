@@ -5,7 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "precommit": "yarn run build",
+    "precommit": "npm run build",
     "lint": "next lint"
   },
   "dependencies": {
