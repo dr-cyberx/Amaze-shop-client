@@ -1,0 +1,32 @@
+@import '../variable.scss';
+
+.cart__product__container {
+  // border: 2px solid red;
+  padding: 20px 20px;
+  display: flex;
+  transition: all 0.2s ease-in-out;
+  border-radius: 8px;
+  .product__image {
+    flex: 1.3;
+    // border: 2px solid red;
+    height: 200px;
+    width: auto;
+    object-fit: contain;
+    // border: 2px solid red;
+    border-radius: 8px;
+    image-rendering: optimizeSpeed;
+  }
+  .product__details {
+    flex: 2;
+    // border: 2px solid red;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    .remove__from__cart {
+      width: 50%;
+    }
+  }
+}

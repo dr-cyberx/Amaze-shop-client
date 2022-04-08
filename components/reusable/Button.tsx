@@ -45,6 +45,7 @@ interface iButton {
   size: TypeButtonSize;
   style?: CSSProperties;
   type?: 'button' | 'submit' | 'reset';
+  loadingText?: string;
 }
 
 const Button: FunctionComponent<iButton> = ({
@@ -57,6 +58,7 @@ const Button: FunctionComponent<iButton> = ({
   size,
   style,
   type,
+  loadingText,
 }): JSX.Element => {
   const [variant, setVariant] = useState<TextVariant>(TextVariant.heading6);
 
@@ -103,7 +105,7 @@ const Button: FunctionComponent<iButton> = ({
           icon && cloneElement(icon, { style: { marginRight: '6px' } })
         )}
         {label && (
-          <Text variant={variant}>{loading ? 'loading...' : label}</Text>
+          <Text variant={variant}>{loading ? loadingText : label}</Text>
         )}
       </button>
     </>
@@ -118,6 +120,7 @@ Button.defaultProps = {
   // disable: false,
   loading: false,
   size: TypeButtonSize.LARGE,
+  loadingText: 'loading...',
 };
 
 export default memo(Button);

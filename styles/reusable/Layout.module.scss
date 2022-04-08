@@ -38,6 +38,6 @@
     width: 100vw;
     // border: 2px solid red;
     background-color: rgba(0, 0, 0, 0.089);
-    backdrop-filter: blur(5px);
+    backdrop-filter: saturate(200%) blur(30px);
   }
 }
