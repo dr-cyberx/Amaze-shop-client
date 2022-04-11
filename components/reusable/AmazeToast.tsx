@@ -1,16 +1,15 @@
-import { ReactText } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 type TypeToastInput = {
   position?: any;
   duration?: number;
-  type?: 'warn' | 'message' | 'info' | 'error';
+  type?: "warn" | "message" | "info" | "error" | "success";
   message: string;
 };
 
 const AmazeToast = (input: TypeToastInput): any => {
   const defaultkeys = {
-    position: 'top-right',
+    position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -22,25 +21,31 @@ const AmazeToast = (input: TypeToastInput): any => {
   };
 
   switch (input.type) {
-    case 'warn':
+    case "warn":
       return toast.warn(input.message, {
-          ...defaultkeys,
-        });
+        ...defaultkeys,
+      });
       break;
 
-    case 'info':
+    case "success":
+      return toast.success(input.message, {
+        ...defaultkeys,
+      });
+      break;
+
+    case "info":
       return toast.info(input.message, {
-          ...defaultkeys,
-        });
+        ...defaultkeys,
+      });
       break;
 
-    case 'error':
+    case "error":
       return toast.error(input.message, {
-          ...defaultkeys,
-        });
+        ...defaultkeys,
+      });
 
     default:
-      return toast.info('welcome to Amaze shop', {
+      return toast.info("welcome to Amaze shop", {
         ...defaultkeys,
       });
   }

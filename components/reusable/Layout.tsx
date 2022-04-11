@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
-import { InfinitySpin } from 'react-loader-spinner';
-import Navbar from './Navbar';
-import styles from '@styles/reusable/Layout.module.scss';
-import AmazeCart from './AmazeCart';
-import { CartContext } from '@context/Cart/CartContext';
-import { Fade } from '@mui/material';
+import React, { useContext } from "react";
+import { ToastContainer } from "react-toastify";
+import { InfinitySpin } from "react-loader-spinner";
+import Navbar from "./Navbar";
+import AmazeCart from "./AmazeCart";
+import { CartContext } from "@context/Cart/CartContext";
+import { Fade } from "@mui/material";
+import styles from "@styles/reusable/Layout.module.scss";
 interface iLayout {
   children: React.ReactNode;
   isLoading?: boolean;
@@ -26,7 +27,6 @@ const Layout: React.FunctionComponent<iLayout> = ({
           </div>
         </div>
       ) : null}
-      {/* {state.showCartModal && ( */}
       <Fade
         in={state.showCartModal}
         {...(state.showCartModal ? { timeout: 250 } : {})}
@@ -35,7 +35,7 @@ const Layout: React.FunctionComponent<iLayout> = ({
           <AmazeCart />
         </div>
       </Fade>
-      {/* )} */}
+      <ToastContainer />
     </div>
   );
 };

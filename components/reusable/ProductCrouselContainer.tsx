@@ -1,12 +1,12 @@
-import React, { memo } from 'react';
-import { NextRouter, useRouter } from 'next/router';
-import { CircularProgress } from '@mui/material';
-import Carousel from 'react-elastic-carousel';
-import ProductCard from './ProductCard';
-import Text, { TextVariant } from './Typography';
-import Modal from './modal';
-import styles from '@styles/reusable/ProductCrouselContainer.module.scss';
-import { typeProduct } from '@components/HomePage';
+import React, { memo } from "react";
+import { NextRouter, useRouter } from "next/router";
+import { CircularProgress } from "@mui/material";
+import Carousel from "react-elastic-carousel";
+import ProductCard from "./ProductCard";
+import Text, { TextVariant } from "./Typography";
+import Modal from "./modal";
+import styles from "@styles/reusable/ProductCrouselContainer.module.scss";
+import { typeProduct } from "@components/HomePage";
 
 interface IProductCrouselContainer {
   children?: React.ReactNode;
@@ -31,10 +31,10 @@ const ProductCrouselContainer: React.FunctionComponent<
       <Text
         variant={TextVariant.heading3}
         style={{
-          textAlign: 'left',
-          marginLeft: '20px',
-          marginTop: '20px',
-          color: 'rgb(43, 52, 69)',
+          textAlign: "left",
+          marginLeft: "20px",
+          marginTop: "20px",
+          color: "rgb(43, 52, 69)",
         }}
       >
         {containerTitle}
@@ -46,10 +46,11 @@ const ProductCrouselContainer: React.FunctionComponent<
             <CircularProgress color="primary" />
           </Modal>
         ) : (
+          // @ts-ignore
           <Carousel
             isRTL={false}
             pagination={false}
-            itemPosition={'CENTER'}
+            itemPosition={"CENTER"}
             breakPoints={breakPoints}
             className={styles.Product__card__crousel}
           >
