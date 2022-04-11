@@ -1,12 +1,12 @@
-import React, { memo, useContext, useEffect, useState, useRef } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import useClickOutside from 'hooks/useClickoutside';
-import { CartContext } from '@context/Cart/CartContext';
-import GET_CART from '@graphql-doc/GET_CART.graphql';
-import REMOVE_ITEM_FROM_CART from '@graphql-doc/REMOVE_ITEM_FROM_CART.graphql';
-import styles from '@styles/reusable/Cart.module.scss';
-import ListItem from './ListItem';
-import CartBill from './CartBill';
+import React, { memo, useContext, useEffect, useState, useRef } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import useClickOutside from "hooks/useClickoutside";
+import { CartContext } from "@context/Cart/CartContext";
+import GET_CART from "@graphql-doc/GET_CART.graphql";
+import REMOVE_ITEM_FROM_CART from "@graphql-doc/REMOVE_ITEM_FROM_CART.graphql";
+import ListItem from "./ListItem";
+import CartBill from "./CartBill";
+import styles from "@styles/reusable/Cart.module.scss";
 
 const AmazeCart: React.FunctionComponent = (): JSX.Element => {
   const wrapperRef = useRef(null);

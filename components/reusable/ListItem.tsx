@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { List, ListItemButton, ListItemText, Collapse } from '@mui/material';
-import TextRating from './TextRating';
-import Text, { TextVariant } from './Typography';
-import styles from '@styles/reusable/ListItem.module.scss';
-import Button, { TypeButton, TypeButtonSize } from './Button';
+import React, { useState } from "react";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { List, ListItemButton, ListItemText, Collapse } from "@mui/material";
+import TextRating from "./TextRating";
+import Text, { TextVariant } from "./Typography";
+import Button, { TypeButton, TypeButtonSize } from "./Button";
+import AmazeToast from "./AmazeToast";
+import styles from "@styles/reusable/ListItem.module.scss";
 
 interface IListItem {
   product: any;
@@ -22,17 +23,28 @@ const ListItem: React.FunctionComponent<IListItem> = ({
   const [open, setOpen] = useState<boolean>(false);
 
   const removeProductAndRefetch = async (productId: string): Promise<void> => {
-    await removeProductFromCart({
-      variables: {
-        productId: product?.id,
-      },
-    });
+    try {
+      const res = await removeProductFromCart({
+        variables: {
+          productId,
+        },
+      });
+      const { data, message, status } = res?.data?.removeItemFromCart;
+      if (data && status === 200) {
+        AmazeToast({ message, type: "success" });
+      } else {
+        AmazeToast({ message, type: "error" });
+      }
+      return;
+    } catch (error) {
+      AmazeToast({ message: "Something went wrong!", type: "error" });
+    }
   };
 
   return (
     <>
       <List
-        sx={{ width: '100%', bgcolor: 'rgba(255, 255, 255, 0.0)' }}
+        sx={{ width: "100%", bgcolor: "rgba(255, 255, 255, 0.0)" }}
         component="nav"
         aria-labelledby="nested-list-subheader"
       >
@@ -52,7 +64,7 @@ const ListItem: React.FunctionComponent<IListItem> = ({
                 <Text
                   variant={TextVariant.heading4}
                   style={{
-                    color: 'rgb(43, 52, 69)',
+                    color: "rgb(43, 52, 69)",
                   }}
                 >
                   Price: ${product.productPrice} /-

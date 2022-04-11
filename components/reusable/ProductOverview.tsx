@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
-import { Skeleton } from '@mui/material';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRouter } from 'next/router';
-import Layout from './Layout';
-import GET_PRODUCT_BY_ID from '@graphql-doc/GET_PRODUCT_BY_ID.graphql';
-import { typeProduct } from '@components/HomePage';
-import Text, { TextVariant } from './Typography';
-import TextRating from './TextRating';
-import Button, { TypeButton, TypeButtonSize } from './Button';
-import styles from '@styles/reusable/ProductOverview.module.scss';
+import React, { useEffect, useState } from "react";
+import { useMutation, useQuery } from "@apollo/client";
+import { Skeleton } from "@mui/material";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
+import Layout from "./Layout";
+import GET_PRODUCT_BY_ID from "@graphql-doc/GET_PRODUCT_BY_ID.graphql";
+import ADD_ITEM_TO_CART from "@graphql-doc/ADD_ITEM_TO_CART.graphql";
+import { typeProduct } from "@components/HomePage";
+import Text, { TextVariant } from "./Typography";
+import TextRating from "./TextRating";
+import Button, { TypeButton, TypeButtonSize } from "./Button";
+import AmazeToast from "./AmazeToast";
+import styles from "@styles/reusable/ProductOverview.module.scss";
 
 interface iProductOverview {
   children?: React.ReactNode;
@@ -27,6 +29,8 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
       getProductById: productId,
     },
   });
+  const [addProductToCartMutation, { loading: addToCartLoader }] =
+    useMutation(ADD_ITEM_TO_CART);
 
   const [readMore, setReadMore] = useState<boolean>(false);
   const [product, setProduct] = useState<typeProduct>();
@@ -36,6 +40,30 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
       setProduct(data.getProductById.data);
     }
   }, [data]);
+
+  const addProductToCart = async (
+    productId: string | undefined
+  ): Promise<void> => {
+    try {
+      const updatedCart: any = await addProductToCartMutation({
+        variables: {
+          productId,
+        },
+      });
+
+      const { data, error, message, status } = updatedCart?.data?.addItemToCart;
+      console.log("updatedCart --> ", updatedCart?.data?.addItemToCart);
+      if (data && status === 200) {
+        AmazeToast({ message, type: "success" });
+      } else {
+        AmazeToast({ message, type: "error" });
+      }
+    } catch (error) {
+      AmazeToast({ message: "Something went wrong", type: "error" });
+    }
+
+    return;
+  };
 
   return (
     <Layout>
@@ -56,7 +84,7 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
             {!loading ? (
               <Text
                 variant={TextVariant.heading2}
-                style={{ fontWeight: '600' }}
+                style={{ fontWeight: "600" }}
               >
                 {product?.productName}
               </Text>
@@ -72,20 +100,20 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
               <Text
                 variant={TextVariant.heading6}
                 style={{
-                  fontWeight: '600',
-                  letterSpacing: '1px',
-                  marginTop: '20px',
+                  fontWeight: "600",
+                  letterSpacing: "1px",
+                  marginTop: "20px",
                 }}
               >
                 {readMore
                   ? product?.productDescription
                   : product?.productDescription.substring(0, 250)}
                 <span
-                  style={{ color: 'blue', cursor: 'pointer' }}
+                  style={{ color: "blue", cursor: "pointer" }}
                   onClick={() => setReadMore(!readMore)}
                 >
-                  {' '}
-                  {!readMore ? '...Read more' : ' ...Read less'}
+                  {" "}
+                  {!readMore ? "...Read more" : " ...Read less"}
                 </span>
               </Text>
             ) : (
@@ -106,7 +134,7 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
               )}
               {!loading ? (
                 <p className={styles.product__brand}>
-                  Brand: <span>{product?.productBrand}</span>{' '}
+                  Brand: <span>{product?.productBrand}</span>{" "}
                   <FontAwesomeIcon icon={faCheckCircle} />
                 </p>
               ) : (
@@ -115,7 +143,7 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
               {!loading ? (
                 <Text
                   variant={TextVariant.heading3}
-                  style={{ fontWeight: '600', marginTop: '30px' }}
+                  style={{ fontWeight: "600", marginTop: "30px" }}
                 >
                   ${product?.productPrice}
                 </Text>
@@ -142,9 +170,10 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
                   <Button
                     btnType={TypeButton.SECONDARY}
                     label="Add to Cart"
-                    // loading={loading}
+                    loading={addToCartLoader}
+                    onClick={() => addProductToCart(product?.id)}
                     size={TypeButtonSize.MEDIUM}
-                    type="submit"
+                    type="button"
                   />
                 ) : (
                   <Skeleton height="80px" width="300px" animation="wave" />
