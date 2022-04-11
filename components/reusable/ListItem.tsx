@@ -23,19 +23,22 @@ const ListItem: React.FunctionComponent<IListItem> = ({
   const [open, setOpen] = useState<boolean>(false);
 
   const removeProductAndRefetch = async (productId: string): Promise<void> => {
-    const res = await removeProductFromCart({
-      variables: {
-        productId,
-      },
-    });
-    console.log("res -> data-> ", res?.data?.removeItemFromCart);
-    const { data, message, status } = res?.data?.removeItemFromCart;
-    if (data && status === 200) {
-      AmazeToast({ message, type: "success" });
-    } else {
-      AmazeToast({ message, type: "error" });
+    try {
+      const res = await removeProductFromCart({
+        variables: {
+          productId,
+        },
+      });
+      const { data, message, status } = res?.data?.removeItemFromCart;
+      if (data && status === 200) {
+        AmazeToast({ message, type: "success" });
+      } else {
+        AmazeToast({ message, type: "error" });
+      }
+      return;
+    } catch (error) {
+      AmazeToast({ message: "Something went wrong!", type: "error" });
     }
-    return;
   };
 
   return (
