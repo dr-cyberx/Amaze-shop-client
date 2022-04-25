@@ -1,22 +1,23 @@
-mutation AddItemToCart($productId: ID!) {
-  addItemToCart(productId: $productId) {
+query GetCartByUserID {
+  getCartByUserID {
     data {
+      id
+      userId
+      productCount
       products {
         id
         qty
         productId {
           id
           productName
-          productBrand
           productImage
+          productBrand
+          productDescription
           productPrice
           productRating
           productSeller
         }
       }
-      userId
-      productCount
-      id
     }
     error
     message

@@ -3,14 +3,19 @@ import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { List, ListItemButton, ListItemText, Collapse } from "@mui/material";
 import TextRating from "./TextRating";
 import Text, { TextVariant } from "./Typography";
-import Button, { TypeButton, TypeButtonSize } from "./Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import AmazeToast from "./AmazeToast";
 import styles from "@styles/reusable/ListItem.module.scss";
 
 interface IListItem {
   product: any;
   index: number;
+  qty: number;
   removeProductFromCart: any;
+  addProductToCart: any;
   fetchProductLoading: boolean;
 }
 
@@ -19,6 +24,8 @@ const ListItem: React.FunctionComponent<IListItem> = ({
   index,
   removeProductFromCart,
   fetchProductLoading,
+  addProductToCart,
+  qty,
 }): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -30,6 +37,25 @@ const ListItem: React.FunctionComponent<IListItem> = ({
         },
       });
       const { data, message, status } = res?.data?.removeItemFromCart;
+      if (data && status === 200) {
+        AmazeToast({ message, type: "success" });
+      } else {
+        AmazeToast({ message, type: "error" });
+      }
+      return;
+    } catch (error) {
+      AmazeToast({ message: "Something went wrong!", type: "error" });
+    }
+  };
+
+  const addProductAndRefetch = async (productId: string): Promise<void> => {
+    try {
+      const res = await addProductToCart({
+        variables: {
+          productId,
+        },
+      });
+      const { data, message, status } = res?.data?.addItemToCart;
       if (data && status === 200) {
         AmazeToast({ message, type: "success" });
       } else {
@@ -67,22 +93,31 @@ const ListItem: React.FunctionComponent<IListItem> = ({
                     color: "rgb(43, 52, 69)",
                   }}
                 >
-                  Price: ${product.productPrice} /-
+                  Price: ${product.productPrice} /- ({qty})
                 </Text>
                 <TextRating
                   readOnly
                   value={product?.productRating ? product?.productRating : 0}
                 />
                 <div className={styles.remove__from__cart}>
-                  <Button
-                    btnType={TypeButton.SECONDARY_DANGER}
-                    label="Remove - "
-                    loading={fetchProductLoading}
-                    loadingText="removing..."
-                    onClick={() => removeProductAndRefetch(product.id)}
-                    size={TypeButtonSize.SMALL}
-                    type="submit"
-                  />
+                  <ButtonGroup>
+                    <Button
+                      aria-label="reduce"
+                      onClick={() => {
+                        removeProductAndRefetch(product.id);
+                      }}
+                    >
+                      <RemoveIcon fontSize="medium" />
+                    </Button>
+                    <Button
+                      aria-label="increase"
+                      onClick={() => {
+                        addProductAndRefetch(product.id);
+                      }}
+                    >
+                      <AddIcon fontSize="medium" />
+                    </Button>
+                  </ButtonGroup>
                 </div>
               </div>
             </div>

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { Skeleton } from "@mui/material";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import Layout from "./Layout";
 import GET_PRODUCT_BY_ID from "@graphql-doc/GET_PRODUCT_BY_ID.graphql";
 import ADD_ITEM_TO_CART from "@graphql-doc/ADD_ITEM_TO_CART.graphql";
@@ -21,7 +21,7 @@ interface iProductOverview {
 const ProductOverview: React.FunctionComponent<iProductOverview> = ({
   children,
 }) => {
-  const router = useRouter();
+  const router: NextRouter = useRouter();
   const { id: productId } = router.query;
 
   const { data, loading, error } = useQuery(GET_PRODUCT_BY_ID, {
@@ -29,6 +29,7 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
       getProductById: productId,
     },
   });
+
   const [addProductToCartMutation, { loading: addToCartLoader }] =
     useMutation(ADD_ITEM_TO_CART);
 
@@ -52,7 +53,6 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
       });
 
       const { data, error, message, status } = updatedCart?.data?.addItemToCart;
-      console.log("updatedCart --> ", updatedCart?.data?.addItemToCart);
       if (data && status === 200) {
         AmazeToast({ message, type: "success" });
       } else {
@@ -187,4 +187,4 @@ const ProductOverview: React.FunctionComponent<iProductOverview> = ({
   );
 };
 
-export default ProductOverview;
+export default memo(ProductOverview);
