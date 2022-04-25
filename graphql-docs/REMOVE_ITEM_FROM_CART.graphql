@@ -6,13 +6,17 @@ mutation RemoveItemFromCart($productId: ID!) {
       productCount
       products {
         id
-        productName
-        productBrand
-        productDescription
-        productImage
-        productPrice
-        productRating
-        productSeller
+        qty
+        productId {
+          id
+          productName
+          productBrand
+          productDescription
+          productImage
+          productPrice
+          productRating
+          productSeller
+        }
       }
     }
     error

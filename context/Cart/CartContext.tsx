@@ -1,6 +1,5 @@
-import React, { createContext, useReducer } from 'react';
-import { typeProduct } from '@components/HomePage';
-import cartReducer from './cartReducer';
+import React, { createContext, useReducer } from "react";
+import cartReducer from "./cartReducer";
 
 export const CartContext: React.Context<any> = createContext<any>(null);
 
@@ -17,14 +16,14 @@ export const CartContextProvider = ({
 
   const openPostModal = (): void => {
     dispatch({
-      type: 'OPEN_MODEL',
+      type: "OPEN_MODEL",
     });
     return;
   };
 
   const closePostModal = (): void => {
     dispatch({
-      type: 'CLOSE_MODEL',
+      type: "CLOSE_MODEL",
     });
     return;
   };
