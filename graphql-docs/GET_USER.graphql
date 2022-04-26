@@ -1,0 +1,21 @@
+query GetUserDetailsByID {
+  getUserDetailsByID {
+    data {
+      id
+      userName
+      email
+      phoneNumber
+      role
+      isEmailVerified
+      isPhoneVerified
+      address {
+        city
+        houseNumber
+        street
+      }
+    }
+    error
+    message
+    status
+  }
+}

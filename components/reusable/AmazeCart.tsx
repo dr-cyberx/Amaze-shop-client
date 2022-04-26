@@ -33,10 +33,6 @@ const AmazeCart: React.FunctionComponent = (): JSX.Element => {
   });
 
   useEffect(() => {
-    console.log("cartProducts ----> ", cartProducts);
-  }, [cartProducts]);
-
-  useEffect(() => {
     if (data?.getCartByUserID?.data) {
       setCartProducts(data.getCartByUserID.data);
     }
@@ -62,7 +58,7 @@ const AmazeCart: React.FunctionComponent = (): JSX.Element => {
         ))}
       </div>
       <div className={styles.cart__product__price}>
-        <CartBill />
+        <CartBill productDetails={cartProducts?.products} />
       </div>
     </div>
   );

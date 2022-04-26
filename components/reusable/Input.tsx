@@ -1,29 +1,30 @@
-import React, { FunctionComponent, memo, CSSProperties } from 'react';
-import { useController } from 'react-hook-form';
-import classnames from 'classnames';
-import Text, { TextVariant } from '@reusable/Typography';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import styles from '@styles/Input.module.scss';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import React, { FunctionComponent, memo, CSSProperties } from "react";
+import { useController } from "react-hook-form";
+import classnames from "classnames";
+import Text, { TextVariant } from "@reusable/Typography";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import styles from "@styles/Input.module.scss";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 export enum TypeInput {
-  SMALL = 'small',
-  MEDIUM = 'medium',
-  LARGE = 'large',
+  SMALL = "small",
+  MEDIUM = "medium",
+  LARGE = "large",
 }
 
 interface iInput {
   placeholder?: string;
-  inputType?: 'text' | 'number' | 'password' | 'email' | 'tel';
+  inputType?: "text" | "number" | "password" | "email" | "tel";
   type?: TypeInput;
   disabled?: boolean;
   name: string;
-  positionIcon?: 'left' | 'right';
+  positionIcon?: "left" | "right";
   error?: boolean;
   label?: string;
   style?: CSSProperties;
-  control: any;
+  control?: any;
+  inputvalue?: any;
   rules: any;
   iconLeft?: IconProp;
   labelSize?: TextVariant;
@@ -40,6 +41,7 @@ const Input: FunctionComponent<iInput> = ({
   label,
   style,
   control,
+  inputvalue,
   rules,
   iconLeft,
   labelSize,
@@ -65,8 +67,8 @@ const Input: FunctionComponent<iInput> = ({
           <div className={styles.input_front_icon}>
             <FontAwesomeIcon
               icon={iconLeft}
-              size={'lg'}
-              style={{ marginRight: '6px' }}
+              size={"lg"}
+              style={{ marginRight: "6px" }}
             />
           </div>
         )}
@@ -89,12 +91,12 @@ const Input: FunctionComponent<iInput> = ({
         )}
         <input
           style={{
-            marginTop: label && '7px',
-            paddingLeft: iconLeft ? '40px' : 'inherit',
+            marginTop: label && "7px",
+            paddingLeft: iconLeft ? "40px" : "inherit",
             ...style,
           }}
           placeholder={placeholder}
-          value={value}
+          value={inputvalue ? inputvalue : value}
           onChange={onChange}
           type={inputType}
           autoComplete="false"
@@ -116,14 +118,14 @@ const Input: FunctionComponent<iInput> = ({
 };
 
 Input.defaultProps = {
-  placeholder: '',
-  inputType: 'text',
+  placeholder: "",
+  inputType: "text",
   type: TypeInput.MEDIUM,
   disabled: false,
-  name: '',
-  positionIcon: 'left',
+  name: "",
+  positionIcon: "left",
   error: false,
-  label: 'Email',
+  // label: 'Email',
   // iconLeft: null,
 };
 

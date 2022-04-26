@@ -1,0 +1,32 @@
+@import "./variable.scss";
+
+.profile_container {
+  margin-top: 100px;
+  border: 2px solid rgb(222, 222, 222);
+  border-radius: 8px;
+  height: auto;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  .userProfile_image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.btn__profile__container {
+  margin-top: 20px;
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  .btn__profile__container__child {
+    width: 40%;
+  }
+}
