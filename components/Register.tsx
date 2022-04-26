@@ -1,14 +1,14 @@
-import React, { useState, ReactNode, memo, useEffect } from 'react';
-import Modal, { TypeModal } from './reusable/modal';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import React, { useState, ReactNode, memo, useEffect } from "react";
+import Modal, { TypeModal } from "./reusable/modal";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
   FetchResult,
   useMutation,
   useLazyQuery,
   LazyQueryResult,
   OperationVariables,
-} from '@apollo/client';
+} from "@apollo/client";
 import {
   faEnvelope,
   faKey,
@@ -17,56 +17,56 @@ import {
   faArrowRight,
   faQuestion,
   faCheck,
-} from '@fortawesome/free-solid-svg-icons';
-import cookie from 'cookie';
-import { ToastContainer, toast } from 'react-toastify';
-import Input, { TypeInput } from '@reusable/Input';
-import Button, { TypeButton, TypeButtonSize } from '@reusable/Button';
-import Text, { TextVariant } from '@components/reusable/Typography';
-import Checkbox from '@reusable/checkbox';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { NextRouter, useRouter } from 'next/router';
-import REGISTER_USER from '@graphql-doc/REGISTER_USER.graphql';
-import SEND_OTP_NUMBER from '@graphql-doc/SEND_OTP_NUMBER.graphql';
-import VERIFY_OTP_NUMBER from '@graphql-doc/VERIFY_OTP_NUMBER.graphql';
-import styles from '@styles/Register.module.scss';
-import AmazeToast from './reusable/AmazeToast';
+} from "@fortawesome/free-solid-svg-icons";
+import cookie from "cookie";
+import { ToastContainer, toast } from "react-toastify";
+import Input, { TypeInput } from "@reusable/Input";
+import Button, { TypeButton, TypeButtonSize } from "@reusable/Button";
+import Text, { TextVariant } from "@components/reusable/Typography";
+import Checkbox from "@reusable/checkbox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NextRouter, useRouter } from "next/router";
+import REGISTER_USER from "@graphql-doc/REGISTER_USER.graphql";
+import SEND_OTP_NUMBER from "@graphql-doc/SEND_OTP_NUMBER.graphql";
+import VERIFY_OTP_NUMBER from "@graphql-doc/VERIFY_OTP_NUMBER.graphql";
+import styles from "@styles/Register.module.scss";
+import AmazeToast from "./reusable/AmazeToast";
 
 export type SignUpInputType = {
   name: string;
   label: string;
-  inputType: 'number' | 'email' | 'password' | 'text' | 'tel' | undefined;
+  inputType: "number" | "email" | "password" | "text" | "tel" | undefined;
   placeholder: string;
   icon: IconProp;
 };
 
 const inputFields: Array<SignUpInputType> = [
   {
-    name: 'email',
-    label: 'Email',
-    inputType: 'email',
-    placeholder: 'Enter your email',
+    name: "email",
+    label: "Email",
+    inputType: "email",
+    placeholder: "Enter your email",
     icon: faEnvelope,
   },
   {
-    name: 'password',
-    label: 'Password',
-    inputType: 'password',
-    placeholder: 'Enter your password',
+    name: "password",
+    label: "Password",
+    inputType: "password",
+    placeholder: "Enter your password",
     icon: faKey,
   },
   {
-    name: 'phoneNumber',
-    label: 'Phone number',
-    inputType: 'number',
-    placeholder: 'Enter your phone no.',
+    name: "phoneNumber",
+    label: "Phone number",
+    inputType: "number",
+    placeholder: "Enter your phone no.",
     icon: faPhone,
   },
   {
-    name: 'userName',
-    label: 'Username',
-    inputType: 'text',
-    placeholder: 'Enter your usernames',
+    name: "userName",
+    label: "Username",
+    inputType: "text",
+    placeholder: "Enter your usernames",
     icon: faUser,
   },
 ];
@@ -109,16 +109,16 @@ const Register: React.FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     if (data?.signUp?.data) {
-      document.cookie = cookie.serialize('auth_token', data.signUp.token, {
+      document.cookie = cookie.serialize("auth_token", data.signUp.token, {
         maxAge: 36000,
-        path: '/',
+        path: "/",
       });
       setSignUpStep((previousData: number) => previousData + 1);
     }
     if (data?.signUp?.status === 409) {
       AmazeToast({
-        message: 'User already exist',
-        type: 'error',
+        message: "User already exist",
+        type: "error",
         duration: 3000,
       });
     }
@@ -129,10 +129,10 @@ const Register: React.FunctionComponent = (): JSX.Element => {
     if (verifyOtpNumberData?.verifyOtpNumber) {
       const isVerified = verifyOtpNumberData?.verifyOtpNumber;
       if (isVerified.verified === true) {
-        router.push('/home');
+        router.push("/home");
       }
       if (isVerified.verified === false) {
-        AmazeToast({ message: 'Please enter correct otp!', type: 'warn' });
+        AmazeToast({ message: "Please enter correct otp!", type: "warn" });
       }
     }
     return;
@@ -142,7 +142,7 @@ const Register: React.FunctionComponent = (): JSX.Element => {
     try {
       const FinalRegisterData: TypeFormDataRegister & { role: string } = {
         ...data,
-        role: !userRole ? 'BUYER' : 'SELLER',
+        role: !userRole ? "BUYER" : "SELLER",
       };
 
       const res: FetchResult<any> = await registerUser({
@@ -192,8 +192,8 @@ const Register: React.FunctionComponent = (): JSX.Element => {
               <Text
                 variant={TextVariant.heading2}
                 style={{
-                  textAlign: 'center',
-                  marginBottom: '10px',
+                  textAlign: "center",
+                  marginBottom: "10px",
                 }}
               >
                 Sign up
@@ -222,7 +222,7 @@ const Register: React.FunctionComponent = (): JSX.Element => {
             <Button
               btnType={TypeButton.PRIMARY}
               // label="Next "
-              icon={<FontAwesomeIcon icon={faArrowRight} size={'1x'} />}
+              icon={<FontAwesomeIcon icon={faArrowRight} size={"1x"} />}
               loading={loading}
               size={TypeButtonSize.MEDIUM}
               type="submit"
@@ -230,11 +230,11 @@ const Register: React.FunctionComponent = (): JSX.Element => {
             <Text
               variant={TextVariant.heading5}
               style={{
-                textAlign: 'center',
-                marginBottom: '10px',
+                textAlign: "center",
+                marginBottom: "10px",
               }}
               textType="link"
-              onClick={() => router.push('/login')}
+              onClick={() => router.push("/login")}
             >
               Already have account ? Sign in.
             </Text>
@@ -252,8 +252,8 @@ const Register: React.FunctionComponent = (): JSX.Element => {
               <Text
                 variant={TextVariant.heading2}
                 style={{
-                  textAlign: 'center',
-                  marginBottom: '10px',
+                  textAlign: "center",
+                  marginBottom: "10px",
                 }}
               >
                 Verify Phone no.
@@ -263,46 +263,45 @@ const Register: React.FunctionComponent = (): JSX.Element => {
             <Input
               rules={{ required: true, length: 4 }}
               control={verifyOtpcontrol}
-              name={'verificationCode'}
+              name={"verificationCode"}
               label={`Enter OTP we sent you on ${userPhoneNumber
                 ?.slice(-4)
-                .padStart(userPhoneNumber.length, '*')}`}
-              inputType={'number'}
+                .padStart(userPhoneNumber.length, "*")}`}
+              inputType={"number"}
               type={TypeInput.LARGE}
-              style={{ paddingLeft: '15px ' }}
+              style={{ paddingLeft: "15px " }}
               labelSize={TextVariant.heading5}
             />
             <Text
               variant={TextVariant.heading5}
               style={{
                 ...(sendResendOtpIcon
-                  ? { color: 'rgb(187, 187, 187)' }
-                  : { color: 'rgb(0, 174, 255)' }),
-                cursor: 'pointer',
+                  ? { color: "rgb(187, 187, 187)" }
+                  : { color: "rgb(0, 174, 255)" }),
+                cursor: "pointer",
               }}
               onClick={() => {
                 sendResendOtpIcon
                   ? AmazeToast({
-                      message: 'Wait 30 sec before sending otp again',
-                      type: 'info',
+                      message: "Wait 30 sec before sending otp again",
+                      type: "info",
                     })
                   : resendOtp();
               }}
             >
-              resend code{' '}
+              resend code{" "}
               {sendResendOtpIcon ? (
-                <FontAwesomeIcon icon={faCheck} size={'sm'} />
+                <FontAwesomeIcon icon={faCheck} size={"sm"} />
               ) : (
-                <FontAwesomeIcon icon={faQuestion} size={'sm'} />
+                <FontAwesomeIcon icon={faQuestion} size={"sm"} />
               )}
             </Text>
             <Button
               btnType={TypeButton.PRIMARY}
-              icon={<FontAwesomeIcon icon={faArrowRight} size={'1x'} />}
+              icon={<FontAwesomeIcon icon={faArrowRight} size={"1x"} />}
               loading={verifyOtpNumberLoading}
-              type={'submit'}
+              type={"submit"}
               size={TypeButtonSize.MEDIUM}
-              // onClick={verifyOtpHandler}
             />
           </form>
         );
@@ -322,8 +321,8 @@ const Register: React.FunctionComponent = (): JSX.Element => {
     if (otp?.data?.sendOtpNumber?.status === 200) {
       setSendResendOtpIcon(true);
       AmazeToast({
-        message: 'Wait 30 sec to get otp again',
-        type: 'info',
+        message: "Wait 30 sec to get otp again",
+        type: "info",
       });
       setTimeout(() => {
         setSendResendOtpIcon(false);
