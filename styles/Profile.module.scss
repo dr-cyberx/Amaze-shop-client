@@ -3,6 +3,8 @@
 .profile_container {
   margin-top: 100px;
   border: 2px solid rgb(222, 222, 222);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background-color: whitesmoke;
   border-radius: 8px;
   height: auto;
   font-size: 1rem;
@@ -11,6 +13,13 @@
   justify-content: space-around;
   align-items: center;
   padding: 20px;
+
+  .add_address_btn {
+    width: 100%;
+    padding: 0px 40px;
+    color: $color-primary;
+  }
+
   .userProfile_image {
     width: 120px;
     height: 120px;
@@ -29,4 +38,12 @@
   .btn__profile__container__child {
     width: 40%;
   }
+}
+
+.profile_title {
+  color: $text-secondary;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

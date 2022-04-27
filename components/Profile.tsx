@@ -10,10 +10,10 @@ import {
   faKey,
   faPhone,
   faUser,
-  faArrowRight,
-  faQuestion,
-  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
+import MuiButton from "@mui/material/Button";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import FilledInput from "@mui/material/FilledInput";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import GET_USER from "@graphql-doc/GET_USER.graphql";
@@ -21,75 +21,40 @@ import Layout from "./reusable/Layout";
 import styles from "@styles/Profile.module.scss";
 import { useQuery } from "@apollo/client";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Divider from "@mui/material/Divider";
+import InputAdornment from "@mui/material/InputAdornment";
+import Typography from "@mui/material/Typography";
+import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
+import CustomizedDialogs from "./reusable/DialogueBox";
 
 const MuiInput = styled("input")({
   display: "none",
 });
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
-interface iProfileFields {
-  name: string;
-  icon: IconProp;
-  label: string;
-  type: TypeInput;
-  inputType: "number" | "email" | "password" | "text" | "tel" | undefined;
-  placeholder: string;
+interface iPrefilledData {
+  id: string;
+  userName: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
+  isEmailVerified: boolean;
+  isPhoneVerified: boolean;
+  address: iaddress[];
 }
 
-const profileFields: iProfileFields[] = [
-  {
-    name: "profileUser_name",
-    icon: faUser,
-    label: "Username",
-    type: TypeInput.SMALL,
-    inputType: "text",
-    placeholder: "Enter username",
-  },
-  {
-    name: "profileUser_email",
-    icon: faEnvelope,
-    label: "Email",
-    type: TypeInput.SMALL,
-    inputType: "email",
-    placeholder: "Enter email",
-  },
-  {
-    name: "profileUser_phoneNumber",
-    icon: faPhone,
-    label: "Phone number",
-    type: TypeInput.SMALL,
-    inputType: "tel",
-    placeholder: "Enter phone no.",
-  },
-  {
-    name: "profileUser_password",
-    icon: faKey,
-    label: "Password",
-    type: TypeInput.SMALL,
-    inputType: "tel",
-    placeholder: "Enter password",
-  },
-];
-
-type TypeFormDataRegister = {
-  profileUser_name: string;
-  profileUser_email: string;
-  profileUser_phoneNumber: string;
-};
+interface iaddress {
+  houseNumber: string;
+  city: string;
+  street: string;
+}
 
 const Profile: React.FunctionComponent = (): JSX.Element => {
   const { data, error, loading } = useQuery(GET_USER);
-  const [prefilledData, setPrefilledData] = useState<any>({
+  const [addAddressModel, setAddAddressModel] = useState<boolean>(false);
+  const [prefilledData, setPrefilledData] = useState<iPrefilledData>({
     id: "",
     userName: "",
     email: "",
@@ -101,6 +66,13 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
   });
   const [password, setPassword] = useState<string>("******");
   const [isDisable, setIsDisable] = useState<boolean>(true);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [newAddress, setNewAddress] = useState({
+    houseNumber: "",
+    streetNo: "",
+    city: "",
+    landmark: "",
+  });
 
   useEffect(() => {
     if (data) {
@@ -111,17 +83,110 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
     }
   }, [data]);
 
-  useEffect(() => {
-    console.log("prefilledData -> ", prefilledData);
-  }, [prefilledData]);
+  const showBtn = (
+    label: string,
+    clickAction: any,
+    btnType: TypeButton
+  ): JSX.Element => (
+    <Button
+      btnType={btnType}
+      // loading={verifyOtpNumberLoading}
+      label={label}
+      onClick={clickAction}
+      type={"submit"}
+      size={TypeButtonSize.MEDIUM}
+    />
+  );
+
+  const dialogueBoxMainContent = () => {
+    return (
+      <Grid item xs={12} style={{ padding: "10px" }}>
+        <Grid container rowSpacing={5} style={{ marginTop: "5px" }}>
+          <Grid item xs={6} style={{ padding: "15px" }}>
+            <TextField
+              style={{ width: "100%" }}
+              id="filled-basic"
+              label={"address"}
+              variant="filled"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setPrefilledData({
+                  ...prefilledData,
+                  phoneNumber: event.target.value,
+                })
+              }
+              disabled={isDisable}
+              // value={a]}
+              placeholder="phoneNumber"
+            />
+          </Grid>
+          <Grid item xs={6} style={{ padding: "15px" }}>
+            <TextField
+              style={{ width: "100%" }}
+              id="filled-basic"
+              label={"address"}
+              variant="filled"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setPrefilledData({
+                  ...prefilledData,
+                  phoneNumber: event.target.value,
+                })
+              }
+              disabled={isDisable}
+              // value={a]}
+              placeholder="phoneNumber"
+            />
+          </Grid>
+          <Grid item xs={6} style={{ padding: "15px" }}>
+            <TextField
+              style={{ width: "100%" }}
+              id="filled-basic"
+              label={"address"}
+              variant="filled"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setPrefilledData({
+                  ...prefilledData,
+                  phoneNumber: event.target.value,
+                })
+              }
+              disabled={isDisable}
+              // value={a]}
+              placeholder="phoneNumber"
+            />
+          </Grid>
+          <Grid item xs={6} style={{ padding: "15px" }}>
+            <TextField
+              style={{ width: "100%" }}
+              id="filled-basic"
+              label={"address"}
+              variant="filled"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setPrefilledData({
+                  ...prefilledData,
+                  phoneNumber: event.target.value,
+                })
+              }
+              disabled={isDisable}
+              // value={a]}
+              placeholder="phoneNumber"
+            />
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  };
 
   return (
-    <Layout>
+    <Layout isLoading={loading}>
       <Container>
         <div className={styles.profile_container}>
           <div className={styles.userProfile_image}>
             <label htmlFor="icon-button-file">
-              <MuiInput accept="image/*" id="icon-button-file" type="file" />
+              <MuiInput
+                onChange={(event: any) => console.log(event.target.files[0])}
+                accept="image/*"
+                id="icon-button-file"
+                type="file"
+              />
               <IconButton
                 color="primary"
                 aria-label="upload picture"
@@ -129,6 +194,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                 style={{
                   height: "120px",
                   width: "120px",
+                  boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
                 }}
               >
                 <PhotoCamera />
@@ -143,10 +209,10 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                 id="filled-basic"
                 label={"userName"}
                 variant="filled"
-                onChange={(event: any) =>
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   setPrefilledData({
                     ...prefilledData,
-                    userName: event.target.data,
+                    userName: event.target.value,
                   })
                 }
                 disabled={isDisable}
@@ -161,10 +227,10 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                 id="filled-basic"
                 label="Email"
                 variant="filled"
-                onChange={(event: any) =>
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   setPrefilledData({
                     ...prefilledData,
-                    email: event.target.data,
+                    email: event.target.value,
                   })
                 }
                 disabled={isDisable}
@@ -179,10 +245,10 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                 id="filled-basic"
                 label="Phone no."
                 variant="filled"
-                onChange={(event: any) =>
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   setPrefilledData({
                     ...prefilledData,
-                    phoneNumber: event.target.data,
+                    phoneNumber: event.target.value,
                   })
                 }
                 disabled={isDisable}
@@ -192,27 +258,98 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
             </Grid>
 
             <Grid item xs={6} style={{ padding: "15px" }}>
-              <TextField
-                style={{ width: "100%" }}
-                id="filled-basic"
-                label="Password"
-                variant="filled"
+              <FilledInput
+                id="filled-adornment-password"
+                type={showPassword ? "text" : "password"}
                 value={password}
-                disabled
-                placeholder="password"
+                disabled={isDisable}
+                style={{ width: "100%" }}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPassword(e.target.value)
+                }
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
               />
             </Grid>
+
+            <Grid
+              item
+              xs={12}
+              style={{ padding: "15px", paddingBottom: "0px" }}
+            >
+              <div className={styles.profile_title}>
+                <MapsHomeWorkIcon fontSize="medium" />
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  component="div"
+                  style={{ marginBottom: "0px", marginLeft: "10px" }}
+                >
+                  Addresses:
+                </Typography>
+              </div>
+            </Grid>
           </Grid>
+
+          <Grid item xs={12} style={{ padding: "15px" }}>
+            {prefilledData.address.map((addrs: iaddress) => (
+              <Grid
+                container
+                rowSpacing={5}
+                style={{ marginTop: "10px" }}
+                key={addrs.houseNumber + `${Math.random()}`}
+              >
+                {Object.keys(addrs).map((item: string) => (
+                  <Grid
+                    item
+                    xs={6}
+                    style={{ padding: "15px" }}
+                    key={item + `${Math.random()}`}
+                  >
+                    <TextField
+                      key={addrs.houseNumber}
+                      style={{ width: "100%" }}
+                      id="filled-basic"
+                      // @ts-ignore
+                      label={item}
+                      variant="filled"
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        setPrefilledData({
+                          ...prefilledData,
+                          phoneNumber: event.target.value,
+                        })
+                      }
+                      disabled={isDisable}
+                      // @ts-ignore
+                      value={addrs[item]}
+                      placeholder="phoneNumber"
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            ))}
+          </Grid>
+
+          <div className={styles.add_address_btn}>
+            <CustomizedDialogs
+              modalTitle="Enter your Address"
+              mainContent={dialogueBoxMainContent}
+              btnText="Add address"
+            />
+          </div>
+
           {isDisable ? (
             <div className={styles.btn__profile__container}>
-              <Button
-                btnType={TypeButton.PRIMARY}
-                // loading={verifyOtpNumberLoading}
-                label="Edit"
-                type={"submit"}
-                onClick={() => setIsDisable(false)}
-                size={TypeButtonSize.MEDIUM}
-              />
+              {showBtn("Edit", () => setIsDisable(false), TypeButton.PRIMARY)}
             </div>
           ) : (
             <div
@@ -220,24 +357,15 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
               style={{ width: "65%" }}
             >
               <div className={styles.btn__profile__container__child}>
-                <Button
-                  btnType={TypeButton.PRIMARY}
-                  // loading={verifyOtpNumberLoading}
-                  label="Save"
-                  type={"submit"}
-                  size={TypeButtonSize.MEDIUM}
-                />
+                {showBtn("Save", null, TypeButton.PRIMARY)}
               </div>
 
               <div className={styles.btn__profile__container__child}>
-                <Button
-                  btnType={TypeButton.SECONDARY_DANGER}
-                  // loading={verifyOtpNumberLoading}
-                  onClick={() => setIsDisable(true)}
-                  label="Cancel"
-                  type={"submit"}
-                  size={TypeButtonSize.MEDIUM}
-                />
+                {showBtn(
+                  "Cancel",
+                  () => setIsDisable(true),
+                  TypeButton.SECONDARY_DANGER
+                )}
               </div>
             </div>
           )}
