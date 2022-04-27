@@ -12,6 +12,7 @@ query GetUserDetailsByID {
         city
         houseNumber
         street
+        landmark
       }
     }
     error
