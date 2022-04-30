@@ -11,24 +11,23 @@ import {
   faPhone,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import MuiButton from "@mui/material/Button";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FilledInput from "@mui/material/FilledInput";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import GET_USER from "@graphql-doc/GET_USER.graphql";
-import Layout from "./reusable/Layout";
-import styles from "@styles/Profile.module.scss";
-import { useQuery } from "@apollo/client";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import UPDATE_USER from "@graphql-doc/UPDATE_USER.graphql";
+import { useQuery, useMutation, OperationVariables } from "@apollo/client";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Divider from "@mui/material/Divider";
 import InputAdornment from "@mui/material/InputAdornment";
 import Typography from "@mui/material/Typography";
 import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
+import Layout from "./reusable/Layout";
 import CustomizedDialogs from "./reusable/DialogueBox";
+import styles from "@styles/Profile.module.scss";
+import AmazeToast from "./reusable/AmazeToast";
+import AmazeAccordion from "./reusable/Accordion";
 
 const MuiInput = styled("input")({
   display: "none",
@@ -49,11 +48,46 @@ interface iaddress {
   houseNumber: string;
   city: string;
   street: string;
+  landmark: string;
 }
 
+interface idialogueBoxMainContent {
+  name: string;
+  label: string;
+}
+
+const dialogueBoxMainContentArray: idialogueBoxMainContent[] = [
+  {
+    name: "houseNumber",
+    label: "House No.",
+  },
+  {
+    name: "street",
+    label: "Street",
+  },
+  {
+    name: "city",
+    label: "City",
+  },
+  {
+    name: "landmark",
+    label: "Landmark",
+  },
+];
+
 const Profile: React.FunctionComponent = (): JSX.Element => {
-  const { data, error, loading } = useQuery(GET_USER);
-  const [addAddressModel, setAddAddressModel] = useState<boolean>(false);
+  const { data, error, loading, refetch } = useQuery<any, OperationVariables>(
+    GET_USER
+  );
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [
+    updateUser,
+    {
+      data: updateUserResponse,
+      loading: updateUserLoading,
+      error: updateUserError,
+    },
+  ] = useMutation(UPDATE_USER);
   const [prefilledData, setPrefilledData] = useState<iPrefilledData>({
     id: "",
     userName: "",
@@ -67,9 +101,9 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
   const [password, setPassword] = useState<string>("******");
   const [isDisable, setIsDisable] = useState<boolean>(true);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [newAddress, setNewAddress] = useState({
+  const [newAddress, setNewAddress] = useState<iaddress>({
     houseNumber: "",
-    streetNo: "",
+    street: "",
     city: "",
     landmark: "",
   });
@@ -82,6 +116,50 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
       }
     }
   }, [data]);
+
+  const submitNewAddress = async (): Promise<void> => {
+    const { id, ...restItems } = prefilledData;
+    const res = await updateUser({
+      variables: {
+        input: {
+          ...restItems,
+          address: [
+            ...prefilledData.address,
+            {
+              ...newAddress,
+            },
+          ],
+        },
+      },
+    });
+    await refetch();
+  };
+
+  const handleClickOpen = (): void => {
+    if (prefilledData.address.length === 5) {
+      return AmazeToast({
+        message: "Your already have maximun address limit",
+        type: "warn",
+      });
+    }
+    setOpenModal(true);
+  };
+
+  const handleSubmitClose = async (): Promise<void> => {
+    try {
+      await submitNewAddress();
+      setOpenModal(false);
+      return AmazeToast({
+        message: "Address added Successfully!",
+        type: "success",
+      });
+    } catch (error) {
+      return AmazeToast({
+        message: "Something went wrong",
+        type: "error",
+      });
+    }
+  };
 
   const showBtn = (
     label: string,
@@ -98,78 +176,31 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
     />
   );
 
-  const dialogueBoxMainContent = () => {
+  const dialogueBoxMainContent = (): JSX.Element => {
     return (
       <Grid item xs={12} style={{ padding: "10px" }}>
         <Grid container rowSpacing={5} style={{ marginTop: "5px" }}>
-          <Grid item xs={6} style={{ padding: "15px" }}>
-            <TextField
-              style={{ width: "100%" }}
-              id="filled-basic"
-              label={"address"}
-              variant="filled"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setPrefilledData({
-                  ...prefilledData,
-                  phoneNumber: event.target.value,
-                })
-              }
-              disabled={isDisable}
-              // value={a]}
-              placeholder="phoneNumber"
-            />
-          </Grid>
-          <Grid item xs={6} style={{ padding: "15px" }}>
-            <TextField
-              style={{ width: "100%" }}
-              id="filled-basic"
-              label={"address"}
-              variant="filled"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setPrefilledData({
-                  ...prefilledData,
-                  phoneNumber: event.target.value,
-                })
-              }
-              disabled={isDisable}
-              // value={a]}
-              placeholder="phoneNumber"
-            />
-          </Grid>
-          <Grid item xs={6} style={{ padding: "15px" }}>
-            <TextField
-              style={{ width: "100%" }}
-              id="filled-basic"
-              label={"address"}
-              variant="filled"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setPrefilledData({
-                  ...prefilledData,
-                  phoneNumber: event.target.value,
-                })
-              }
-              disabled={isDisable}
-              // value={a]}
-              placeholder="phoneNumber"
-            />
-          </Grid>
-          <Grid item xs={6} style={{ padding: "15px" }}>
-            <TextField
-              style={{ width: "100%" }}
-              id="filled-basic"
-              label={"address"}
-              variant="filled"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setPrefilledData({
-                  ...prefilledData,
-                  phoneNumber: event.target.value,
-                })
-              }
-              disabled={isDisable}
-              // value={a]}
-              placeholder="phoneNumber"
-            />
-          </Grid>
+          {dialogueBoxMainContentArray.map(
+            (d: idialogueBoxMainContent, index: number) => (
+              <Grid item xs={6} style={{ padding: "15px" }} key={d.label}>
+                <TextField
+                  style={{ width: "100%" }}
+                  id="filled-basic"
+                  label={d.label}
+                  variant="filled"
+                  name={d.name}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setNewAddress({
+                      ...newAddress,
+                      [event.target.name]: event.target.value,
+                    })
+                  }
+                  // value={a]}
+                  placeholder="phoneNumber"
+                />
+              </Grid>
+            )
+          )}
         </Grid>
       </Grid>
     );
@@ -300,41 +331,46 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
             </Grid>
           </Grid>
 
-          <Grid item xs={12} style={{ padding: "15px" }}>
-            {prefilledData.address.map((addrs: iaddress) => (
+          <Grid item xs={12} style={{ padding: "15px", width: "95%" }}>
+            {prefilledData.address.map((addrs: iaddress, index: number) => (
               <Grid
                 container
                 rowSpacing={5}
                 style={{ marginTop: "10px" }}
                 key={addrs.houseNumber + `${Math.random()}`}
               >
-                {Object.keys(addrs).map((item: string) => (
-                  <Grid
-                    item
-                    xs={6}
-                    style={{ padding: "15px" }}
-                    key={item + `${Math.random()}`}
-                  >
-                    <TextField
-                      key={addrs.houseNumber}
-                      style={{ width: "100%" }}
-                      id="filled-basic"
-                      // @ts-ignore
-                      label={item}
-                      variant="filled"
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        setPrefilledData({
-                          ...prefilledData,
-                          phoneNumber: event.target.value,
-                        })
-                      }
-                      disabled={isDisable}
-                      // @ts-ignore
-                      value={addrs[item]}
-                      placeholder="phoneNumber"
-                    />
-                  </Grid>
-                ))}
+                <AmazeAccordion title={`Address ${index + 1}`}>
+                  {Object.keys(addrs).map((item: string) => (
+                    <Grid
+                      item
+                      xs={6}
+                      style={{ padding: "15px" }}
+                      key={item + `${Math.random()}`}
+                    >
+                      <TextField
+                        key={addrs.houseNumber}
+                        style={{ width: "100%" }}
+                        id="filled-basic"
+                        // @ts-ignore
+                        label={item}
+                        name={item}
+                        variant="filled"
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ) =>
+                          setPrefilledData({
+                            ...prefilledData,
+                            [event.target.name]: event.target.value,
+                          })
+                        }
+                        disabled={isDisable}
+                        // @ts-ignore
+                        value={addrs[item]}
+                        placeholder="phoneNumber"
+                      />
+                    </Grid>
+                  ))}
+                </AmazeAccordion>
               </Grid>
             ))}
           </Grid>
@@ -344,6 +380,10 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
               modalTitle="Enter your Address"
               mainContent={dialogueBoxMainContent}
               btnText="Add address"
+              openModal={openModal}
+              setOpenModal={setOpenModal}
+              handleClickOpen={handleClickOpen}
+              handleSubmitClose={handleSubmitClose}
             />
           </div>
 
