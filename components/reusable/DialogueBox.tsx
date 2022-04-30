@@ -54,23 +54,24 @@ interface iCustomizedDialogs {
   modalTitle: string;
   mainContent: any;
   btnText: string;
+  openModal: boolean;
+  setOpenModal: any;
+  handleClickOpen: () => void;
+  handleSubmitClose: () => Promise<void>;
 }
 
 const CustomizedDialogs: React.FunctionComponent<iCustomizedDialogs> = ({
   modalTitle,
   mainContent,
   btnText,
+  setOpenModal,
+  openModal,
+  handleClickOpen,
+  handleSubmitClose,
 }): JSX.Element => {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
-    setOpen(false);
+    setOpenModal(false);
   };
-
   return (
     <div>
       <Button variant="text" onClick={handleClickOpen}>
@@ -79,7 +80,7 @@ const CustomizedDialogs: React.FunctionComponent<iCustomizedDialogs> = ({
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={openModal}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
@@ -89,7 +90,7 @@ const CustomizedDialogs: React.FunctionComponent<iCustomizedDialogs> = ({
         </BootstrapDialogTitle>
         <DialogContent dividers>{mainContent()}</DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
+          <Button autoFocus onClick={handleSubmitClose}>
             {btnText}
           </Button>
         </DialogActions>
