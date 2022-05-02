@@ -1,26 +1,15 @@
-import React, { memo, ReactNode, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Input, { TypeInput } from "@reusable/Input";
 import Button, { TypeButton, TypeButtonSize } from "@reusable/Button";
-import {
-  faEnvelope,
-  faKey,
-  faPhone,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
-import FilledInput from "@mui/material/FilledInput";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import GET_USER from "@graphql-doc/GET_USER.graphql";
+import CHANGE_PASSWORD from "@graphql-doc/CHANGE_PASSWORD.graphql";
 import UPDATE_USER from "@graphql-doc/UPDATE_USER.graphql";
 import { useQuery, useMutation, OperationVariables } from "@apollo/client";
 import TextField from "@mui/material/TextField";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import InputAdornment from "@mui/material/InputAdornment";
 import Typography from "@mui/material/Typography";
 import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
 import Layout from "./reusable/Layout";
@@ -75,11 +64,22 @@ const dialogueBoxMainContentArray: idialogueBoxMainContent[] = [
   },
 ];
 
+interface iChangePassword {
+  oldPassword: string;
+  newPassword: string;
+}
+
 const Profile: React.FunctionComponent = (): JSX.Element => {
   const { data, error, loading, refetch } = useQuery<any, OperationVariables>(
     GET_USER
   );
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [ChangePasswordBox, setChangePasswordBox] = useState<boolean>(false);
+  const [isDisable, setIsDisable] = useState<boolean>(true);
+  const [changePassword, setChangePassword] = useState<iChangePassword>({
+    oldPassword: "",
+    newPassword: "",
+  });
   const [
     updateUser,
     {
@@ -88,6 +88,16 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
       error: updateUserError,
     },
   ] = useMutation(UPDATE_USER);
+
+  const [
+    changeUserPassword,
+    {
+      data: changePasswordResp,
+      loading: changePasswordLoading,
+      error: changepasswordError,
+    },
+  ] = useMutation(CHANGE_PASSWORD);
+
   const [prefilledData, setPrefilledData] = useState<iPrefilledData>({
     id: "",
     userName: "",
@@ -98,9 +108,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
     isPhoneVerified: false,
     address: [],
   });
-  const [password, setPassword] = useState<string>("******");
-  const [isDisable, setIsDisable] = useState<boolean>(true);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const [newAddress, setNewAddress] = useState<iaddress>({
     houseNumber: "",
     street: "",
@@ -135,14 +143,18 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
     await refetch();
   };
 
-  const handleClickOpen = (): void => {
-    if (prefilledData.address.length === 5) {
-      return AmazeToast({
-        message: "Your already have maximun address limit",
-        type: "warn",
-      });
+  const handleClickOpen = (d: number): void => {
+    if (d === 0) {
+      setChangePasswordBox(true);
+    } else {
+      if (prefilledData.address.length === 5) {
+        return AmazeToast({
+          message: "Your already have maximun address limit",
+          type: "warn",
+        });
+      }
+      setOpenModal(true);
     }
-    setOpenModal(true);
   };
 
   const handleSubmitClose = async (): Promise<void> => {
@@ -156,6 +168,61 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
     } catch (error) {
       return AmazeToast({
         message: "Something went wrong",
+        type: "error",
+      });
+    }
+  };
+
+  const updateAddress = async (addrs: iaddress): Promise<void> => {
+    const { id, ...restItems } = prefilledData;
+    const updatedAddress = prefilledData.address.filter(
+      d =>
+        `${d.houseNumber}${d.street}${d.landmark}` !==
+        `${addrs.houseNumber}${addrs.street}${addrs.landmark}`
+    );
+
+    await updateUser({
+      variables: {
+        input: {
+          ...restItems,
+          address: [...updatedAddress],
+        },
+      },
+    });
+
+    setPrefilledData({
+      ...prefilledData,
+      address: [...updatedAddress],
+    });
+
+    await refetch();
+  };
+
+  const handleChangePassword = async (): Promise<void> => {
+    try {
+      const res = await changeUserPassword({
+        variables: {
+          ...changePassword,
+        },
+      });
+      if (
+        res?.data?.changePassword.status === 200 &&
+        res?.data?.changePassword.error === false
+      ) {
+        setChangePasswordBox(false);
+        return AmazeToast({
+          message: res?.data?.changePassword.message,
+          type: "success",
+        });
+      } else {
+        return AmazeToast({
+          message: res?.data?.changePassword.message,
+          type: "error",
+        });
+      }
+    } catch (error) {
+      return AmazeToast({
+        message: "Something went wrong!",
         type: "error",
       });
     }
@@ -201,6 +268,49 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
               </Grid>
             )
           )}
+        </Grid>
+      </Grid>
+    );
+  };
+
+  const ChangePasswordDialogue = () => {
+    return (
+      <Grid item xs={12} style={{ padding: "10px" }}>
+        <Grid container rowSpacing={5} style={{ marginTop: "5px" }}>
+          <Grid item xs={6} style={{ padding: "15px" }}>
+            <TextField
+              style={{ width: "100%" }}
+              id="filled-basic"
+              label="Old password"
+              variant="filled"
+              name="oldPassword"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setChangePassword({
+                  ...changePassword,
+                  oldPassword: event.target.value,
+                })
+              }
+              // value={a]}
+              placeholder="Old password"
+            />
+          </Grid>
+          <Grid item xs={6} style={{ padding: "15px" }}>
+            <TextField
+              style={{ width: "100%" }}
+              id="filled-basic"
+              label="New password"
+              variant="filled"
+              name="newPassword"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setChangePassword({
+                  ...changePassword,
+                  newPassword: event.target.value,
+                })
+              }
+              // value={a]}
+              placeholder="New Password"
+            />
+          </Grid>
         </Grid>
       </Grid>
     );
@@ -289,26 +399,15 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
             </Grid>
 
             <Grid item xs={6} style={{ padding: "15px" }}>
-              <FilledInput
-                id="filled-adornment-password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                disabled={isDisable}
-                style={{ width: "100%" }}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPassword(e.target.value)
-                }
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => setShowPassword(!showPassword)}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+              <CustomizedDialogs
+                modalTitle="Change password"
+                mainContent={ChangePasswordDialogue}
+                btnText="Confirm"
+                btnTitle="Change Password"
+                openModal={ChangePasswordBox}
+                setOpenModal={setChangePasswordBox}
+                handleClickOpen={() => handleClickOpen(0)}
+                handleSubmitClose={handleChangePassword}
               />
             </Grid>
 
@@ -339,7 +438,12 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                 style={{ marginTop: "10px" }}
                 key={addrs.houseNumber + `${Math.random()}`}
               >
-                <AmazeAccordion title={`Address ${index + 1}`}>
+                <AmazeAccordion
+                  title={`Address ${index + 1}`}
+                  onRemoveAddress={() => {
+                    updateAddress(addrs);
+                  }}
+                >
                   {Object.keys(addrs).map((item: string) => (
                     <Grid
                       item
@@ -357,12 +461,13 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                         variant="filled"
                         onChange={(
                           event: React.ChangeEvent<HTMLInputElement>
-                        ) =>
+                        ) => {
+                          // const allAd
                           setPrefilledData({
                             ...prefilledData,
                             [event.target.name]: event.target.value,
-                          })
-                        }
+                          });
+                        }}
                         disabled={isDisable}
                         // @ts-ignore
                         value={addrs[item]}
@@ -380,9 +485,10 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
               modalTitle="Enter your Address"
               mainContent={dialogueBoxMainContent}
               btnText="Add address"
+              btnTitle="Add address +"
               openModal={openModal}
               setOpenModal={setOpenModal}
-              handleClickOpen={handleClickOpen}
+              handleClickOpen={() => handleClickOpen(1)}
               handleSubmitClose={handleSubmitClose}
             />
           </div>

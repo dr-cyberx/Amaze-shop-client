@@ -5,6 +5,9 @@ import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
 import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import { defaultHead } from "next/head";
@@ -49,11 +52,13 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 interface iAmazeAccordion {
   children: any;
   title: string;
+  onRemoveAddress: any;
 }
 
 const AmazeAccordion: React.FunctionComponent<iAmazeAccordion> = ({
   children,
   title,
+  onRemoveAddress,
 }): JSX.Element => {
   const [expanded, setExpanded] = React.useState<string | false>("panel1");
 
@@ -69,7 +74,29 @@ const AmazeAccordion: React.FunctionComponent<iAmazeAccordion> = ({
         onChange={handleChange("panel1")}
       >
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>{title}</Typography>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <div style={{ flex: "1" }}>
+              <Typography>{title}</Typography>
+            </div>
+            <div
+              style={{
+                flex: "0.2",
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <IconButton aria-label="delete" onClick={onRemoveAddress}>
+                <DeleteIcon />
+              </IconButton>
+            </div>
+          </div>
         </AccordionSummary>
         <Grid
           xs={12}
@@ -89,12 +116,3 @@ const AmazeAccordion: React.FunctionComponent<iAmazeAccordion> = ({
 };
 
 export default AmazeAccordion;
-
-// {<AccordionDetails>
-//   <Typography>
-//     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-//     malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum
-//     dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
-//     lacus ex, sit amet blandit leo lobortis eget.
-//   </Typography>
-// </AccordionDetails>}
