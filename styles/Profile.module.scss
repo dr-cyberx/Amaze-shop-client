@@ -27,6 +27,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    .userImage {
+      position: absolute;
+      height: 120px;
+      width: 120px;
+      border-radius: 50%;
+    }
   }
 }
 
@@ -46,4 +53,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.choose_avatar_container {
+  border: 2px solid rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  // width: 95%;
+  height: 200px;
+  padding: 0px 44px;
+
+  .choose_avatar {
+    border: 2px solid rgba(0, 128, 0, 0);
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+      rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+        rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    }
+  }
 }
