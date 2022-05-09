@@ -90,7 +90,7 @@ const SelectProfileAvatar: React.FunctionComponent<iSelectProfileAvatar> = ({
         </BootstrapDialogTitle>
         <DialogContent dividers>{mainContent()}</DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleSubmitClose}>
+          <Button autoFocus onClick={() => setOpenModal(false)}>
             {btnText}
           </Button>
         </DialogActions>

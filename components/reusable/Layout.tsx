@@ -20,7 +20,7 @@ const Layout: React.FunctionComponent<iLayout> = ({
     <div className={styles.layout}>
       <Navbar />
       {children}
-      {isLoading ? (
+      {isLoading || state.isLoading ? (
         <div className={styles.loader__container}>
           <div className={styles.loader}>
             <InfinitySpin width="300px" color="rgb(0, 174, 255)" />

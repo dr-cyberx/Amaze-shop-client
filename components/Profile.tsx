@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
@@ -18,6 +18,7 @@ import CustomizedDialogs from "./reusable/DialogueBox";
 import styles from "@styles/Profile.module.scss";
 import AmazeToast from "./reusable/AmazeToast";
 import AmazeAccordion from "./reusable/Accordion";
+import { CartContext } from "@context/Cart/CartContext";
 
 const MuiInput = styled("input")({
   display: "none",
@@ -72,14 +73,16 @@ interface iChangePassword {
 }
 
 const Profile: React.FunctionComponent = (): JSX.Element => {
+  const { hideLoading, showLoading } = useContext(CartContext);
+
   const { data, error, loading, refetch } = useQuery<any, OperationVariables>(
     GET_USER
   );
+
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [ChangePasswordBox, setChangePasswordBox] = useState<boolean>(false);
   const [isDisable, setIsDisable] = useState<boolean>(true);
   const [openSelectProfile, setOpenSelectProfile] = useState<boolean>(false);
-  const [profileImage, setProfileImage] = useState<number>(0);
   const [changePassword, setChangePassword] = useState<iChangePassword>({
     oldPassword: "",
     newPassword: "",
@@ -130,6 +133,10 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
       }
     }
   }, [data]);
+
+  useEffect(() => {
+    updateUserLoading ? showLoading() : hideLoading();
+  }, [updateUserLoading]);
 
   const submitFinalAddress = async (): Promise<any> => {
     try {
@@ -355,7 +362,9 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
             <label htmlFor="icon-button-file">
               <MuiInput
                 // accept="image/*"
-                onClick={() => setOpenSelectProfile(true)}
+                onClick={() => {
+                  !isDisable ? setOpenSelectProfile(true) : null;
+                }}
                 id="icon-button-file"
                 type="button"
               />
@@ -371,7 +380,11 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
               >
                 <img
                   className={styles.userImage}
-                  src={`./userAvatars/${profileImage}.png`}
+                  src={
+                    prefilledData.profileImage
+                      ? `./userAvatars/${prefilledData.profileImage}.png`
+                      : `./userAvatars/${9}.png`
+                  }
                   alt="profile"
                 />
                 <div>
@@ -455,15 +468,22 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                   modalTitle="Choose Profile Avatar"
                   mainContent={() => (
                     <div className={styles.choose_avatar_container}>
-                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((d: number) => (
-                        <img
-                          className={styles.choose_avatar}
-                          key={d}
-                          onClick={() => setProfileImage(d)}
-                          src={`./userAvatars/${d}.png`}
-                          alt={"profile"}
-                        />
-                      ))}
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
+                        (d: number): React.ReactNode => (
+                          <img
+                            className={styles.choose_avatar}
+                            key={d}
+                            onClick={() =>
+                              setPrefilledData({
+                                ...prefilledData,
+                                profileImage: d,
+                              })
+                            }
+                            src={`./userAvatars/${d}.png`}
+                            alt={"profile"}
+                          />
+                        )
+                      )}
                     </div>
                   )}
                   btnText="Confirm"
@@ -471,7 +491,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                   openModal={true}
                   setOpenModal={setOpenSelectProfile}
                   handleClickOpen={() => setOpenModal(true)}
-                  handleSubmitClose={() => console.log("hello world ")}
+                  handleSubmitClose={() => ""}
                 />
               </Grid>
             )}

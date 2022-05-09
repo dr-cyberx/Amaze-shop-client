@@ -1,4 +1,4 @@
-import { actionsType } from '../actions/index';
+import { actionsType } from "../actions/index";
 
 const cartReducer = (state: any, action: any) => {
   switch (action.type) {
@@ -27,6 +27,19 @@ const cartReducer = (state: any, action: any) => {
     case actionsType.ADD_COUNT_PRODUCT:
       return {
         ...state,
+      };
+      break;
+    case actionsType.SHOW_LOADER:
+      return {
+        ...state,
+        isLoading: true,
+      };
+      break;
+
+    case actionsType.HIDE_LOADER:
+      return {
+        ...state,
+        isLoading: false,
       };
       break;
 
