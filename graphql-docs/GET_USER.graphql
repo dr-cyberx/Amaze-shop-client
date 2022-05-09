@@ -2,6 +2,7 @@ query GetUserDetailsByID {
   getUserDetailsByID {
     data {
       id
+      profileImage
       userName
       email
       phoneNumber

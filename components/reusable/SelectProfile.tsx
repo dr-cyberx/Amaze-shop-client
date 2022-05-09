@@ -50,7 +50,7 @@ const BootstrapDialogTitle: React.FunctionComponent<
   );
 };
 
-interface iCustomizedDialogs {
+interface iSelectProfileAvatar {
   modalTitle: string;
   mainContent: any;
   btnText: string;
@@ -61,7 +61,7 @@ interface iCustomizedDialogs {
   handleSubmitClose: () => any;
 }
 
-const CustomizedDialogs: React.FunctionComponent<iCustomizedDialogs> = ({
+const SelectProfileAvatar: React.FunctionComponent<iSelectProfileAvatar> = ({
   modalTitle,
   mainContent,
   btnText,
@@ -77,23 +77,6 @@ const CustomizedDialogs: React.FunctionComponent<iCustomizedDialogs> = ({
 
   return (
     <div>
-      {btnTitle ? (
-        <Button
-          variant="text"
-          onClick={handleClickOpen}
-          style={{
-            width: "100%",
-            fontSize: "1.2rem",
-            height: "100%",
-            textTransform: "capitalize",
-            padding: "10px",
-          }}
-        >
-          {btnTitle}
-        </Button>
-      ) : (
-        <></>
-      )}
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -107,7 +90,7 @@ const CustomizedDialogs: React.FunctionComponent<iCustomizedDialogs> = ({
         </BootstrapDialogTitle>
         <DialogContent dividers>{mainContent()}</DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleSubmitClose}>
+          <Button autoFocus onClick={() => setOpenModal(false)}>
             {btnText}
           </Button>
         </DialogActions>
@@ -116,4 +99,4 @@ const CustomizedDialogs: React.FunctionComponent<iCustomizedDialogs> = ({
   );
 };
 
-export default CustomizedDialogs;
+export default SelectProfileAvatar;

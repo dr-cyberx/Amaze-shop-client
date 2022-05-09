@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
@@ -10,6 +10,7 @@ import CHANGE_PASSWORD from "@graphql-doc/CHANGE_PASSWORD.graphql";
 import UPDATE_USER from "@graphql-doc/UPDATE_USER.graphql";
 import { useQuery, useMutation, OperationVariables } from "@apollo/client";
 import TextField from "@mui/material/TextField";
+import SelectProfileAvatar from "@components/reusable/SelectProfile";
 import Typography from "@mui/material/Typography";
 import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
 import Layout from "./reusable/Layout";
@@ -17,6 +18,7 @@ import CustomizedDialogs from "./reusable/DialogueBox";
 import styles from "@styles/Profile.module.scss";
 import AmazeToast from "./reusable/AmazeToast";
 import AmazeAccordion from "./reusable/Accordion";
+import { CartContext } from "@context/Cart/CartContext";
 
 const MuiInput = styled("input")({
   display: "none",
@@ -24,6 +26,7 @@ const MuiInput = styled("input")({
 
 interface iPrefilledData {
   id: string;
+  profileImage: any;
   userName: string;
   email: string;
   phoneNumber: string;
@@ -70,16 +73,21 @@ interface iChangePassword {
 }
 
 const Profile: React.FunctionComponent = (): JSX.Element => {
+  const { hideLoading, showLoading } = useContext(CartContext);
+
   const { data, error, loading, refetch } = useQuery<any, OperationVariables>(
     GET_USER
   );
+
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [ChangePasswordBox, setChangePasswordBox] = useState<boolean>(false);
   const [isDisable, setIsDisable] = useState<boolean>(true);
+  const [openSelectProfile, setOpenSelectProfile] = useState<boolean>(false);
   const [changePassword, setChangePassword] = useState<iChangePassword>({
     oldPassword: "",
     newPassword: "",
   });
+
   const [
     updateUser,
     {
@@ -100,6 +108,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
 
   const [prefilledData, setPrefilledData] = useState<iPrefilledData>({
     id: "",
+    profileImage: null,
     userName: "",
     email: "",
     phoneNumber: "",
@@ -125,6 +134,29 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
     }
   }, [data]);
 
+  useEffect(() => {
+    updateUserLoading ? showLoading() : hideLoading();
+  }, [updateUserLoading]);
+
+  const submitFinalAddress = async (): Promise<any> => {
+    try {
+      const { id, ...restItems } = prefilledData;
+      const res = await updateUser({
+        variables: {
+          input: {
+            ...restItems,
+          },
+        },
+      });
+      await refetch();
+    } catch (error) {
+      return AmazeToast({
+        message: "Something went wrong!",
+        type: "error",
+      });
+    }
+  };
+
   const submitNewAddress = async (): Promise<void> => {
     const { id, ...restItems } = prefilledData;
     const res = await updateUser({
@@ -146,7 +178,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
   const handleClickOpen = (d: number): void => {
     if (d === 0) {
       setChangePasswordBox(true);
-    } else {
+    } else if (d === 1) {
       if (prefilledData.address.length === 5) {
         return AmazeToast({
           message: "Your already have maximun address limit",
@@ -154,6 +186,8 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
         });
       }
       setOpenModal(true);
+    } else {
+      setOpenSelectProfile(true);
     }
   };
 
@@ -263,7 +297,6 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                     })
                   }
                   // value={a]}
-                  placeholder="phoneNumber"
                 />
               </Grid>
             )
@@ -272,6 +305,11 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
       </Grid>
     );
   };
+
+  useEffect(() => {
+    // debugger;
+    console.log("openSelectProfile", openSelectProfile);
+  }, [openSelectProfile]);
 
   const ChangePasswordDialogue = () => {
     return (
@@ -320,13 +358,15 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
     <Layout isLoading={loading}>
       <Container>
         <div className={styles.profile_container}>
-          <div className={styles.userProfile_image}>
+          <div className={styles.userProfile_image} style={{ padding: "2px" }}>
             <label htmlFor="icon-button-file">
               <MuiInput
-                onChange={(event: any) => console.log(event.target.files[0])}
-                accept="image/*"
+                // accept="image/*"
+                onClick={() => {
+                  !isDisable ? setOpenSelectProfile(true) : null;
+                }}
                 id="icon-button-file"
-                type="file"
+                type="button"
               />
               <IconButton
                 color="primary"
@@ -338,7 +378,18 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                   boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
                 }}
               >
-                <PhotoCamera />
+                <img
+                  className={styles.userImage}
+                  src={
+                    prefilledData.profileImage
+                      ? `./userAvatars/${prefilledData.profileImage}.png`
+                      : `./userAvatars/${9}.png`
+                  }
+                  alt="profile"
+                />
+                <div>
+                  <PhotoCamera />
+                </div>
               </IconButton>
             </label>
           </div>
@@ -410,6 +461,40 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                 handleSubmitClose={handleChangePassword}
               />
             </Grid>
+
+            {openSelectProfile && (
+              <Grid item xs={6} style={{ padding: "15px" }}>
+                <SelectProfileAvatar
+                  modalTitle="Choose Profile Avatar"
+                  mainContent={() => (
+                    <div className={styles.choose_avatar_container}>
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
+                        (d: number): React.ReactNode => (
+                          <img
+                            className={styles.choose_avatar}
+                            key={d}
+                            onClick={() =>
+                              setPrefilledData({
+                                ...prefilledData,
+                                profileImage: d,
+                              })
+                            }
+                            src={`./userAvatars/${d}.png`}
+                            alt={"profile"}
+                          />
+                        )
+                      )}
+                    </div>
+                  )}
+                  btnText="Confirm"
+                  btnTitle="Confirm"
+                  openModal={true}
+                  setOpenModal={setOpenSelectProfile}
+                  handleClickOpen={() => setOpenModal(true)}
+                  handleSubmitClose={() => ""}
+                />
+              </Grid>
+            )}
 
             <Grid
               item
@@ -503,7 +588,11 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
               style={{ width: "65%" }}
             >
               <div className={styles.btn__profile__container__child}>
-                {showBtn("Save", null, TypeButton.PRIMARY)}
+                {showBtn(
+                  "Save",
+                  () => submitFinalAddress(),
+                  TypeButton.PRIMARY
+                )}
               </div>
 
               <div className={styles.btn__profile__container__child}>

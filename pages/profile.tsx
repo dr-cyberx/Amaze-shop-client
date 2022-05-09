@@ -5,7 +5,7 @@ import MetaData from "@components/reusable/MetaData";
 const UserProfile = () => {
   return (
     <>
-      <MetaData title="home" />
+      <MetaData title="profile" />
       <Profile />
     </>
   );

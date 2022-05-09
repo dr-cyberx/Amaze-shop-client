@@ -12,6 +12,7 @@ export const CartContextProvider = ({
     showCartModal: false,
     cartProducts: null,
     cartProductsCount: 0,
+    isLoading: false,
   });
 
   const openPostModal = (): void => {
@@ -28,8 +29,22 @@ export const CartContextProvider = ({
     return;
   };
 
+  const showLoading = (): void => {
+    dispatch({
+      type: "SHOW_LOADER",
+    });
+  };
+
+  const hideLoading = (): void => {
+    dispatch({
+      type: "HIDE_LOADER",
+    });
+  };
+
   return (
-    <CartContext.Provider value={{ state, closePostModal, openPostModal }}>
+    <CartContext.Provider
+      value={{ state, closePostModal, openPostModal, hideLoading, showLoading }}
+    >
       {children}
     </CartContext.Provider>
   );

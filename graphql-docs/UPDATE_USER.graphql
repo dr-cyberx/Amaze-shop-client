@@ -6,6 +6,7 @@ mutation UpdateUser($input: userInput!) {
       phoneNumber
       isEmailVerified
       isPhoneVerified
+      profileImage
       role
       address {
         city
