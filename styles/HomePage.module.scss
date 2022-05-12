@@ -1,4 +1,4 @@
-@import 'variable.scss';
+@import "variable.scss";
 
 .homePage {
   height: auto;
@@ -40,5 +40,24 @@
     position: absolute;
     bottom: -35%;
     border-radius: 10px;
+  }
+}
+.mid__container {
+  margin: auto;
+  margin-top: 380px;
+  width: 90%;
+  border-radius: 20px;
+  height: 500px;
+  overflow: hidden;
+  box-shadow: $box-shadow-secondary;
+  .banner_1 {
+    width: 100%;
+    cursor: pointer;
+    image-rendering: optimizeSpeed;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    transition: all 0.3s ease-in-out;
   }
 }
