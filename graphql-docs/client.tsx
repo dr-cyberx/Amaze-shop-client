@@ -7,6 +7,7 @@ import {
 } from "@apollo/client";
 import cookie from "cookie";
 import { setContext } from "@apollo/client/link/context";
+import useLocalStorage from "hooks/useLocalStorage";
 
 const httpLink: ApolloLink = createHttpLink({
   uri: "http://localhost:4000/amazeshop",
@@ -14,7 +15,8 @@ const httpLink: ApolloLink = createHttpLink({
 });
 
 const authLink: ApolloLink = setContext((_, { headers }) => {
-  const token = cookie.parse(document.cookie)?.auth_token;
+  // const token = cookie.parse(document.cookie)?.auth_token;
+  const token = useLocalStorage.getItem("auth_token");
 
   return {
     headers: {
