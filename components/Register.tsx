@@ -31,6 +31,7 @@ import SEND_OTP_NUMBER from "@graphql-doc/SEND_OTP_NUMBER.graphql";
 import VERIFY_OTP_NUMBER from "@graphql-doc/VERIFY_OTP_NUMBER.graphql";
 import styles from "@styles/Register.module.scss";
 import AmazeToast from "./reusable/AmazeToast";
+import useLocalStorage from "hooks/useLocalStorage";
 
 export type SignUpInputType = {
   name: string;
@@ -109,10 +110,11 @@ const Register: React.FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     if (data?.signUp?.data) {
-      document.cookie = cookie.serialize("auth_token", data.signUp.token, {
-        maxAge: 36000,
-        path: "/",
-      });
+      // document.cookie = cookie.serialize("auth_token", data.signUp.token, {
+      //   maxAge: 36000,
+      //   path: "/",
+      // });
+      useLocalStorage.setItem("auth_token", data.signUp.token);
       setSignUpStep((previousData: number) => previousData + 1);
     }
     if (data?.signUp?.status === 409) {

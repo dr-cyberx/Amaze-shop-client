@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Carousel from 'react-elastic-carousel';
-import { useQuery } from '@apollo/client';
-import { InfinitySpin } from 'react-loader-spinner';
-import Layout from './reusable/Layout';
-import Text, { TextVariant } from './reusable/Typography';
-import ProductCard from './reusable/ProductCard';
-import GET_ALL_PRODUCTS from '@graphql-doc/GET_ALL_PRODUCTS.graphql';
-import styles from '@styles/HomePage.module.scss';
-import { CircularProgress } from '@mui/material';
-import Modal from './reusable/modal';
-import ProductCrouselContainer from './reusable/ProductCrouselContainer';
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import Carousel from "react-elastic-carousel";
+import { useQuery } from "@apollo/client";
+import { InfinitySpin } from "react-loader-spinner";
+import Layout from "./reusable/Layout";
+import Text, { TextVariant } from "./reusable/Typography";
+import ProductCard from "./reusable/ProductCard";
+import GET_ALL_PRODUCTS from "@graphql-doc/GET_ALL_PRODUCTS.graphql";
+import styles from "@styles/HomePage.module.scss";
+import { CircularProgress } from "@mui/material";
+import Modal from "./reusable/modal";
+import ProductCrouselContainer from "./reusable/ProductCrouselContainer";
 
 export type typeProduct = {
   id: string;
@@ -51,7 +52,13 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
           />
         </div>
       </div>
-      {/* <div>hello world</div> */}
+      <div className={styles.mid__container}>
+        <img
+          className={styles.banner_1}
+          src="./banners/banner-1.jpg"
+          alt="ad banner 1"
+        />
+      </div>
     </Layout>
   );
 };
