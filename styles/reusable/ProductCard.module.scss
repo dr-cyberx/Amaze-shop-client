@@ -1,6 +1,7 @@
-@import "../variable.scss";
+@import '../variable.scss';
 
-@mixin applyCardStyle {
+.Product__Card {
+  // border: 2px solid red;
   min-height: 430px;
   width: 300px;
   border-radius: 8px;
@@ -11,11 +12,6 @@
   margin: 5px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-}
-
-.Product__Card {
-  // border: 2px solid red;
-  @include applyCardStyle();
 
   &:hover {
     filter: brightness(0.8);

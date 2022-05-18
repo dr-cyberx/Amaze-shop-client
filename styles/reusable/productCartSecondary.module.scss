@@ -2,14 +2,14 @@
 @import "./ProductCard.module.scss";
 
 .productCartSecondary__container {
+  position: relative;
   border: 1px solid rgb(220, 220, 220);
   height: 400px;
-  width: 350px;
+  width: 320px;
   border-radius: $border-radius-primary;
   box-shadow: $box-shadow-secondary;
   padding: 20px;
 
-  width: 300px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: $box-shadow-primary;
@@ -20,7 +20,8 @@
 
   &:hover {
     transform: scale(1.03);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+      rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   }
   .title__container {
     text-align: center;
@@ -36,5 +37,27 @@
       width: 100%;
       object-fit: contain;
     }
+  }
+  .Card__overlay {
+    // background-color: rgba(0, 0, 0, 0.521);
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    width: 100%;
+    &:hover {
+      // backdrop-filter: blur(2px);
+      background-color: rgba(0, 0, 0, 0.419);
+    }
+    // border: 2px solid red;
+    .Card__overlay__btn__container {
+      // border: 2px solid red;
+      margin: auto;
+      height: 100%;
+      width: 50%;
+      display: grid;
+      place-items: center;
+    }
+    // border: 2px solid red;
   }
 }
