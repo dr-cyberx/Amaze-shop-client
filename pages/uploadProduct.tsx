@@ -1,3 +1,5 @@
+import axios from "axios";
+import Papa from "papaparse";
 import React, { useState } from "react";
 
 function UploadFile() {
@@ -5,13 +7,29 @@ function UploadFile() {
 
   // const fileReader = new window.FileReader();
 
-  const handleOnChange = (e: any) => {
-    setFile(e.target.files[0]);
-    console.log(e.target.files[0]);
+  const handleOnChange = async (e: any) => {
+    const files = e.target.files;
+    console.log(files);
+    if (files) {
+      console.log(files[0]);
+      await Papa.parse(files[0], {
+        complete: async function (results) {
+          console.log("Finished:", results.data);
+          await axios.post("http://localhost:4000/uploadcsv", {
+            csvFile: results.data,
+          });
+        },
+      });
+    }
   };
 
-  const handleOnSubmit = (e: any) => {
+  const handleOnSubmit = async (e: any) => {
     e.preventDefault();
+    await axios
+      .post("http://localhost:4000/uploadcsv", {
+        csvFile: "hello world",
+      })
+      .then((data: any) => console.log(data));
     console.log(file);
   };
 
@@ -22,7 +40,7 @@ function UploadFile() {
         <input
           type={"file"}
           id={"csvFileInput"}
-          accept={".csv"}
+          accept=".xlsx, .xls, .csv"
           onChange={handleOnChange}
         />
 

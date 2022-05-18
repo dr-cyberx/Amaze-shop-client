@@ -46,18 +46,45 @@
   margin: auto;
   margin-top: 380px;
   width: 90%;
-  border-radius: 20px;
-  height: 500px;
+  // border-radius: 20px;
+  height: auto;
+  // border: 2px solid #ff0000;
   overflow: hidden;
-  box-shadow: $box-shadow-secondary;
+  display: flex;
+  color: $text-secondary;
+
+  // box-shadow: $box-shadow-secondary;
   .banner_1 {
-    width: 100%;
+    max-width: 900px;
+    height: 100%;
     cursor: pointer;
+    flex: 1.4;
+    border-radius: 6px 0px 0px 6px;
     image-rendering: optimizeSpeed;
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
     transition: all 0.3s ease-in-out;
+    // box-shadow: $box-shadow-secondary;
+  }
+  .banner__right_container {
+    text-align: center;
+    background-color: $color-white;
+    flex: 0.6;
+    // border: 2px solid red;
+    padding: 20px;
+    .banner__right__content {
+      // border: 2px solid red;
+      width: 390px;
+      margin: auto;
+      p {
+        font-size: 17px;
+        padding: 30px;
+        margin: 0px;
+        font-weight: 600;
+        color: $text-secondary;
+      }
+    }
   }
 }

@@ -35,13 +35,13 @@ const Auth: React.FunctionComponent<IAuth> = ({
     refetch();
   };
 
-  if (error) {
-    return (
-      <Container>
-        API error come back later, server likely does not responds
-      </Container>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <Container>
+  //       API error come back later, server likely does not responds
+  //     </Container>
+  //   );
+  // }
 
   return <>{children}</>;
 };

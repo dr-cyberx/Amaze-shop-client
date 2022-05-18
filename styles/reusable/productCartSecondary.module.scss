@@ -1,0 +1,40 @@
+@import "../variable.scss";
+@import "./ProductCard.module.scss";
+
+.productCartSecondary__container {
+  border: 1px solid rgb(220, 220, 220);
+  height: 400px;
+  width: 350px;
+  border-radius: $border-radius-primary;
+  box-shadow: $box-shadow-secondary;
+  padding: 20px;
+
+  width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: $box-shadow-primary;
+  // backdrop-filter: blur(10px);
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  }
+  .title__container {
+    text-align: center;
+  }
+  .CardImage__container {
+    height: 300px;
+    width: 100%;
+    object-fit: contain;
+    overflow: hidden;
+
+    img {
+      height: 300px;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+}
