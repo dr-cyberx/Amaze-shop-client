@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import Layout from "./reusable/Layout";
+import { NextRouter, useRouter } from "next/router";
 import GET_ALL_PRODUCTS from "@graphql-doc/GET_ALL_PRODUCTS.graphql";
 import ProductCrouselContainer from "./reusable/ProductCrouselContainer";
 import ProductCardSecondary from "./reusable/ProductCardSecondary";
@@ -39,6 +40,7 @@ const rowProps = (d: typeProduct, index: number) => ({
 });
 
 const HomePage: React.FunctionComponent = (): JSX.Element => {
+  const router: NextRouter = useRouter();
   const { data, loading, error } = useQuery(GET_ALL_PRODUCTS);
   const [SecondaryCardProduct, setSecondaryCardProduct] =
     useState<typeTopSellingProduct>([]);
@@ -69,7 +71,7 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
         </div>
       </div>
       <div className={styles.mid__container}>
-        <Grid container spacing={5}>
+        <Grid container spacing={12}>
           <Grid
             item
             xs={6}
@@ -114,6 +116,7 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
                 <ProductCardSecondary
                   cartTitle={singleProduct.productName}
                   products={singleProduct}
+                  onClick={() => router.push(`/product/${singleProduct.id}`)}
                 />
               </Grid>
             )

@@ -7,11 +7,13 @@ import Button, { TypeButton, TypeButtonSize } from "./Button";
 interface iProductCardSecondary {
   cartTitle: string;
   products: typeProduct;
+  onClick: () => void;
 }
 
 const ProductCardSecondary: React.FunctionComponent<iProductCardSecondary> = ({
   cartTitle,
   products,
+  onClick,
 }): JSX.Element => {
   const [showOverlay, setShowOverlay] = useState<boolean>(false);
   return (
@@ -35,6 +37,7 @@ const ProductCardSecondary: React.FunctionComponent<iProductCardSecondary> = ({
               <Button
                 btnType={TypeButton.PRIMARY}
                 label="view"
+                onClick={onClick}
                 size={TypeButtonSize.MEDIUM}
                 type="submit"
               />
