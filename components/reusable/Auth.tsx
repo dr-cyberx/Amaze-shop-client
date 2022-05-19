@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-import { useQuery } from "@apollo/client";
 import GET_USER from "@graphql-doc/GET_USER.graphql";
 import { NextRouter, useRouter } from "next/router";
 import { useLazyQuery } from "@apollo/client";
-import { Container } from "@mui/material";
 import useLocalStorage from "hooks/useLocalStorage";
 
 interface IAuth {
