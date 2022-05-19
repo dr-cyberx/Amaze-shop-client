@@ -16,6 +16,7 @@ interface IListItem {
   qty: number;
   removeProductFromCart: any;
   addProductToCart: any;
+  refetch: any;
   fetchProductLoading: boolean;
 }
 
@@ -25,6 +26,7 @@ const ListItem: React.FunctionComponent<IListItem> = ({
   removeProductFromCart,
   fetchProductLoading,
   addProductToCart,
+  refetch,
   qty,
 }): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
@@ -38,6 +40,7 @@ const ListItem: React.FunctionComponent<IListItem> = ({
       });
       const { data, message, status } = res?.data?.removeItemFromCart;
       if (data && status === 200) {
+        refetch();
         AmazeToast({ message, type: "success" });
       } else {
         AmazeToast({ message, type: "error" });
@@ -57,6 +60,7 @@ const ListItem: React.FunctionComponent<IListItem> = ({
       });
       const { data, message, status } = res?.data?.addItemToCart;
       if (data && status === 200) {
+        refetch();
         AmazeToast({ message, type: "success" });
       } else {
         AmazeToast({ message, type: "error" });

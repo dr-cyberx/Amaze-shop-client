@@ -32,6 +32,7 @@ import VERIFY_OTP_NUMBER from "@graphql-doc/VERIFY_OTP_NUMBER.graphql";
 import styles from "@styles/Register.module.scss";
 import AmazeToast from "./reusable/AmazeToast";
 import useLocalStorage from "hooks/useLocalStorage";
+import Auth from "./reusable/Auth";
 
 export type SignUpInputType = {
   name: string;

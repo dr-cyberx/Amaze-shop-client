@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import Text, { TextVariant } from "./reusable/Typography";
 import styles from "@styles/HomePage.module.scss";
 import Button, { TypeButton, TypeButtonSize } from "./reusable/Button";
+import Auth from "./reusable/Auth";
 
 export type typeProduct = {
   id: string;
@@ -55,75 +56,80 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
   }, [data]);
 
   return (
-    <Layout isLoading={loading}>
-      <div className={styles.homePage__image__container}>
-        <img
-          className={styles.homepage__image}
-          src="/phone-min.jpg"
-          alt="phone image"
-        />
-        <div className={styles.bottom__container}>
-          <ProductCrouselContainer
-            containerTitle="Top Selling Products"
-            isLoading={loading}
-            itemArray={TopSellingProducts}
+    <Auth pathName="/home">
+      <Layout isLoading={loading}>
+        <div className={styles.homePage__image__container}>
+          <img
+            className={styles.homepage__image}
+            src="/phone-min.jpg"
+            alt="phone image"
           />
-        </div>
-      </div>
-      <div className={styles.mid__container}>
-        <Grid container spacing={12}>
-          <Grid
-            item
-            xs={6}
-            md={12}
-            style={{
-              display: "flex",
-            }}
-          >
-            <img
-              className={styles.banner_1}
-              src="./banners/banner-1.jpg"
-              alt="ad banner 1"
+          <div className={styles.bottom__container}>
+            <ProductCrouselContainer
+              containerTitle="Top Selling Products"
+              isLoading={loading}
+              itemArray={TopSellingProducts.slice(4, 12)}
             />
-            <div className={styles.banner__right_container}>
-              <div className={styles.banner__right__container__title}>
-                <Text variant={TextVariant.heading3} color="secondary">
-                  Moon Light
-                </Text>
+          </div>
+        </div>
+        <div className={styles.mid__container}>
+          <Grid container spacing={12}>
+            <Grid
+              item
+              xs={6}
+              md={12}
+              style={{
+                display: "flex",
+              }}
+            >
+              <img
+                className={styles.banner_1}
+                src="./banners/banner-1.jpg"
+                alt="ad banner 1"
+              />
+              <div className={styles.banner__right_container}>
+                <div className={styles.banner__right__container__title}>
+                  <Text variant={TextVariant.heading3} color="secondary">
+                    Moon Light
+                  </Text>
+                </div>
+                <div className={styles.banner__right__content}>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Explicabo quis et commodi ea optio nam, numquam unde, nihil,
+                    corrupti modi odit excepturi dicta libero sapiente. Eaque at
+                    veritatis in, aspernatur sunt ducimus voluptates
+                    accusantium, sequi, sint numquam nostrum quidem architecto.
+                  </p>
+                </div>
+                <div style={{ marginTop: "20px" }}>
+                  <Button
+                    btnType={TypeButton.PRIMARY}
+                    label="Buy now"
+                    size={TypeButtonSize.MEDIUM}
+                    type="submit"
+                  />
+                </div>
               </div>
-              <div className={styles.banner__right__content}>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Explicabo quis et commodi ea optio nam, numquam unde, nihil,
-                  corrupti modi odit excepturi dicta libero sapiente. Eaque at
-                  veritatis in, aspernatur sunt ducimus voluptates accusantium,
-                  sequi, sint numquam nostrum quidem architecto.
-                </p>
-              </div>
-              <div style={{ marginTop: "20px" }}>
-                <Button
-                  btnType={TypeButton.PRIMARY}
-                  label="Buy now"
-                  size={TypeButtonSize.MEDIUM}
-                  type="submit"
-                />
-              </div>
-            </div>
+            </Grid>
+            {[...SecondaryCardProduct.slice(6, 9)].map(
+              (singleProduct: typeProduct, index: number) => (
+                <Grid
+                  {...rowProps(singleProduct, index)}
+                  key={singleProduct.id}
+                >
+                  <ProductCardSecondary
+                    cartTitle={singleProduct.productName}
+                    products={singleProduct}
+                    onClick={() => router.push(`/product/${singleProduct.id}`)}
+                  />
+                </Grid>
+              )
+            )}
           </Grid>
-          {[...SecondaryCardProduct.slice(6, 9)].map(
-            (singleProduct: typeProduct, index: number) => (
-              <Grid {...rowProps(singleProduct, index)} key={singleProduct.id}>
-                <ProductCardSecondary
-                  cartTitle={singleProduct.productName}
-                  products={singleProduct}
-                  onClick={() => router.push(`/product/${singleProduct.id}`)}
-                />
-              </Grid>
-            )
-          )}
-        </Grid>
-      </div>
-    </Layout>
+        </div>
+      </Layout>
+    </Auth>
   );
 };
 

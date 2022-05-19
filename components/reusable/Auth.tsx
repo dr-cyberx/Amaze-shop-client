@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import GET_USER from "@graphql-doc/GET_USER.graphql";
 import { NextRouter, useRouter } from "next/router";
+import { useLazyQuery } from "@apollo/client";
 import { Container } from "@mui/material";
+import useLocalStorage from "hooks/useLocalStorage";
 
 interface IAuth {
   children: React.ReactNode;
@@ -14,25 +16,26 @@ const Auth: React.FunctionComponent<IAuth> = ({
   pathName,
 }): JSX.Element => {
   const router: NextRouter = useRouter();
-  const { data, loading, error, refetch } = useQuery(GET_USER);
+  // const { data, loading, error, refetch } = useQuery(GET_USER);
+  const [getUserDetail, { data: userDetail, loading, error }] =
+    useLazyQuery(GET_USER);
 
   useEffect(() => {
-    if (data && !loading) {
-      isValidChild(data);
+    const token = useLocalStorage.getItem("auth_token");
+    console.log(token);
+    if (!token) {
+      router.push("/login");
+      return;
+    } else if (token) {
+      const res = isValidChild();
     }
-  }, [data]);
+  }, []);
 
-  const isValidChild = async (data: any): Promise<void> => {
-    const { status, error } = await data?.getUserDetailsByID;
-
-    if (status === 200 && !error) {
-      if (pathName === "/login") {
-        router.push("/home");
-      } else {
-        router.push("/login");
-      }
+  const isValidChild = async (): Promise<void> => {
+    const { data } = await getUserDetail();
+    if (!data?.getUserDetailsByID?.data) {
+      router.push("/login");
     }
-    refetch();
   };
 
   // if (error) {
