@@ -6,12 +6,9 @@ import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
 import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import { defaultHead } from "next/head";
 import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -44,15 +41,10 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
   },
 }));
 
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2),
-  borderTop: "1px solid rgba(0, 0, 0, .125)",
-}));
-
 interface iAmazeAccordion {
   children: any;
   title: string;
-  onRemoveAddress: any;
+  onRemoveAddress: () => void;
 }
 
 const AmazeAccordion: React.FunctionComponent<iAmazeAccordion> = ({
@@ -91,10 +83,13 @@ const AmazeAccordion: React.FunctionComponent<iAmazeAccordion> = ({
                 display: "flex",
                 justifyContent: "flex-end",
               }}
+              onClick={() => console.log("clicked ---> ")}
             >
-              <IconButton aria-label="delete" onClick={onRemoveAddress}>
-                <DeleteIcon />
-              </IconButton>
+              <div style={{ border: "2px solid red" }}>
+                <IconButton aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </div>
             </div>
           </div>
         </AccordionSummary>

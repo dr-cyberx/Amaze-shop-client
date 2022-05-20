@@ -43,6 +43,13 @@ const cartReducer = (state: any, action: any) => {
       };
       break;
 
+    case actionsType.SET_USER:
+      return {
+        ...state,
+        userDetail: action.payload,
+      };
+      break;
+
     default:
       break;
   }

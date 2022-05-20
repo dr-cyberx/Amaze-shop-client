@@ -13,6 +13,7 @@ export const CartContextProvider = ({
     cartProducts: null,
     cartProductsCount: 0,
     isLoading: false,
+    userDetail: {},
   });
 
   const openPostModal = (): void => {
@@ -41,9 +42,23 @@ export const CartContextProvider = ({
     });
   };
 
+  const setUserData = (userData: any): void => {
+    dispatch({
+      type: "SET_USER",
+      payload: userData,
+    });
+  };
+
   return (
     <CartContext.Provider
-      value={{ state, closePostModal, openPostModal, hideLoading, showLoading }}
+      value={{
+        state,
+        closePostModal,
+        openPostModal,
+        hideLoading,
+        showLoading,
+        setUserData,
+      }}
     >
       {children}
     </CartContext.Provider>

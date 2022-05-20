@@ -74,10 +74,10 @@ interface iChangePassword {
 }
 
 const Profile: React.FunctionComponent = (): JSX.Element => {
-  const { hideLoading, showLoading } = useContext(CartContext);
+  const { hideLoading, showLoading, setUserData } = useContext(CartContext);
 
   const { data, error, loading, refetch } = useQuery<any, OperationVariables>(
-    GET_USER,
+    GET_USER
   );
 
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -131,6 +131,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
       const { data: profileData } = data?.getUserDetailsByID;
       if (profileData) {
         setPrefilledData(profileData);
+        setUserData(profileData);
       }
     }
   }, [data]);
@@ -150,6 +151,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
         },
       });
       await refetch();
+      setIsDisable(true);
     } catch (error) {
       return AmazeToast({
         message: "Something went wrong!",
@@ -160,7 +162,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
 
   const submitNewAddress = async (): Promise<void> => {
     const { id, ...restItems } = prefilledData;
-    const res = await updateUser({
+    await updateUser({
       variables: {
         input: {
           ...restItems,
@@ -297,7 +299,6 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                       [event.target.name]: event.target.value,
                     })
                   }
-                  // value={a]}
                 />
               </Grid>
             )
@@ -324,8 +325,6 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                   oldPassword: event.target.value,
                 })
               }
-              // value={a]}
-              placeholder="Old password"
             />
           </Grid>
           <Grid item xs={6} style={{ padding: "15px" }}>
@@ -341,8 +340,6 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                   newPassword: event.target.value,
                 })
               }
-              // value={a]}
-              placeholder="New Password"
             />
           </Grid>
         </Grid>
@@ -459,6 +456,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                   setOpenModal={setChangePasswordBox}
                   handleClickOpen={() => handleClickOpen(0)}
                   handleSubmitClose={handleChangePassword}
+                  isDisable={isDisable}
                 />
               </Grid>
 
@@ -515,17 +513,24 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} style={{ padding: "15px", width: "95%" }}>
+            <Grid
+              item
+              xs={12}
+              style={{ padding: "15px", width: "95%" }}
+              onClick={() => console.log("top grand grid call -> ")}
+            >
               {prefilledData.address.map((addrs: iaddress, index: number) => (
                 <Grid
                   container
                   rowSpacing={5}
-                  style={{ marginTop: "10px" }}
+                  style={{ marginTop: "10px", border: "2px solid blue" }}
                   key={addrs.houseNumber + `${Math.random()}`}
+                  onClick={() => console.log("top grid call -> ")}
                 >
                   <AmazeAccordion
                     title={`Address ${index + 1}`}
                     onRemoveAddress={() => {
+                      console.log("called ", addrs);
                       updateAddress(addrs);
                     }}
                   >
@@ -572,6 +577,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
                 btnText="Add address"
                 btnTitle="Add address +"
                 openModal={openModal}
+                isDisable={isDisable}
                 setOpenModal={setOpenModal}
                 handleClickOpen={() => handleClickOpen(1)}
                 handleSubmitClose={handleSubmitClose}
