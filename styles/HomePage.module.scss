@@ -9,11 +9,13 @@
   align-items: center;
   color: $text-secondary;
   margin-top: 40vh;
+
   & .buttonContainer {
     width: 600px;
     display: flex;
     justify-content: space-between;
     margin-top: 35px;
+
     & .singleBtnContainer {
       width: 48%;
     }
