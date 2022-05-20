@@ -51,6 +51,9 @@ const ProductCrouselContainer: React.FunctionComponent<
             isRTL={false}
             pagination={false}
             itemPosition={"CENTER"}
+            enableAutoPlay
+            autoPlaySpeed={10000}
+            transitionMs={1000}
             breakPoints={breakPoints}
             className={styles.Product__card__crousel}
           >

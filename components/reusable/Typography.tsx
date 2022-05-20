@@ -45,6 +45,7 @@ const Text: React.FunctionComponent<ITypography> = ({
       className={classnames({
         [styles[`typography__variant__${variant}`]]: variant,
         [styles[`typography__textType__${textType}`]]: textType,
+        [styles[`typography__color__${color}`]]: color,
       })}
       style={style}
       onClick={onClick}

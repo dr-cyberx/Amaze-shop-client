@@ -53,7 +53,11 @@ const CartBill: React.FunctionComponent<productDetails> = ({
     <>
       <TableContainer
         component={Paper}
-        style={{ background: "rgba(255, 255, 255, 0.6)" }}
+        style={{
+          background: "rgba(255, 255, 255, 0.6)",
+          height: "580px",
+          overflow: "scroll",
+        }}
       >
         <Table sx={{ minWidth: 400 }} aria-label="spanning table">
           <TableHead>

@@ -40,4 +40,10 @@
       color: $color-primary;
     }
   }
+  &__color{
+    &__secondary{
+      color: $text-secondary;
+    }
+
+  }
 }
