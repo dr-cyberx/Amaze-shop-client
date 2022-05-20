@@ -1,6 +1,6 @@
 import React, { useState, ReactNode, memo, useEffect } from "react";
 import Modal, { TypeModal } from "./reusable/modal";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { IconDefinition, IconProp } from "@fortawesome/fontawesome-svg-core";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   FetchResult,
