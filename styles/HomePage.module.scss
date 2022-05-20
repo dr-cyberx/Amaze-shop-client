@@ -74,6 +74,9 @@
     flex: 0.6;
     // border: 2px solid red;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+
     .banner__right__content {
       // border: 2px solid red;
       width: 390px;
