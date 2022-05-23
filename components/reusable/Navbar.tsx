@@ -84,18 +84,21 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             className={styles.other_nav_links}
             onClick={() => setDropdownArrow(!dropdownArrow)}
           >
-            {/* <FontAwesomeIcon
-              icon={faUserCircle}
-              style={{ marginRight: "5px" }}
-            /> */}
-            <img
-              src={`./userAvatars/${state.userDetail.profileImage}.png`}
-              alt="image"
-            />
+            <div style={{ overflow: "hidden", borderRadius: "50px" }}>
+              <Image
+                src={`/userAvatars/${state.userDetail.profileImage}.png`}
+                alt="userIcon"
+                height={35}
+                width={35}
+              />
+            </div>
             {dropdownArrow ? (
-              <FontAwesomeIcon icon={faAngleUp} />
+              <FontAwesomeIcon icon={faAngleUp} style={{ marginLeft: "6px" }} />
             ) : (
-              <FontAwesomeIcon icon={faAngleDown} />
+              <FontAwesomeIcon
+                icon={faAngleDown}
+                style={{ marginLeft: "6px" }}
+              />
             )}
           </div>
         </div>
