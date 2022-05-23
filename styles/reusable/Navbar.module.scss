@@ -1,4 +1,4 @@
-@import '../variable.scss';
+@import "../variable.scss";
 
 .navbar__container {
   width: 100%;
@@ -53,6 +53,17 @@
       & .cart__Count {
         & > * {
           color: $color-primary;
+        }
+      }
+
+      .other_nav_links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          margin-right: 8px;
+          height: 35px;
+          width: 35px;
         }
       }
     }

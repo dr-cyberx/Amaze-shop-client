@@ -59,6 +59,7 @@ interface iCustomizedDialogs {
   btnTitle?: string;
   handleClickOpen: () => void;
   handleSubmitClose: () => any;
+  isDisable: boolean;
 }
 
 const CustomizedDialogs: React.FunctionComponent<iCustomizedDialogs> = ({
@@ -70,6 +71,7 @@ const CustomizedDialogs: React.FunctionComponent<iCustomizedDialogs> = ({
   btnTitle,
   handleClickOpen,
   handleSubmitClose,
+  isDisable,
 }): JSX.Element => {
   const handleClose = (): void => {
     setOpenModal(false);
@@ -81,12 +83,14 @@ const CustomizedDialogs: React.FunctionComponent<iCustomizedDialogs> = ({
         <Button
           variant="text"
           onClick={handleClickOpen}
+          disabled={isDisable}
           style={{
             width: "100%",
             fontSize: "1.2rem",
             height: "100%",
             textTransform: "capitalize",
             padding: "10px",
+            cursor: isDisable ? "not-allowed" : "pointer",
           }}
         >
           {btnTitle}

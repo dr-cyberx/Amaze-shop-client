@@ -40,8 +40,8 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
 
   const handleLinkOnClick = (item: IprofileDropdownOption): void => {
     if (item.path == "/logout") {
-        useLocalStorage.clear();
-        router.push("/login");
+      useLocalStorage.clear();
+      router.push("/login");
     } else {
       router.push(item.path);
     }
@@ -84,9 +84,13 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             className={styles.other_nav_links}
             onClick={() => setDropdownArrow(!dropdownArrow)}
           >
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               icon={faUserCircle}
               style={{ marginRight: "5px" }}
+            /> */}
+            <img
+              src={`./userAvatars/${state.userDetail.profileImage}.png`}
+              alt="image"
             />
             {dropdownArrow ? (
               <FontAwesomeIcon icon={faAngleUp} />

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import GET_USER from "@graphql-doc/GET_USER.graphql";
 import { NextRouter, useRouter } from "next/router";
 import { useLazyQuery } from "@apollo/client";
 import useLocalStorage from "hooks/useLocalStorage";
+import { CartContext } from "@context/Cart/CartContext";
 
 interface IAuth {
   children: React.ReactNode;
@@ -14,18 +15,18 @@ const Auth: React.FunctionComponent<IAuth> = ({
   pathName,
 }): JSX.Element => {
   const router: NextRouter = useRouter();
+  const { setUserData } = useContext(CartContext);
   // const { data, loading, error, refetch } = useQuery(GET_USER);
-  const [getUserDetail, { data: userDetail, loading, error }] =
+  const [getUserDetail, { data: userDetail, loading, error, refetch:refetchAuthUser }] =
     useLazyQuery(GET_USER);
 
   useEffect(() => {
     const token = useLocalStorage.getItem("auth_token");
-    console.log(token);
     if (!token) {
       router.push("/login");
       return;
     } else if (token) {
-      const res = isValidChild();
+      isValidChild();
     }
   }, []);
 
@@ -34,6 +35,7 @@ const Auth: React.FunctionComponent<IAuth> = ({
     if (!data?.getUserDetailsByID?.data) {
       router.push("/login");
     }
+    setUserData(data?.getUserDetailsByID?.data);
   };
 
   // if (error) {

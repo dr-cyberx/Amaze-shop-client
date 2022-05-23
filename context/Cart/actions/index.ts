@@ -6,4 +6,5 @@ export const actionsType = {
   ADD_COUNT_PRODUCT: "ADD_COUNT_PRODUCT",
   HIDE_LOADER: "HIDE_LOADER",
   SHOW_LOADER: "SHOW_LOADER",
+  SET_USER: "SET_USER",
 };
