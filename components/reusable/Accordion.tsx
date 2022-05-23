@@ -64,6 +64,7 @@ const AmazeAccordion: React.FunctionComponent<iAmazeAccordion> = ({
       <Accordion
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
+        style={{ borderRadius: "6px" }}
       >
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <div
@@ -83,13 +84,10 @@ const AmazeAccordion: React.FunctionComponent<iAmazeAccordion> = ({
                 display: "flex",
                 justifyContent: "flex-end",
               }}
-              onClick={() => console.log("clicked ---> ")}
             >
-              <div style={{ border: "2px solid red" }}>
-                <IconButton aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </div>
+              <IconButton aria-label="delete" onClick={onRemoveAddress}>
+                <DeleteIcon />
+              </IconButton>
             </div>
           </div>
         </AccordionSummary>

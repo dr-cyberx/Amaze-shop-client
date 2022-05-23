@@ -143,7 +143,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
   const submitFinalAddress = async (): Promise<any> => {
     try {
       const { id, ...restItems } = prefilledData;
-      const res = await updateUser({
+      await updateUser({
         variables: {
           input: {
             ...restItems,
@@ -152,6 +152,10 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
       });
       await refetch();
       setIsDisable(true);
+      AmazeToast({
+        message: "Address updated successfully!",
+        type: "success",
+      });
     } catch (error) {
       return AmazeToast({
         message: "Something went wrong!",
@@ -212,7 +216,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
 
   const updateAddress = async (addrs: iaddress): Promise<void> => {
     const { id, ...restItems } = prefilledData;
-    const updatedAddress = prefilledData.address.filter(
+    const updatedAddress: iaddress[] = prefilledData.address.filter(
       d =>
         `${d.houseNumber}${d.street}${d.landmark}` !==
         `${addrs.houseNumber}${addrs.street}${addrs.landmark}`
@@ -285,7 +289,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
       <Grid item xs={12} style={{ padding: "10px" }}>
         <Grid container rowSpacing={5} style={{ marginTop: "5px" }}>
           {dialogueBoxMainContentArray.map(
-            (d: idialogueBoxMainContent, index: number) => (
+            (d: idialogueBoxMainContent, index: number): React.ReactNode => (
               <Grid item xs={6} style={{ padding: "15px" }} key={d.label}>
                 <TextField
                   style={{ width: "100%" }}
@@ -513,61 +517,66 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
               </Grid>
             </Grid>
 
-            <Grid
-              item
-              xs={12}
-              style={{ padding: "15px", width: "95%" }}
-              onClick={() => console.log("top grand grid call -> ")}
-            >
-              {prefilledData.address.map((addrs: iaddress, index: number) => (
-                <Grid
-                  container
-                  rowSpacing={5}
-                  style={{ marginTop: "10px", border: "2px solid blue" }}
-                  key={addrs.houseNumber + `${Math.random()}`}
-                  onClick={() => console.log("top grid call -> ")}
-                >
-                  <AmazeAccordion
-                    title={`Address ${index + 1}`}
-                    onRemoveAddress={() => {
-                      console.log("called ", addrs);
-                      updateAddress(addrs);
+            <Grid item xs={12} style={{ padding: "15px", width: "95%" }}>
+              {prefilledData.address.map(
+                (addrs: iaddress, index: number): React.ReactNode => (
+                  <Grid
+                    container
+                    rowSpacing={5}
+                    style={{
+                      marginTop: "10px",
                     }}
+                    key={addrs.houseNumber}
                   >
-                    {Object.keys(addrs).map((item: string) => (
-                      <Grid
-                        item
-                        xs={6}
-                        style={{ padding: "15px" }}
-                        key={item + `${Math.random()}`}
-                      >
-                        <TextField
-                          key={addrs.houseNumber}
-                          style={{ width: "100%" }}
-                          id="filled-basic"
-                          // @ts-ignore
-                          label={item}
-                          name={item}
-                          variant="filled"
-                          onChange={(
-                            event: React.ChangeEvent<HTMLInputElement>
-                          ) => {
-                            // const allAd
-                            setPrefilledData({
-                              ...prefilledData,
-                              [event.target.name]: event.target.value,
-                            });
-                          }}
-                          disabled={isDisable}
-                          // @ts-ignore
-                          value={addrs[item]}
-                          placeholder="phoneNumber"
-                        />
-                      </Grid>
-                    ))}
-                  </AmazeAccordion>
-                </Grid>
-              ))}
+                    <AmazeAccordion
+                      title={`Address ${index + 1}`}
+                      onRemoveAddress={() => {
+                        updateAddress(addrs);
+                      }}
+                    >
+                      {Object.keys(addrs).map(
+                        (item: string, innerIndex: number): React.ReactNode => (
+                          <Grid
+                            item
+                            xs={6}
+                            style={{ padding: "15px" }}
+                            key={item}
+                          >
+                            <TextField
+                              key={item}
+                              style={{ width: "100%" }}
+                              id="filled-basic"
+                              // @ts-ignore
+                              label={item}
+                              name={item}
+                              variant="filled"
+                              onChange={(
+                                event: React.ChangeEvent<HTMLInputElement>
+                              ) => {
+                                const localAddress: iaddress[] = [
+                                  ...prefilledData.address,
+                                ];
+                                localAddress[index] = {
+                                  ...localAddress[index],
+                                  [`${item}`]: event.target.value,
+                                };
+                                setPrefilledData({
+                                  ...prefilledData,
+                                  address: [...localAddress],
+                                });
+                              }}
+                              disabled={isDisable}
+                              // @ts-ignore
+                              value={addrs[item]}
+                              placeholder="phoneNumber"
+                            />
+                          </Grid>
+                        )
+                      )}
+                    </AmazeAccordion>
+                  </Grid>
+                )
+              )}
             </Grid>
 
             <div className={styles.add_address_btn}>
