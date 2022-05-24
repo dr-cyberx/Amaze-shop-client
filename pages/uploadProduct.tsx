@@ -1,36 +1,26 @@
+import React, { useState } from "react";
 import axios from "axios";
 import Papa from "papaparse";
-import React, { useState } from "react";
 
 function UploadFile() {
-  const [file, setFile] = useState();
+  const [file, setFile] = useState<any>();
 
-  // const fileReader = new window.FileReader();
-
-  const handleOnChange = async (e: any) => {
+  const handleOnChange = (e: any): void => {
     const files = e.target.files;
-    console.log(files);
     if (files) {
-      console.log(files[0]);
-      await Papa.parse(files[0], {
-        complete: async function (results) {
-          console.log("Finished:", results.data);
-          await axios.post("http://localhost:4000/uploadcsv", {
-            csvFile: results.data,
-          });
+      Papa.parse(files[0], {
+        complete: function (results) {
+          setFile(results.data);
         },
       });
     }
   };
 
-  const handleOnSubmit = async (e: any) => {
+  const handleOnSubmit = async (e: any): Promise<void> => {
     e.preventDefault();
-    await axios
-      .post("http://localhost:4000/uploadcsv", {
-        csvFile: "hello world",
-      })
-      .then((data: any) => console.log(data));
-    console.log(file);
+    await axios.post("http://localhost:4000/uploadcsv", {
+      csvFile: file,
+    });
   };
 
   return (
