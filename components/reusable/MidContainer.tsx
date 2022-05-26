@@ -31,7 +31,7 @@ const MidContainer: React.FunctionComponent<iMidContainer> = ({
         className={styles.mid__category__container}
         style={{
           borderRadius: "8px",
-          background: !applyBackground ? "transparent" : "smokewhite",
+          background: !applyBackground ? "transparent" : "#ffffffc7",
         }}
       >
         <div className={styles.__title}>
