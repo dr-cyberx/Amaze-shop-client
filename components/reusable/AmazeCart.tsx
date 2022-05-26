@@ -15,6 +15,7 @@ import ADD_ITEM_TO_CART from "@graphql-doc/ADD_ITEM_TO_CART.graphql";
 import ListItem from "./ListItem";
 import CartBill from "./CartBill";
 import styles from "@styles/reusable/Cart.module.scss";
+import Button, { TypeButton, TypeButtonSize } from "./Button";
 
 const AmazeCart: React.FunctionComponent = (): JSX.Element => {
   const wrapperRef: MutableRefObject<null> = useRef(null);
@@ -39,29 +40,41 @@ const AmazeCart: React.FunctionComponent = (): JSX.Element => {
   }, [data]);
 
   return (
-    <div className={styles.Cart} ref={wrapperRef}>
-      <div className={styles.cart__product__list}>
-        {cartProducts?.products.map((d: any, index: any) => (
+    <>
+      <div className={styles.Cart} ref={wrapperRef}>
+        {cartProducts?.products.length > 0 ? (
           <>
-            <ListItem
-              key={d.id}
-              product={d.productId}
-              qty={d.qty}
-              index={index}
-              refetch={refetch}
-              removeProductFromCart={removeProductFromCart}
-              addProductToCart={addProductToCart}
-              fetchProductLoading={
-                fetchProductLoading || fetchaddProductLoading
-              }
-            />
+            <div className={styles.cart__product__list}>
+              {cartProducts?.products.map((d: any, index: any) => (
+                <>
+                  <ListItem
+                    key={d.id}
+                    product={d.productId}
+                    qty={d.qty}
+                    index={index}
+                    refetch={refetch}
+                    removeProductFromCart={removeProductFromCart}
+                    addProductToCart={addProductToCart}
+                    fetchProductLoading={
+                      fetchProductLoading || fetchaddProductLoading
+                    }
+                  />
+                </>
+              ))}
+            </div>
+            <div className={styles.cart__product__price}>
+              <CartBill productDetails={cartProducts?.products} />
+            </div>
           </>
-        ))}
+        ) : (
+          <>
+            <div className={styles.fallback__cart__component}>
+              <h1>Cart is empty!</h1>
+            </div>
+          </>
+        )}
       </div>
-      <div className={styles.cart__product__price}>
-        <CartBill productDetails={cartProducts?.products} />
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ import React from "react";
 const home: NextPage = (): JSX.Element => {
   return (
     <>
-      <MetaData title="home" />
+      <MetaData title="Home" />
       <HomePage />
     </>
   );

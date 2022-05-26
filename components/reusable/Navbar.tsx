@@ -47,6 +47,18 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
+  const showImage = (Imagepath: string): JSX.Element => {
+    return (
+      <Image
+        // src={`/userAvatars/${state?.userDetail?.profileImage}.png`}
+        src={Imagepath}
+        alt="userIcon"
+        height={35}
+        width={35}
+      />
+    );
+  };
+
   return (
     <div className={styles.navbar__container}>
       <div className={styles.navbar}>
@@ -85,12 +97,11 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             onClick={() => setDropdownArrow(!dropdownArrow)}
           >
             <div style={{ overflow: "hidden", borderRadius: "50px" }}>
-              <Image
-                src={`/userAvatars/${state.userDetail.profileImage}.png`}
-                alt="userIcon"
-                height={35}
-                width={35}
-              />
+              {state.userDetail.profileImage
+                ? showImage(
+                    `/userAvatars/${state?.userDetail?.profileImage}.png`
+                  )
+                : showImage(`/userAvatars/${9}.png`)}
             </div>
             {dropdownArrow ? (
               <FontAwesomeIcon icon={faAngleUp} style={{ marginLeft: "6px" }} />

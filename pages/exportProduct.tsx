@@ -14,6 +14,7 @@ import Button, {
   TypeButtonSize,
 } from "@components/reusable/Button";
 import styles from "@styles/exportProduct.module.scss";
+import MetaData from "@components/reusable/MetaData";
 
 const headers = [
   { label: "Product Name", key: "productName" },
@@ -23,6 +24,7 @@ const headers = [
   { label: "Seller", key: "productSeller" },
   { label: "Brand", key: "productBrand" },
   { label: "Rating", key: "productRating" },
+  { label: "Tags", key: "tags" },
 ];
 
 const ExportProduct: NextPage = (): JSX.Element => {
@@ -49,19 +51,19 @@ const ExportProduct: NextPage = (): JSX.Element => {
 
   return (
     <div className={styles.export__Product__container}>
+      <MetaData title="Export Product" />
       <div className={styles.download__btn__container}>
-        {/* <Button
-          btnType={TypeButton.PRIMARY}
-          label="Download Product CSV"
-          size={TypeButtonSize.MEDIUM}
-          type="submit"
-        /> */}
         <CSVLink
           filename="all_products.csv"
           data={productData}
           headers={headers}
         >
-          Download me
+          <Button
+            btnType={TypeButton.PRIMARY}
+            label="Download Product CSV"
+            size={TypeButtonSize.MEDIUM}
+            type="submit"
+          />
         </CSVLink>
       </div>
       <TableContainer component={Paper}>
@@ -76,6 +78,7 @@ const ExportProduct: NextPage = (): JSX.Element => {
                 "Seller",
                 "Brand",
                 "Rating",
+                "Tags",
               ].map((d: string) => (
                 <TableCell key={d} align="center">
                   {d}
@@ -103,6 +106,7 @@ const ExportProduct: NextPage = (): JSX.Element => {
                   <TableCell align="center">{product.productSeller}</TableCell>
                   <TableCell align="center">{product.productBrand}</TableCell>
                   <TableCell align="center">{product.productRating}</TableCell>
+                  <TableCell align="center">{product.tags}</TableCell>
                 </TableRow>
               )
             )}

@@ -9,6 +9,7 @@ query GetProductById($getProductById: ID!) {
       productPrice
       productRating
       productSeller
+      tags
     }
     error
     message

@@ -131,6 +131,7 @@ const Profile: React.FunctionComponent = (): JSX.Element => {
       const { data: profileData } = data?.getUserDetailsByID;
       if (profileData) {
         setPrefilledData(profileData);
+        debugger;
         setUserData(profileData);
       }
     }
