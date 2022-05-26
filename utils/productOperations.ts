@@ -4,10 +4,13 @@ import router from "next/router";
 
 export const filterProductByCategory = (
   products: Array<typeProduct>,
-  category: string
+  category: string,
+  category2: string
 ): typeProduct[] => {
-  return products.filter((item: typeProduct) =>
-    item.tags.toLowerCase().includes(category)
+  return products.filter(
+    (item: typeProduct) =>
+      item.tags.toLowerCase().includes(category) ||
+      item.tags.toLowerCase().includes(category2)
   );
 };
 

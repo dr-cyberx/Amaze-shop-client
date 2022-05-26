@@ -19,6 +19,9 @@ import {
   assignPropsToProductCards,
   filterProductByCategory,
 } from "utils/productOperations";
+import { faGamepad } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import MidContainer from "./reusable/MidContainer";
 
 export type typeProduct = {
   id: string;
@@ -146,31 +149,38 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
             )}
           </Grid>
         </div>
-        <div className={styles.gaming__category__container}>
-          <Text variant={TextVariant.heading3} color="secondary">
-            Gaming equipment for you...
-          </Text>
-          <div className={styles.gaming__category__cards}>
-            <Grid
-              container
-              spacing={{ xs: 2, md: 3 }}
-              columns={{ xs: 4, sm: 8, md: 12 }}
-            >
-              {[
-                ...filterProductByCategory(
-                  SecondaryCardProduct,
-                  "gaming" || "game"
-                ),
-              ].map(
-                (_: typeProduct): React.ReactNode => (
-                  <Grid item xs={2} sm={4} md={4} key={_.id}>
-                    <ProductCard {...assignPropsToProductCards(_, _.id)} />
-                  </Grid>
-                )
-              )}
-            </Grid>
-          </div>
-        </div>
+        <MidContainer
+          containerTitle="Gaming equipments..."
+          containerIcon={faGamepad}
+        >
+          {[...filterProductByCategory(SecondaryCardProduct, "game", "gaming")]
+            .slice(0, 6)
+            .map(
+              (_: typeProduct): React.ReactNode => (
+                <Grid item xs={2} sm={4} md={4} key={_.id}>
+                  <ProductCard {...assignPropsToProductCards(_, _.id)} />
+                </Grid>
+              )
+            )}
+        </MidContainer>
+
+        <MidContainer containerTitle="Product for you...">
+          {[
+            ...filterProductByCategory(
+              SecondaryCardProduct,
+              "style",
+              "perfume"
+            ),
+          ]
+            .slice(3, 6)
+            .map(
+              (_: typeProduct): React.ReactNode => (
+                <Grid item xs={2} sm={4} md={4} key={_.id}>
+                  <ProductCard {...assignPropsToProductCards(_, _.id)} />
+                </Grid>
+              )
+            )}
+        </MidContainer>
       </Layout>
     </Auth>
   );
