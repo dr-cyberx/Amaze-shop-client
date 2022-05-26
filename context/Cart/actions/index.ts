@@ -7,4 +7,5 @@ export const actionsType = {
   HIDE_LOADER: "HIDE_LOADER",
   SHOW_LOADER: "SHOW_LOADER",
   SET_USER: "SET_USER",
+  SET_CART_LENGTH: "SET_CART_LENGTH",
 };

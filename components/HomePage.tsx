@@ -4,12 +4,21 @@ import Layout from "./reusable/Layout";
 import { NextRouter, useRouter } from "next/router";
 import GET_ALL_PRODUCTS from "@graphql-doc/GET_ALL_PRODUCTS.graphql";
 import ProductCrouselContainer from "./reusable/ProductCrouselContainer";
+import ProductCard from "@components/reusable/ProductCard";
 import ProductCardSecondary from "./reusable/ProductCardSecondary";
 import Grid from "@mui/material/Grid";
 import Text, { TextVariant } from "./reusable/Typography";
 import styles from "@styles/HomePage.module.scss";
 import Button, { TypeButton, TypeButtonSize } from "./reusable/Button";
 import Auth from "./reusable/Auth";
+
+import { experimentalStyled as styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import {
+  assignPropsToProductCards,
+  filterProductByCategory,
+} from "utils/productOperations";
 
 export type typeProduct = {
   id: string;
@@ -20,6 +29,7 @@ export type typeProduct = {
   productPrice: string;
   productRating: number;
   productSeller: string;
+  tags: string;
 };
 
 export type typeTopSellingProduct = Array<typeProduct>;
@@ -39,6 +49,14 @@ const rowProps = (d: typeProduct, index: number) => ({
     placeItems: "center",
   },
 });
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
 
 const HomePage: React.FunctionComponent = (): JSX.Element => {
   const router: NextRouter = useRouter();
@@ -127,6 +145,31 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
               )
             )}
           </Grid>
+        </div>
+        <div className={styles.gaming__category__container}>
+          <Text variant={TextVariant.heading3} color="secondary">
+            Gaming equipment for you...
+          </Text>
+          <div className={styles.gaming__category__cards}>
+            <Grid
+              container
+              spacing={{ xs: 2, md: 3 }}
+              columns={{ xs: 4, sm: 8, md: 12 }}
+            >
+              {[
+                ...filterProductByCategory(
+                  SecondaryCardProduct,
+                  "gaming" || "game"
+                ),
+              ].map(
+                (_: typeProduct): React.ReactNode => (
+                  <Grid item xs={2} sm={4} md={4} key={_.id}>
+                    <ProductCard {...assignPropsToProductCards(_, _.id)} />
+                  </Grid>
+                )
+              )}
+            </Grid>
+          </div>
         </div>
       </Layout>
     </Auth>

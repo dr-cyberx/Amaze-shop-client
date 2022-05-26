@@ -1,4 +1,4 @@
-query Getallproducts {
+  query Getallproducts {
   getallproducts {
     data {
       id
@@ -9,6 +9,7 @@ query Getallproducts {
       productPrice
       productRating
       productSeller
+      tags
     }
     error
     message

@@ -50,6 +50,13 @@ const cartReducer = (state: any, action: any) => {
       };
       break;
 
+    case actionsType.SET_CART_LENGTH:
+      return {
+        ...state,
+        cartLength: action.payload,
+      };
+      break;
+
     default:
       break;
   }

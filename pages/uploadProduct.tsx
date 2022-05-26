@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Papa from "papaparse";
+import MetaData from "@components/reusable/MetaData";
 
 function UploadFile() {
   const [file, setFile] = useState<any>();
@@ -25,6 +26,7 @@ function UploadFile() {
 
   return (
     <div style={{ textAlign: "center" }}>
+      <MetaData title="Upload Product" />
       <h1> IMPORT CSV </h1>
       <form>
         <input

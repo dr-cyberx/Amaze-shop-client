@@ -5,13 +5,12 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from "@apollo/client";
-import cookie from "cookie";
 import { setContext } from "@apollo/client/link/context";
 import useLocalStorage from "hooks/useLocalStorage";
 
 const httpLink: ApolloLink = createHttpLink({
-  // uri: "http://localhost:4000/amazeshop",
-  uri: "https://amaze-shop-server.herokuapp.com/amazeshop",
+  uri: "http://localhost:4000/amazeshop",
+  // uri: "https://amaze-shop-server.herokuapp.com/amazeshop",
 });
 
 const authLink: ApolloLink = setContext((_, { headers }) => {

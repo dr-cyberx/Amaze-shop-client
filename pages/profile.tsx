@@ -6,7 +6,7 @@ import Auth from "@components/reusable/Auth";
 const UserProfile = () => {
   return (
     <>
-      <MetaData title="profile" />
+      <MetaData title="Profile" />
       <Profile />
     </>
   );
