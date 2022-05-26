@@ -16,16 +16,24 @@ interface iMidContainer {
   containerIcon?: IconProp;
   containerTitle: string;
   children: React.ReactNode;
+  applyBackground?: boolean;
 }
 
 const MidContainer: React.FunctionComponent<iMidContainer> = ({
   containerTitle,
   children,
   containerIcon,
+  applyBackground,
 }): JSX.Element => {
   return (
     <>
-      <div className={styles.mid__category__container}>
+      <div
+        className={styles.mid__category__container}
+        style={{
+          borderRadius: "8px",
+          background: !applyBackground ? "transparent" : "smokewhite",
+        }}
+      >
         <div className={styles.__title}>
           {containerIcon ? (
             <FontAwesomeIcon
@@ -52,6 +60,10 @@ const MidContainer: React.FunctionComponent<iMidContainer> = ({
       </div>
     </>
   );
+};
+
+MidContainer.defaultProps = {
+  applyBackground: false,
 };
 
 export default MidContainer;

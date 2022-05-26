@@ -164,7 +164,7 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
             )}
         </MidContainer>
 
-        <MidContainer containerTitle="Product for you...">
+        <MidContainer containerTitle="Product for you..." applyBackground>
           {[
             ...filterProductByCategory(
               SecondaryCardProduct,
