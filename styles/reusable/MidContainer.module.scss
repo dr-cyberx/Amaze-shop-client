@@ -1,0 +1,19 @@
+@import "../variable.scss";
+
+.mid__category__container {
+  min-height: 500px;
+  width: 90%;
+  margin: auto;
+  color: $text-secondary;
+  margin-top: 35px;
+  padding: 20px;
+  .__title {
+    border: 2px solid rgba(255, 0, 0, 0);
+    font-size: 3rem;
+    display: flex;
+  }
+  .__cards {
+    border: 2px solid rgba(255, 0, 0, 0);
+    margin-top: 28px;
+  }
+}
