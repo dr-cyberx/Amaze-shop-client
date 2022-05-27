@@ -13,7 +13,12 @@
     display: flex;
   }
   .__cards {
-    border: 2px solid rgba(255, 0, 0, 0);
+    width: 100%;
+    border: 2px solid rgba(255, 17, 17, 0);
     margin-top: 28px;
+    padding-left: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

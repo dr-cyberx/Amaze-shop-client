@@ -53,13 +53,15 @@ const rowProps = (d: typeProduct, index: number) => ({
   },
 });
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+const gridDefaultProps = () => {
+  return {
+    item: true,
+    xs: 2,
+    sm: 4,
+    md: 4,
+    style: { display: "grid", placeItems: "center" },
+  };
+};
 
 const HomePage: React.FunctionComponent = (): JSX.Element => {
   const router: NextRouter = useRouter();
@@ -157,14 +159,14 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
             .slice(0, 6)
             .map(
               (_: typeProduct): React.ReactNode => (
-                <Grid item xs={2} sm={4} md={4} key={_.id}>
+                <Grid key={_.id} {...gridDefaultProps()}>
                   <ProductCard {...assignPropsToProductCards(_, _.id)} />
                 </Grid>
               )
             )}
         </MidContainer>
 
-        <MidContainer containerTitle="Product for you...">
+        <MidContainer containerTitle="Product for you..." applyBackground>
           {[
             ...filterProductByCategory(
               SecondaryCardProduct,
@@ -175,7 +177,7 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
             .slice(3, 6)
             .map(
               (_: typeProduct): React.ReactNode => (
-                <Grid item xs={2} sm={4} md={4} key={_.id}>
+                <Grid key={_.id} {...gridDefaultProps()}>
                   <ProductCard {...assignPropsToProductCards(_, _.id)} />
                 </Grid>
               )
