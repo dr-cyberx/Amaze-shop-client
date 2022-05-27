@@ -41,3 +41,22 @@
     }
   }
 }
+
+.procced__container {
+  // border: 2px solid red;
+  height: 200px;
+  width: 300px;
+  margin: auto;
+  display: grid;
+  place-items: center;
+}
+
+.cartContainer__title {
+  width: 90%;
+  margin: auto;
+  margin-top: 100px;
+  border: 2px solid rgba(255, 0, 0, 0);
+  font-size: 3rem;
+  color: $text-secondary;
+  display: flex;
+}
