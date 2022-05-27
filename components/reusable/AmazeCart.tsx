@@ -15,7 +15,6 @@ import ADD_ITEM_TO_CART from "@graphql-doc/ADD_ITEM_TO_CART.graphql";
 import ListItem from "./ListItem";
 import CartBill from "./CartBill";
 import styles from "@styles/reusable/Cart.module.scss";
-import Button, { TypeButton, TypeButtonSize } from "./Button";
 
 const AmazeCart: React.FunctionComponent = (): JSX.Element => {
   const wrapperRef: MutableRefObject<null> = useRef(null);

@@ -8,20 +8,15 @@ import ProductCard from "@components/reusable/ProductCard";
 import ProductCardSecondary from "./reusable/ProductCardSecondary";
 import Grid from "@mui/material/Grid";
 import Text, { TextVariant } from "./reusable/Typography";
-import styles from "@styles/HomePage.module.scss";
 import Button, { TypeButton, TypeButtonSize } from "./reusable/Button";
 import Auth from "./reusable/Auth";
-
-import { experimentalStyled as styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import {
   assignPropsToProductCards,
   filterProductByCategory,
 } from "utils/productOperations";
 import { faGamepad } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MidContainer from "./reusable/MidContainer";
+import styles from "@styles/HomePage.module.scss";
 
 export type typeProduct = {
   id: string;
