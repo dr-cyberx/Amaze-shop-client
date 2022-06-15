@@ -1,3 +1,4 @@
+import { iContextPriceType } from "@context/Cart/CartContext";
 import {
   TableContainer,
   Paper,
@@ -11,10 +12,12 @@ import React, { memo, useEffect } from "react";
 
 interface productDetails {
   productDetails: any;
+  updatePriceInContext: (args: iContextPriceType) => void;
 }
 
 const CartBill: React.FunctionComponent<productDetails> = ({
   productDetails,
+  updatePriceInContext,
 }): JSX.Element => {
   const TAX_RATE = 0.07;
 
@@ -48,6 +51,14 @@ const CartBill: React.FunctionComponent<productDetails> = ({
   const invoiceSubtotal = subtotal(row1);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+
+  useEffect(() => {
+    updatePriceInContext({
+      subTotal: invoiceSubtotal,
+      tax: invoiceTaxes,
+      total: invoiceTotal,
+    });
+  }, []);
 
   return (
     <>

@@ -1,5 +1,12 @@
 import React, { createContext, useReducer } from "react";
+import { dispatchActions } from "./actions";
 import cartReducer from "./cartReducer";
+
+export interface iContextPriceType {
+  subTotal: number;
+  tax: number;
+  total: number;
+}
 
 export const CartContext: React.Context<any> = createContext<any>(null);
 
@@ -14,50 +21,19 @@ export const CartContextProvider = ({
     cartProductsCount: 0,
     isLoading: false,
     userDetail: {},
+    searchSuggestionContainer: { shouldShow: false },
+    totalBill: {
+      subTotal: 0,
+      tax: 0,
+      total: 0,
+    },
   });
-
-  const openPostModal = (): void => {
-    dispatch({
-      type: "OPEN_MODEL",
-    });
-    return;
-  };
-
-  const closePostModal = (): void => {
-    dispatch({
-      type: "CLOSE_MODEL",
-    });
-    return;
-  };
-
-  const showLoading = (): void => {
-    dispatch({
-      type: "SHOW_LOADER",
-    });
-  };
-
-  const hideLoading = (): void => {
-    dispatch({
-      type: "HIDE_LOADER",
-    });
-  };
-
-  const setUserData = (userData: any): void => {
-    dispatch({
-      type: "SET_USER",
-      payload: userData,
-    });
-  };
 
   return (
     <CartContext.Provider
       value={{
+        ...dispatchActions(dispatch),
         state,
-        closePostModal,
-        openPostModal,
-        hideLoading,
-        showLoading,
-        setUserData,
       }}
     >
       {children}

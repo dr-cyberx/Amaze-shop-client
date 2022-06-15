@@ -1,6 +1,6 @@
 import React, { useState, ReactNode, memo, useEffect } from "react";
 import Modal, { TypeModal } from "./reusable/modal";
-import { IconDefinition, IconProp } from "@fortawesome/fontawesome-svg-core";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   FetchResult,
@@ -19,7 +19,7 @@ import {
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import cookie from "cookie";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Input, { TypeInput } from "@reusable/Input";
 import Button, { TypeButton, TypeButtonSize } from "@reusable/Button";
 import Text, { TextVariant } from "@components/reusable/Typography";
@@ -32,7 +32,7 @@ import VERIFY_OTP_NUMBER from "@graphql-doc/VERIFY_OTP_NUMBER.graphql";
 import styles from "@styles/Register.module.scss";
 import AmazeToast from "./reusable/AmazeToast";
 import useLocalStorage from "hooks/useLocalStorage";
-import Auth from "./reusable/Auth";
+// import Auth from "./reusable/Auth";
 
 export type SignUpInputType = {
   name: string;
