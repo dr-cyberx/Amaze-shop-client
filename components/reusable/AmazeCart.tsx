@@ -18,7 +18,7 @@ import styles from "@styles/reusable/Cart.module.scss";
 
 const AmazeCart: React.FunctionComponent = (): JSX.Element => {
   const wrapperRef: MutableRefObject<null> = useRef(null);
-  const { closePostModal } = useContext(CartContext);
+  const { closePostModal, updateBillInCart } = useContext(CartContext);
   const { data, refetch } = useQuery(GET_CART_USER_ID);
   const [removeProductFromCart, { loading: fetchProductLoading }] = useMutation(
     REMOVE_ITEM_FROM_CART
@@ -62,7 +62,10 @@ const AmazeCart: React.FunctionComponent = (): JSX.Element => {
               ))}
             </div>
             <div className={styles.cart__product__price}>
-              <CartBill productDetails={cartProducts?.products} />
+              <CartBill
+                updatePriceInContext={updateBillInCart}
+                productDetails={cartProducts?.products}
+              />
             </div>
           </>
         ) : (

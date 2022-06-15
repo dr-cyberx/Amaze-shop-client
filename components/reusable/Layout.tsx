@@ -32,7 +32,9 @@ const Layout: React.FunctionComponent<iLayout> = ({
         {...(state.showCartModal ? { timeout: 250 } : {})}
       >
         <div className={styles.cart__container}>
-          <AmazeCart />
+          <div style={{ marginTop: "8%" }}>
+            <AmazeCart />
+          </div>
         </div>
       </Fade>
       <ToastContainer />

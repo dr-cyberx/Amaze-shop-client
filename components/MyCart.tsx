@@ -7,7 +7,7 @@ import React, {
   MutableRefObject,
 } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { faArrowRight, faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import useClickOutside from "hooks/useClickoutside";
 import { CartContext } from "@context/Cart/CartContext";
 import GET_CART_USER_ID from "@graphql-doc/GET_CART_USER_ID.graphql";
@@ -20,12 +20,11 @@ import Auth from "./reusable/Auth";
 import Layout from "./reusable/Layout";
 import Button, { TypeButton, TypeButtonSize } from "./reusable/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Text, { TextVariant } from "./reusable/Typography";
 
 const AmazeCart: React.FunctionComponent = (): JSX.Element => {
   const wrapperRef: MutableRefObject<null> = useRef(null);
-  const { closePostModal } = useContext(CartContext);
-  const { data, refetch } = useQuery(GET_CART_USER_ID);
+  const { closePostModal, updateBillInCart } = useContext(CartContext);
+  const { data, loading, refetch } = useQuery(GET_CART_USER_ID);
   const [removeProductFromCart, { loading: fetchProductLoading }] = useMutation(
     REMOVE_ITEM_FROM_CART
   );
@@ -47,30 +46,35 @@ const AmazeCart: React.FunctionComponent = (): JSX.Element => {
   return (
     <>
       <Auth pathName="/MyCart">
-        <Layout>
+        <Layout isLoading={loading}>
           <div className={styles.Cart} ref={wrapperRef}>
             {cartProducts?.products.length > 0 ? (
               <>
                 <div className={styles.cart__product__list}>
-                  {cartProducts?.products.map((d: any, index: any) => (
-                    <>
-                      <ListItem
-                        key={d.id}
-                        product={d.productId}
-                        qty={d.qty}
-                        index={index}
-                        refetch={refetch}
-                        removeProductFromCart={removeProductFromCart}
-                        addProductToCart={addProductToCart}
-                        fetchProductLoading={
-                          fetchProductLoading || fetchaddProductLoading
-                        }
-                      />
-                    </>
-                  ))}
+                  {cartProducts?.products.map(
+                    (d: any, index: number): React.ReactNode => (
+                      <>
+                        <ListItem
+                          key={d.id}
+                          product={d.productId}
+                          qty={d.qty}
+                          index={index}
+                          refetch={refetch}
+                          removeProductFromCart={removeProductFromCart}
+                          addProductToCart={addProductToCart}
+                          fetchProductLoading={
+                            fetchProductLoading || fetchaddProductLoading
+                          }
+                        />
+                      </>
+                    )
+                  )}
                 </div>
                 <div className={styles.cart__product__price}>
-                  <CartBill productDetails={cartProducts?.products} />
+                  <CartBill
+                    updatePriceInContext={updateBillInCart}
+                    productDetails={cartProducts?.products}
+                  />
                 </div>
               </>
             ) : (

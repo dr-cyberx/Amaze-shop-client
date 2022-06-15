@@ -57,6 +57,33 @@ const cartReducer = (state: any, action: any) => {
       };
       break;
 
+    case actionsType.SHOW_SEARCH_SUGGESTION_CONTAINER:
+      return {
+        ...state,
+        searchSuggestionContainer: {
+          ...state.searchSuggestionContainer,
+          shouldShow: true,
+        },
+      };
+      break;
+
+    case actionsType.HIDE_SEARCH_SUGGESTION_CONTAINER:
+      return {
+        ...state,
+        searchSuggestionContainer: {
+          ...state.searchSuggestionContainer,
+          shouldShow: false,
+        },
+      };
+      break;
+
+    case actionsType.CART_BILL:
+      return {
+        ...state,
+        totalBill: action.totalBill,
+      };
+      break;
+
     default:
       break;
   }
