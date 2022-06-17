@@ -3,7 +3,6 @@ import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import Text, { TextVariant } from "./Typography";
 import styles from "@styles/reusable/ProductCard.module.scss";
-import { Box } from "@mui/material";
 import TextRating from "./TextRating";
 
 export interface IProductCard {

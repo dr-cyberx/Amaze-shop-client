@@ -97,7 +97,7 @@ const Navbar: React.FunctionComponent = (): JSX.Element => {
             onClick={() => setDropdownArrow(!dropdownArrow)}
           >
             <div style={{ overflow: "hidden", borderRadius: "50px" }}>
-              {state.userDetail.profileImage
+              {state.userDetail?.profileImage
                 ? showImage(
                     `/userAvatars/${state?.userDetail?.profileImage}.png`
                   )

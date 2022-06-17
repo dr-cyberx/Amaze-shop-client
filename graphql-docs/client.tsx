@@ -9,7 +9,7 @@ import { setContext } from "@apollo/client/link/context";
 import useLocalStorage from "hooks/useLocalStorage";
 
 const httpLink: ApolloLink = createHttpLink({
-  //uri: "http://localhost:4000/amazeshop",
+  // uri: "http://localhost:4000/amazeshop",
   uri: "https://amaze-shop-server.herokuapp.com/amazeshop",
 });
 

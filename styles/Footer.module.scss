@@ -1,0 +1,104 @@
+@import "./variable.scss";
+
+.footer_container {
+  position: relative;
+  min-height: 200px;
+  box-sizing: border-box;
+  max-height: auto;
+  margin-top: 150px;
+  background-color: $color-primary;
+  padding: 15px;
+
+  .thanks_box {
+    min-height: 100px;
+    box-shadow: $box-shadow-primary;
+    width: 40%;
+    margin: auto;
+    position: absolute;
+    top: -15%;
+    border-radius: $border-radius-primary;
+    background-color: $color-white;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+    display: grid;
+
+    .social_media_links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      margin: auto;
+      // border: 2px solid red;
+      color: $color-primary;
+      .social_media_icon_links {
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        padding-left: 0px;
+        li {
+          list-style: none;
+          transform: scale(2);
+          cursor: pointer;
+          transition: 0.2s ease-in-out;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &:hover {
+            transform: scale(3.5);
+          }
+        }
+      }
+    }
+  }
+
+  .links_section {
+    border: 2px solid rgba(255, 0, 0, 0);
+    display: flex;
+    justify-content: space-around;
+    text-rendering: optimizeLegibility;
+    margin-top: 60px;
+    min-height: 200px;
+    border: 2px solid rgba(255, 0, 0, 0);
+    color: $color-white;
+
+    .section_0 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      text-align: center;
+      border: 2px solid rgba(255, 0, 0, 0);
+      flex: 1;
+      & > a {
+        font-weight: 600;
+      }
+    }
+    .section_1 {
+      @extend .section_0;
+    }
+    .section_2 {
+      @extend .section_0;
+    }
+  }
+
+  .horizontal__bottom__line {
+    height: 1px;
+    width: 95%;
+    background-color: $color-white;
+    margin: auto;
+    margin-top: 25px;
+  }
+
+  .copyright_container {
+    border: 2px solid rgba(255, 0, 0, 0);
+    min-height: 50px;
+    max-height: auto;
+    padding: 30px;
+    text-align: center;
+    & > * {
+      color: $color-white;
+    }
+  }
+}
