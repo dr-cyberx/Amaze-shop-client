@@ -4,7 +4,6 @@ import Stack from "@mui/material/Stack";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Check from "@mui/icons-material/Check";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PaymentIcon from "@mui/icons-material/Payment";
@@ -16,70 +15,17 @@ import { StepIconProps } from "@mui/material/StepIcon";
 import { useState } from "react";
 import AmazeCart from "./AmazeCart";
 import Button, { TypeButton, TypeButtonSize } from "./Button";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faCreditCard,
+  faCheckCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "@styles/reusable/AmazeStepper.module.scss";
-
-const QontoConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 10,
-    left: "calc(-50% + 16px)",
-    right: "calc(50% + 16px)",
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#784af4",
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#784af4",
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    borderColor:
-      theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
-    borderTopWidth: 3,
-    borderRadius: 1,
-  },
-}));
-
-const QontoStepIconRoot = styled("div")<{ ownerState: { active?: boolean } }>(
-  ({ theme, ownerState }) => ({
-    color: theme.palette.mode === "dark" ? theme.palette.grey[700] : "#eaeaf0",
-    display: "flex",
-    height: 22,
-    alignItems: "center",
-    ...(ownerState.active && {
-      color: "#784af4",
-    }),
-    "& .QontoStepIcon-completedIcon": {
-      color: "#784af4",
-      zIndex: 1,
-      fontSize: 18,
-    },
-    "& .QontoStepIcon-circle": {
-      width: 8,
-      height: 8,
-      borderRadius: "50%",
-      backgroundColor: "currentColor",
-    },
-  })
-);
-
-function QontoStepIcon(props: StepIconProps) {
-  const { active, completed, className } = props;
-
-  return (
-    <QontoStepIconRoot ownerState={{ active }} className={className}>
-      {completed ? (
-        <Check className="QontoStepIcon-completedIcon" />
-      ) : (
-        <div className="QontoStepIcon-circle" />
-      )}
-    </QontoStepIconRoot>
-  );
-}
+import AddressList from "./AddressList";
+import { CartContext } from "@context/Cart/CartContext";
+import Text, { TextVariant } from "./Typography";
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -151,10 +97,12 @@ const steps = ["My Cart", "Choose address", "Payment", "Done"];
 
 export default function AmazeStepper() {
   const [activeStep, setActiveStep] = useState(0);
+  const { addDataForOrder, state } = React.useContext(CartContext);
+  const [OrderDetail, setOrderDetail] = useState({});
 
   React.useEffect(() => {
-    console.log(activeStep);
-  }, [activeStep]);
+    console.log("state.Order -> ", state);
+  }, [state]);
 
   const showStepComponent = (num: number): React.ReactNode => {
     switch (num) {
@@ -167,12 +115,59 @@ export default function AmazeStepper() {
         break;
 
       case 1:
-        return <>choose Address</>;
+        return (
+          <>
+            <AddressList />
+          </>
+        );
 
         break;
 
       case 2:
-        return <>Payment</>;
+        return (
+          <>
+            <div
+              style={{
+                width: "95%",
+                margin: "auto",
+                height: "400px",
+                display: "grid",
+                placeItems: "center",
+              }}
+            >
+              <div style={{ width: "200px" }}>
+                {state.Order.isPaid ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      alignItems: "center",
+                      color: "rgb(107, 226, 156)",
+                    }}
+                  >
+                    <Text variant={TextVariant.heading1}>Paid</Text>
+                    <FontAwesomeIcon icon={faCheckCircle} size={"3x"} />
+                  </div>
+                ) : (
+                  <Button
+                    btnType={TypeButton.PRIMARY}
+                    label={"Pay now"}
+                    icon={<FontAwesomeIcon icon={faCreditCard} size={"1x"} />}
+                    type={"submit"}
+                    onClick={() =>
+                      addDataForOrder({
+                        ...state.Order,
+                        isPaid: true,
+                      })
+                    }
+                    size={TypeButtonSize.MEDIUM}
+                  />
+                )}
+              </div>
+            </div>
+          </>
+        );
 
         break;
 
@@ -194,7 +189,7 @@ export default function AmazeStepper() {
           activeStep={activeStep}
           connector={<ColorlibConnector />}
         >
-          {steps.map((label, index) => (
+          {steps.map(label => (
             <Step key={label}>
               <StepLabel StepIconComponent={ColorlibStepIcon}>
                 {label}

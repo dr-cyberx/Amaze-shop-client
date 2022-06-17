@@ -224,7 +224,6 @@ const Register: React.FunctionComponent = (): JSX.Element => {
             />
             <Button
               btnType={TypeButton.PRIMARY}
-              // label="Next "
               icon={<FontAwesomeIcon icon={faArrowRight} size={"1x"} />}
               loading={loading}
               size={TypeButtonSize.MEDIUM}

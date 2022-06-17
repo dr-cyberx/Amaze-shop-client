@@ -17,6 +17,7 @@ import {
 import { faGamepad } from "@fortawesome/free-solid-svg-icons";
 import MidContainer from "./reusable/MidContainer";
 import styles from "@styles/HomePage.module.scss";
+import Footer from "./reusable/Footer";
 
 export type typeProduct = {
   id: string;
@@ -178,6 +179,7 @@ const HomePage: React.FunctionComponent = (): JSX.Element => {
               )
             )}
         </MidContainer>
+        <Footer />
       </Layout>
     </Auth>
   );

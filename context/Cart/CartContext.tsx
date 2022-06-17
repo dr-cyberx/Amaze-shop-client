@@ -27,6 +27,13 @@ export const CartContextProvider = ({
       tax: 0,
       total: 0,
     },
+    Order: {
+      address: {},
+      total_bill: 0,
+      userId: "",
+      isPaid: false,
+      paymentType: "Not paid",
+    },
   });
 
   return (

@@ -11,6 +11,7 @@ export const actionsType: { [key: string]: string } = {
   SHOW_SEARCH_SUGGESTION_CONTAINER: "SHOW_SEARCH_SUGGESTION_CONTAINER",
   HIDE_SEARCH_SUGGESTION_CONTAINER: "HIDE_SEARCH_SUGGESTION_CONTAINER",
   CART_BILL: "CART_BILL",
+  ADD_Data_FOR_ORDER: "ADD_Data_FOR_ORDER",
 };
 
 export const dispatchActions = (dispatch: React.Dispatch<any>) => {
@@ -61,6 +62,13 @@ export const dispatchActions = (dispatch: React.Dispatch<any>) => {
     updateBillInCart: (payload: any): void => {
       dispatch({
         type: "CART_BILL",
+        payload,
+      });
+    },
+
+    addDataForOrder: (payload: any): void => {
+      dispatch({
+        type: "ADD_Data_FOR_ORDER",
         payload,
       });
     },

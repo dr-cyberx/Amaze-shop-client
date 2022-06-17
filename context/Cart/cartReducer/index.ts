@@ -84,6 +84,13 @@ const cartReducer = (state: any, action: any) => {
       };
       break;
 
+    case actionsType.ADD_Data_FOR_ORDER:
+      return {
+        ...state,
+        Order: { ...action.payload },
+      };
+      break;
+
     default:
       break;
   }

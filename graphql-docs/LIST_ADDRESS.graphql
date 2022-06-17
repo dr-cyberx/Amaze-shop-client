@@ -1,0 +1,13 @@
+query GetAddress {
+  getAddress {
+    data {
+      city
+      houseNumber
+      landmark
+      street
+    }
+    error
+    message
+    status
+  }
+}
